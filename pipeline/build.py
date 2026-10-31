@@ -32,6 +32,8 @@ DEFAULT_LANG = 'zh-Hans'
 LANGS = {'zh-Hans': '简体中文'}
 
 ENUM_SECTIONS = ('Rarity', 'CardType')
+# File name part of each card frame, per card colour (colourless shares the "any" frame).
+FRAME_COLOR = {'W': 'white', 'U': 'blue', 'B': 'black', 'R': 'red', 'G': 'green', 'C': 'any'}
 # ponytail: work-in-progress characters are left out entirely; remove the id to include one.
 EXCLUDED_CHARACTERS = {'Alice'}
 
@@ -89,7 +91,6 @@ def export_images(t, force):
 
     icon_wanted = {e['Id']: e['Id'] for e in t['exhibits']}
     icon_wanted.update({(s['ImageId'] or s['Id']): (s['ImageId'] or s['Id']) for s in t['effects']})
-    icon_wanted.update({u['Id']: u['Id'] for u in t['ultimates']})
     missing_icons = assets.export_bundle(AA_DIR / 'uiicons_assets_all.bundle', icon_wanted, IMG / 'icons', force,
                                          quality=88)
 
@@ -101,6 +102,7 @@ def export_images(t, force):
     missing_stand = assets.export_bundle(AA_DIR / 'standpicture_assets_assets_aa_standpicture.bundle', portraits,
                                          IMG / 'characters', force, assets.PORTRAIT_MAX_SIDE)
     icons = assets.export_mana_icons(DATA_DIR, IMG / 'mana', force)
+    assets.export_card_ui(DATA_DIR, IMG / 'card-ui', EXCLUDED_CHARACTERS, force)
     print(f'images: {len(card_wanted)} card keys, {len(icon_wanted)} icons, {len(portraits)} portraits, {icons} text icons')
     return {'cards': missing, 'icons': missing_icons, 'characters': missing_stand}
 
@@ -268,6 +270,24 @@ def template_keys(*templates):
     return keys
 
 
+def card_frames(card):
+    """Mirror CardWidget.GetBgTexture: frame names for (main, optional second colour)."""
+    rarity = tables.RARITY[card['Rarity']].lower()
+    kind = tables.CARD_TYPE[card['Type']]
+    colors = [tables.MANA_COLOR[c] for c in card['Colors']]
+    if kind in ('Tool', 'Misfortune'):
+        return [f'bg_{rarity}{kind.lower()}']
+    if len(colors) >= 3:
+        return [f'bg_{rarity}rainbow']
+    return [f'bg_{rarity}{FRAME_COLOR[c]}' for c in colors] or [f'bg_{rarity}any']
+
+
+def in_random_pool(card):
+    """Static part of GameRunController's card roll (Library.EnumerateRollableCardTypes + filters)."""
+    return (card['IsPooled'] and card['DebugLevel'] == 0 and not card['Pack']
+            and tables.CARD_TYPE[card['Type']] not in ('Unknown', 'Misfortune', 'Status'))
+
+
 def build_card(card, loc, images):
     text = loc.card.get(card['Id'], {})
     name = text.get('Name', card['Id'])
@@ -298,7 +318,9 @@ def build_card(card, loc, images):
         'img': stem if has else None,
         'imgUp': assets.safe_name(up_key) if up_key and assets.safe_name(up_key) in images else None,
         'alts': alt_list,
-        'pooled': card['IsPooled'],
+        'pooled': in_random_pool(card),
+        'poolCost': {k: v for k, v in card['Cost'].items() if v},
+        'frames': card_frames(card),
         'hidden': card['HideMesuem'],
         'flavor': loc.tokens(text.get('FlavorText'), lambda k: name if k == 'SelfName' else loc.player_name if k == 'PlayerName' else None),
         'detail': loc.tokens(text.get('DetailText'), card_lookup(card, False, name, loc), card['Id']),
@@ -317,7 +339,7 @@ def exhibit_lookup(ex, loc, name):
         if key in ('Value1', 'Value2', 'Value3', 'InitialCounter'):
             return ex.get(key)
         if key == 'Counter':
-            return ex['InitialCounter']
+            return ex['InitialCounter'] or 0
         if key == 'Mana':
             return Mana(ex['Mana']) if ex['Mana'] else None
         if key == 'SelfName':
@@ -345,7 +367,8 @@ def build_exhibit(ex, loc, icons):
         'owner': ex['Owner'] or None,
         'appearance': tables.APPEARANCE[ex['Appearance']],
         'baseMana': base_color,
-        'pooled': ex['IsPooled'],
+        # GameRunController: Shining exhibits go to their own pool whatever IsPooled says.
+        'pooled': ex['IsPooled'] or tables.RARITY[ex['Rarity']] == 'Shining',
         'img': ex['Id'] if ex['Id'] in icons else None,
         'flavor': loc.tokens(text.get('FlavorText'), lambda k: name if k == 'SelfName' else loc.player_name if k == 'PlayerName' else None),
         'desc': desc,
@@ -425,12 +448,14 @@ def build_terms(t, loc, icons):
         stem = se['ImageId'] or se['Id']
         fixed = card_values.STATUS.get(se['Id'], {})
 
-        def lookup(k, fixed=fixed):
+        def lookup(k, fixed=fixed, se=se):
             if k in fixed:
                 return fixed[k]
+            if k == 'TriggerLevel':
+                return se['StackActionTriggerLevel']
             return {'PlayerName': loc.player_name, 'OwnerName': loc.owner_name}.get(k)
         terms[f"s:{se['Id']}"] = {'name': text.get('Name', se['Id']),
-                                  'desc': loc.tokens(text.get('Brief') or text.get('Description'), lookup),
+                                  'desc': loc.tokens(text.get('Brief') or text.get('Description'), lookup, f"s:{se['Id']}"),
                                   'icon': stem if stem in icons else None,
                                   'negative': se['Type'] == 1}
     return terms
@@ -471,7 +496,9 @@ def build_lang(lang, t, stems, build_id):
 def write_report(loc, missing):
     reports = ROOT / 'reports'
     reports.mkdir(exist_ok=True)
-    lines = ['# 需要战斗状态才能确定的占位符', '', '这些值在图鉴中显示为“X”。能静态确定的值请加到 `pipeline/card_values.py`。', '']
+    lines = ['# 没有固定数值的占位符', '',
+             '这些值在图鉴中显示为“X”，`s:` 开头的是状态效果（层数等由施加来源决定）。'
+             '能静态确定的值请加到 `pipeline/card_values.py`。', '']
     for key, ids in sorted(loc.dynamic.items(), key=lambda kv: -len(kv[1])):
         lines.append(f"- `{key}` ({len(ids)}): {', '.join(sorted(ids))}")
     lines += ['', '# 没有在资源包中找到的图片', '']
@@ -503,7 +530,7 @@ def main():
         data, loc = build_lang(lang, t, stems, build_id)
         (out / f'lbol.{lang}.json').write_text(json.dumps(data, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
         print(f"[{lang}] {len(data['cards'])} cards, {len(data['exhibits'])} exhibits, {len(data['characters'])} characters, "
-              f"{len(loc.dynamic)} battle-only placeholders")
+              f"{len(loc.dynamic)} placeholders without a fixed value")
         if lang == DEFAULT_LANG:
             write_report(loc, missing)
     (out / 'languages.json').write_text(

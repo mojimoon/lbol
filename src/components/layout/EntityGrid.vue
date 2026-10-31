@@ -28,13 +28,13 @@ const tile = computed(() => ENTITY_COMPONENTS[route.tab].tile)
 .entity-grid-wrap { padding: 16px; }
 .empty { padding: 48px 16px; text-align: center; color: var(--text-dim); }
 .entity-grid { display: grid; gap: 12px; list-style: none; padding: 0; margin: 0; align-items: stretch; }
-.grid-cards { grid-template-columns: repeat(auto-fill, minmax(205px, 1fr)); }
+.grid-cards { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
 .grid-exhibits { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
 .grid-characters { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
 .entity-grid > li {
   display: flex; min-width: 0;
   /* Skip rendering off-screen tiles: hundreds of cards scroll smoothly without a virtual list. */
-  content-visibility: auto; contain-intrinsic-size: auto 280px;
+  content-visibility: auto; contain-intrinsic-size: auto 320px;
 }
 .tile-link {
   display: block; width: 100%; color: inherit; text-decoration: none; border-radius: var(--radius); outline-offset: 2px;
@@ -42,6 +42,6 @@ const tile = computed(() => ENTITY_COMPONENTS[route.tab].tile)
 .tile-link.selected { outline: 2px solid var(--accent); }
 @media (max-width: 480px) {
   .entity-grid-wrap { padding: 12px; }
-  .grid-cards { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+  .grid-cards { grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 8px; }
 }
 </style>

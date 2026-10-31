@@ -1,9 +1,10 @@
 """Description placeholders that live in C# (LBoL.EntityLib), not in config.
 
-Hand-read from the decompiled card classes, so re-check after a game update. Each
+Hand-read from the decompiled classes, so re-check after a game update. Each card
 entry maps placeholder -> constant | (normal, upgraded) | callable(get). `get(key)`
-reads the card's config values. Anything not listed resolves to a battle-only value;
-build.py lists those in reports/dynamic_placeholders.md.
+reads the card's config values. Values that depend on battle state use what the game's
+own museum shows out of battle. Anything not listed displays as X; build.py lists those
+in reports/build_report.md.
 """
 from richtext import Mana
 
@@ -39,6 +40,12 @@ BY_CARD = {
     'LunaticPassion': {'Percentage': 150},
     'SuikaBigball': {'HalfDamage': lambda g: int(g('Damage') * 0.5)},
     'LimaoAttack': {'GainMana': lambda g: g('Mana')},  # Mana * (GrowCount + 1), GrowCount starts at 0
+    # Running totals: the game returns these values when there is no battle or run.
+    'SakuyaDetective': {'BossDamage': 0},
+    'HatateShot': {'Special': 0},
+    'ZoufangWater': {'AdditionalDamage': 0},
+    'MeilingRain': {'AttackTimes': 1},
+    'YukariFriend': {'Fire': 0},
 }
 
 ULTIMATE = {
@@ -46,9 +53,28 @@ ULTIMATE = {
     'ReimuUltW': {'Shield': lambda skill: skill['Value2']},
 }
 
-# Out-of-run defaults of each status effect's Value property.
+# Out-of-run defaults of status effect properties. Values set by whatever applies the
+# effect (Level, Count, Limit...) have no default and stay X.
 STATUS = {
     'Weak': {'Value': 30},
     'Vulnerable': {'Value': 50},
     'Fragil': {'Value': 30},
+    'Cold': {'BaseDamage': 9},
+    'Burst': {'DamageRate': 2, 'Mana': mana(P=3)},
+    'MoodPeace': {'Mana': mana(P=3)},
+    'MoodPassion': {'Percentage': 100},
+    'MoodEpiphany': {'Mana': mana(P=1), 'PlayCount': 5},
+    'LunaticPassionSe': {'Percentage': 150},
+    'MaxHandSe': {'MaxHand': 12},
+    'LunaticTorch': {'Mana': mana(P=1)},
+    'FreeFlySe': {'Mana': mana(P=1)},
+    'PerfectServantUSe': {'Mana': mana(P=1)},
+    'TimeMagicSe': {'Mana': mana(Any=3)},
+    'YouxiangMoonSe': {'Mana': mana(G=1)},
+    'BailianFireSe': {'Mana': mana(Any=1)},
+    'BoliPhantomSe': {'Mana': mana()},
+    'BladePowerSe': {'Mana': mana()},
+    'ReimuFreeAttackSe': {'Mana': mana()},
+    'YouxiangWakeSe': {'Mana': mana()},
+    'YukariFriendSe': {'Mana': mana()},
 }

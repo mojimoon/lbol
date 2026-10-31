@@ -1,5 +1,5 @@
 <template>
-  <component :is="facet.collapsible ? 'details' : 'div'" class="facet" :open="facet.collapsible ? activeCount > 0 : undefined">
+  <component :is="facet.collapsible ? 'details' : 'div'" class="facet" :open="facet.collapsible ? startOpen : undefined">
     <component :is="facet.collapsible ? 'summary' : 'div'" class="facet-label">
       {{ t(facet.label) }}<span v-if="activeCount" class="count">{{ activeCount }}</span>
     </component>
@@ -32,6 +32,8 @@ const props = defineProps({ facet: { type: Object, required: true } })
 const options = computed(() => props.facet.options(data.value, t))
 const active = computed(() => currentState.value.facets[props.facet.key])
 const activeCount = computed(() => active.value.length)
+// Only the initial state: clearing the last chip must not collapse the group under the cursor.
+const startOpen = activeCount.value > 0
 </script>
 
 <style scoped>

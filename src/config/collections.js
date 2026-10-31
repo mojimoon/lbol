@@ -6,6 +6,9 @@ const RARITIES = ['Common', 'Uncommon', 'Rare', 'Shining', 'Mythic']
 const CARD_TYPES = ['Attack', 'Defense', 'Skill', 'Ability', 'Friend', 'Tool', 'Status', 'Misfortune']
 const COLORS = ['W', 'U', 'B', 'R', 'G', 'C', 'P']
 const COSTS = ['0', '1', '2', '3', '4', '5+', 'X']
+const SINGLE_COLORS = ['W', 'U', 'B', 'R', 'G', 'C']
+// ManaGroup.HybridColors, indexed by HybridColor.
+const HYBRID_PAIRS = ['WU', 'WB', 'WR', 'WG', 'UB', 'UR', 'UG', 'BR', 'BG', 'RG']
 
 export const cardFace = (card, upgraded) => (upgraded && card.up) || card.base
 
@@ -20,6 +23,36 @@ export function matchesColors(colors, selected) {
   if (selected.includes('P')) return colors.length > 1 && overlap >= selected.length - 1
   if (selected.includes('C') && colors.length === 0) return true
   return overlap >= 1
+}
+
+/** Mirrors ManaGroup.CanAfford. `mana` is available mana; `cost` a card's raw cost (absent fields are 0). */
+export function canAfford(mana, cost) {
+  const left = c => (mana[c] ?? 0) - (cost[c] ?? 0)
+  const hybrid = cost.Hybrid ?? 0
+  const remaining = [...SINGLE_COLORS, 'P'].reduce((sum, c) => sum + left(c), 0) - hybrid
+  if (remaining < (cost.Any ?? 0)) return false
+  let philosophy = left('P')
+  for (const c of SINGLE_COLORS) if (left(c) < 0) philosophy += left(c)
+  if (hybrid > 0) {
+    const [a, b] = HYBRID_PAIRS[cost.HybridColor ?? 0]
+    const short = Math.max(0, left(a)) + Math.max(0, left(b)) - hybrid
+    if (short < 0) philosophy += short
+  }
+  return philosophy >= 0
+}
+
+/**
+ * Mirrors GameRunController's card roll with OwnerWeightTable.Valid: card rewards and shops.
+ * pool: { mana: {W, U, B, R, G, C, P}, owners: [character ids], blank: holds the Blank Card exhibit }
+ */
+export function inCardPool(card, pool) {
+  if (!card.pooled) return false
+  if (card.owner && !pool.owners.includes(card.owner)) return false
+  const cost = card.poolCost
+  const total = ['Any', ...SINGLE_COLORS, 'P', 'Hybrid'].reduce((sum, k) => sum + (cost[k] ?? 0), 0)
+  // Above 5 total, the generic part does not limit the pool.
+  if (!canAfford(pool.mana, total > 5 ? { ...cost, Any: 0 } : cost)) return false
+  return pool.blank || card.colors.every(c => (pool.mana[c] ?? 0) > 0)
 }
 
 export function costBucket(face) {
@@ -48,6 +81,9 @@ export const COLLECTIONS = [
     key: 'cards',
     gridClass: 'grid-cards',
     upgradeToggle: true,
+    poolFilter: true,
+    initialState: () => ({ pool: { enabled: false, mana: { W: 0, U: 0, B: 0, R: 0, G: 0, C: 0, P: 0 }, owners: [], blank: false } }),
+    extraFilter: (card, state) => !state.pool.enabled || inCardPool(card, state.pool),
     // Same as the in-game museum: HideMesuem cards are reachable by link but not listed.
     listed: card => !card.hidden,
     facets: [
@@ -82,6 +118,16 @@ export const COLLECTIONS = [
         },
         values: (c, ctx) => cardFace(c, ctx.upgraded).keywords,
       },
+      {
+        key: 'illustrator', label: 'filter.illustrator', collapsible: true,
+        options: data => {
+          const names = new Set(data.cards.filter(c => !c.hidden).flatMap(c => [c.illustrator, ...c.alts.map(a => a.ill)]))
+          names.delete(null)
+          return [...names].sort((a, b) => a.localeCompare(b, data.lang)).map(v => ({ value: v, label: v }))
+        },
+        // A card also counts for the illustrators of its alternate art.
+        values: c => [c.illustrator, ...c.alts.map(a => a.ill)],
+      },
     ],
     sorts: [
       { key: 'default', label: 'sort.default', compare: byIndex },
@@ -95,6 +141,11 @@ export const COLLECTIONS = [
         },
       },
       { key: 'rarity', label: 'sort.rarity', compare: byRarity },
+      {
+        // MuseumPanel.SortCards: illustrator, then index. No illustrator sorts first.
+        key: 'illustrator', label: 'sort.illustrator',
+        compare: (a, b, ctx) => (a.illustrator ?? '').localeCompare(b.illustrator ?? '', ctx.lang) || a.index - b.index,
+      },
     ],
   },
   {
@@ -136,6 +187,7 @@ export function applyCollection(collection, rows, state, ctx) {
   const terms = state.search.trim().toLowerCase().split(/\s+/).filter(Boolean)
   const out = rows.filter(row => {
     if (collection.listed && !collection.listed(row)) return false
+    if (collection.extraFilter && !collection.extraFilter(row, state)) return false
     if (terms.length && !terms.every(q => (row.search ?? row.name.toLowerCase()).includes(q))) return false
     return collection.facets.every(facet => {
       const selected = state.facets[facet.key] ?? []

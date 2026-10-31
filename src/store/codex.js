@@ -94,23 +94,26 @@ export const browseState = reactive(Object.fromEntries(COLLECTIONS.map(c => [c.k
   sort: c.sorts[0]?.key ?? null,
   descending: false,
   facets: Object.fromEntries(c.facets.map(f => [f.key, []])),
+  ...c.initialState?.(),
 }])))
 export const currentState = computed(() => browseState[route.tab])
 
 export const results = computed(() => {
   if (!data.value) return []
-  return applyCollection(collection.value, data.value[route.tab], currentState.value, { upgraded: upgraded.value })
+  return applyCollection(collection.value, data.value[route.tab], currentState.value, { upgraded: upgraded.value, lang: data.value.lang })
 })
 
 export const isFiltered = computed(() => {
   const state = currentState.value
-  return state.search.trim() !== '' || Object.values(state.facets).some(v => v.length > 0)
+  return state.search.trim() !== '' || Object.values(state.facets).some(v => v.length > 0) || !!state.pool?.enabled
 })
 
 export function resetFilters() {
   const state = currentState.value
   state.search = ''
   for (const key of Object.keys(state.facets)) state.facets[key] = []
+  const fresh = collection.value.initialState?.()
+  if (fresh) Object.assign(state, fresh)
 }
 
 export function toggleFacet(key, value) {

@@ -36,6 +36,8 @@ aa/StandaloneWindows64/*.bundle, resources.assets 精灵图        → pipeline/
 - `src/store/codex.js`：共享状态（模块级 ref，不用 Pinia），含 hash 路由 `#/<tab>/<id>`。
 - `src/components/`：`layout/` 页面骨架，`filters/` 筛选控件，`entities/` 各类实体的 Tile 和 Detail（在 `registry.js` 注册），`shared/` 通用组件。
 - 新增标签页：`collections.js` 加配置 → `registry.js` 注册组件 → `locales/` 加 `tab.<key>`。
+- 卡牌显示照 `CardWidget`：卡框是 `Sprite/Card/Bg/` 贴图拉伸到 530×740，卡图一律拉伸到 454×313（`object-fit: fill`，贴图本身的比例不代表显示比例）。
+- 可用卡池照 `GameRunController` 的抽卡逻辑和 `ManaGroup.CanAfford`，见 `collections.js` 的 `inCardPool`。
 - 展品有两种分类，不要混用：**稀有度** `rarity`（`ExhibitConfig.Rarity`：普通、罕见、稀有、光耀、秘宝）和**展品类型** `exhibitType`（`Index / 100`，文案取 `Museum.ExhibitType.T1`–`T8`：在前五类之外还有商店、事件&其它、最终幕）。
 - 样式：颜色只用 `theme.css` 的变量，组件内用 scoped 样式。
 

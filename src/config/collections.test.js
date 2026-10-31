@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import { COLLECTIONS, applyCollection, costBucket, matchesColors } from './collections.js'
+import { COLLECTIONS, applyCollection, canAfford, costBucket, inCardPool, matchesColors } from './collections.js'
 
 // The in-game colour rules, per MuseumPanel.FilterCardByMana.
 const WB = ['W', 'B'], W = ['W'], B = ['B'], R = ['R'], WU = ['W', 'U'], WBG = ['W', 'B', 'G'], none = [], C = ['C']
@@ -14,10 +14,30 @@ assert.ok(matchesColors(none, ['C']) && matchesColors(C, ['C']) && !matchesColor
 assert.equal(costBucket({ isX: true, total: 2 }), 'X')
 assert.equal(costBucket({ isX: false, total: 7 }), '5+')
 
+// Examples from the game's own card pool rules: base mana WWRRBPC.
+const base = { W: 2, U: 0, B: 1, R: 2, G: 0, C: 1, P: 1 }
+const pool = { mana: base, owners: ['Reimu', 'Marisa'], blank: false }
+const poolCard = (cost, colors, over = {}) => ({ pooled: true, owner: null, poolCost: cost, colors, ...over })
+assert.ok(inCardPool(poolCard({ B: 2 }, ['B']), pool), 'BB: paid with B + P')
+assert.ok(!inCardPool(poolCard({ U: 1, B: 1 }, ['U', 'B']), pool), 'UB: no blue base mana, even if P could pay')
+assert.ok(inCardPool(poolCard({ U: 1, B: 1 }, ['U', 'B']), { ...pool, blank: true }), 'Blank Card drops the colour rule')
+assert.ok(!inCardPool(poolCard({ B: 3 }, ['B']), { ...pool, blank: true }), 'but the cost must still be payable')
+assert.ok(inCardPool(poolCard({ Any: 3, W: 3 }, ['W']), pool), 'total 6: generic part ignored (WWW via P)')
+assert.ok(!inCardPool(poolCard({ Any: 4, W: 1 }, ['W']), { ...pool, mana: { ...base, W: 1, R: 0, B: 0, C: 0, P: 0 } }), 'total 5: generic part still counts')
+assert.ok(!inCardPool(poolCard({}, [], { pooled: false }), pool), 'cards outside the random pool are excluded')
+assert.ok(!inCardPool(poolCard({}, [], { owner: 'Cirno' }), pool) && inCardPool(poolCard({}, [], { owner: 'Marisa' }), pool))
+assert.ok(inCardPool(poolCard({ C: 1 }, ['C']), pool) && !inCardPool(poolCard({ C: 2 }, ['C']), { ...pool, mana: { ...base, C: 0, P: 2 } }), 'colourless needs C base mana')
+// Hybrid: cost WR (index 2) x2 is payable by W + R, or by P when short.
+assert.ok(canAfford({ W: 1, R: 1 }, { Hybrid: 2, HybridColor: 2 }))
+assert.ok(canAfford({ W: 1, P: 1 }, { Hybrid: 2, HybridColor: 2 }))
+assert.ok(!canAfford({ W: 1, U: 1 }, { Hybrid: 2, HybridColor: 2 }))
+assert.ok(canAfford({ W: 1, U: 1 }, { Hybrid: 2 }), 'HybridColor 0 (WU) is dropped from the data')
+assert.ok(!canAfford({ W: 1 }, { Any: 1, W: 1 }), 'generic needs mana left over')
+
 const cards = COLLECTIONS.find(c => c.key === 'cards')
 const card = (id, index, over = {}) => ({
   id, index, name: id, search: id.toLowerCase(), hidden: false, owner: null, type: 'Attack', rarity: 'Common', colors: [],
-  base: { total: 1, isX: false, keywords: [] }, up: null, ...over,
+  base: { total: 1, isX: false, keywords: [] }, up: null, alts: [], illustrator: null, ...over,
 })
 const rows = [
   card('a', 2, { base: { total: 3, isX: false, keywords: ['Exile'] }, rarity: 'Rare' }),
@@ -26,7 +46,7 @@ const rows = [
   card('d', 4, { owner: 'Reimu', up: { total: 0, isX: false, keywords: ['Exile'] } }),
 ]
 const run = (state, upgraded = false) =>
-  applyCollection(cards, rows, { search: '', sort: 'default', descending: false, facets: {}, ...state }, { upgraded }).map(r => r.id)
+  applyCollection(cards, rows, { search: '', sort: 'default', descending: false, facets: {}, ...cards.initialState(), ...state }, { upgraded }).map(r => r.id)
 
 assert.deepEqual(run({}), ['b', 'a', 'd'], 'hidden cards are not listed')
 assert.deepEqual(run({ sort: 'cost' }), ['d', 'a', 'b'], 'X cost sorts last')
@@ -36,4 +56,5 @@ assert.deepEqual(run({ facets: { owner: ['Neutral'] } }), ['b', 'a'])
 assert.deepEqual(run({ facets: { keyword: ['Exile'] } }), ['a'], 'keywords follow the base face')
 assert.deepEqual(run({ facets: { keyword: ['Exile'] } }, true), ['a', 'd'], 'and the upgraded face when toggled')
 assert.deepEqual(run({ facets: { owner: ['Neutral'], cost: ['X'] } }), ['b'], 'facets AND together')
+assert.deepEqual(run({ sort: 'illustrator' }), ['b', 'a', 'd'], 'ties fall back to index')
 console.log('collections ok')

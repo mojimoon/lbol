@@ -57,6 +57,25 @@ def export_bundle(bundle, wanted, out_dir, force=False, max_side=None, quality=8
     return sorted(set(wanted) - set(objects))
 
 
+def export_card_ui(data_dir, out_dir, skip_owners=(), force=False):
+    """Card frames, type icons and owner marks: the Resources/Sprite/Card/ folder."""
+    env = UnityPy.load(Path(data_dir, 'globalgamemanagers').as_posix(), Path(data_dir, 'resources.assets').as_posix())
+    manager = next(o for o in env.objects if o.type.name == 'ResourceManager').read()
+    container = manager.m_Container
+    items = container.items() if isinstance(container, dict) else container
+    skip = {f'owner/{o.lower()}' for o in skip_owners}
+    count = 0
+    for key, ptr in items:
+        match = re.fullmatch(r'sprite/card/((bg|owner|type)/\w+|loyal)', key)
+        if not match or match.group(1) in skip:
+            continue
+        path = Path(out_dir) / f"{match.group(1).replace('/', '_')}.webp"
+        if force or not path.exists():
+            _save(ptr.read().image, path, quality=92)
+        count += 1
+    return count
+
+
 def export_mana_icons(data_dir, out_dir, force=False):
     out_dir = Path(out_dir)
     env = _load(Path(data_dir) / 'resources.assets')

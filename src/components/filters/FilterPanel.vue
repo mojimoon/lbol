@@ -27,6 +27,7 @@
 
     <div id="facets" class="facets" :class="{ open: facetsOpen }">
       <FacetGroup v-for="facet in collection.facets" :key="`${collection.key}-${facet.key}`" :facet="facet" />
+      <PoolFilter v-if="collection.poolFilter" />
     </div>
   </section>
 </template>
@@ -35,6 +36,7 @@
 import { computed, ref } from 'vue'
 import { collection, currentState as state, isFiltered, resetFilters, results, t, upgraded } from '../../store/codex.js'
 import FacetGroup from './FacetGroup.vue'
+import PoolFilter from './PoolFilter.vue'
 import SortControl from './SortControl.vue'
 
 const facetsOpen = ref(false)
