@@ -53,15 +53,15 @@ const activeFacetCount = computed(() => Object.values(state.value.facets).reduce
 </script>
 
 <style scoped>
-.filter-panel { display: flex; flex-direction: column; gap: 14px; padding: 16px; }
+.filter-panel { display: flex; flex-direction: column; gap: 7px; padding: 10px 12px; }
 .search input {
-  width: 100%; padding: 9px 12px; border: 1px solid var(--line); border-radius: 8px;
-  background: var(--surface-2); color: var(--text); font-size: 15px;
+  width: 100%; padding: 5px 10px; border: 1px solid var(--line); border-radius: 6px;
+  background: var(--surface-2); color: var(--text); font-size: 14px;
 }
-.status { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--text-dim); min-height: 20px; }
-.upgrade-toggle { display: flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; }
+.status { display: flex; justify-content: space-between; align-items: center; font-size: 12.5px; color: var(--text-dim); min-height: 16px; }
+.upgrade-toggle { display: flex; align-items: center; gap: 6px; font-size: 13px; line-height: 1.3; cursor: pointer; }
 .upgrade-toggle input { accent-color: var(--up); width: 16px; height: 16px; }
-.facets { display: flex; flex-direction: column; gap: 14px; }
+.facets { display: flex; flex-direction: column; gap: 7px; }
 .facets-toggle { display: none; }
 .count {
   display: inline-block; margin-left: 6px; padding: 0 6px; border-radius: 8px; font-size: 11px;

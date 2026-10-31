@@ -54,5 +54,8 @@
   "char.viewPool": "Kartenpool ansehen",
   "char.viewPoolHint": "Kartenliste nach dem Startmana dieser Route filtern",
   "link.huiji": "Huiji Wiki",
-  "app.gameBuild": "Spiel-Build {build}"
+  "app.gameBuild": "Spiel-Build {build}",
+  "filter.cardPool": "Kartenpool",
+  "cardPool.in": "Im Pool",
+  "cardPool.out": "Außerhalb"
 }

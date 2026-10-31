@@ -62,6 +62,10 @@ assert.deepEqual(run({ facets: { owner: ['Neutral'], cost: ['X'] } }), ['b'], 'f
 assert.deepEqual(run({ sort: 'illustrator' }), ['b', 'a', 'd'], 'ties fall back to index')
 
 assert.deepEqual(run({ facets: { special: ['multi'] } }), [])
+const pooledRows = [card('in', 1, { pooled: true }), card('out', 2, { pooled: false })]
+const byPool = value => applyCollection(cards, pooledRows, { search: '', sort: 'default', descending: false, facets: { cardPool: [value] }, ...cards.initialState() }, {}).map(r => r.id)
+assert.deepEqual(byPool('in'), ['in'])
+assert.deepEqual(byPool('out'), ['out'])
 
 // Random ranges
 const rollCard = over => ({ id: 'x', pooled: true, findInBattle: true, gadget: false, type: 'Ability', rarity: 'Rare', owner: null, colors: [], poolCost: { Any: 2 }, ...over })

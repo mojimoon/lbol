@@ -54,5 +54,8 @@
   "char.viewPool": "Kart havuzunu göster",
   "char.viewPoolHint": "Kartları bu yolun başlangıç manasına göre filtrele",
   "link.huiji": "Huiji Wiki",
-  "app.gameBuild": "Oyun sürümü {build}"
+  "app.gameBuild": "Oyun sürümü {build}",
+  "filter.cardPool": "Kart havuzu",
+  "cardPool.in": "Havuzda",
+  "cardPool.out": "Havuz dışında"
 }

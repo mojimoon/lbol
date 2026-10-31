@@ -195,6 +195,11 @@ export function showTip(termRef, el) {
   const box = el.getBoundingClientRect()
   tip.value = { ref: termRef, left: box.left, top: box.top, bottom: box.bottom }
 }
+/** A tooltip with plain explanatory text instead of a game term. */
+export function showHint(text, el) {
+  const box = el.getBoundingClientRect()
+  tip.value = { content: { desc: [text] }, left: box.left, top: box.top, bottom: box.bottom }
+}
 export const hideTip = () => { tip.value = null }
 // The hovered term may disappear on navigation without ever firing mouseleave.
 watch(() => [route.tab, route.id], hideTip)

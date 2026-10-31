@@ -54,5 +54,8 @@
   "char.viewPool": "Kártyakészlet megtekintése",
   "char.viewPoolHint": "Kártyák szűrése az út kezdő manája szerint",
   "link.huiji": "Huiji Wiki",
-  "app.gameBuild": "Játékverzió: {build}"
+  "app.gameBuild": "Játékverzió: {build}",
+  "filter.cardPool": "Kártyakészlet",
+  "cardPool.in": "Készletben",
+  "cardPool.out": "Készleten kívül"
 }

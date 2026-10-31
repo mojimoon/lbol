@@ -1,6 +1,6 @@
 <template>
   <details class="pool-filter" :open="startOpen">
-    <summary>{{ t('pool.title') }}<span v-if="pool.enabled" class="on-mark" aria-hidden="true"></span></summary>
+    <summary>{{ t('pool.title') }}<HintIcon :text="t('pool.hint')" /><span v-if="pool.enabled" class="on-mark" aria-hidden="true"></span></summary>
 
     <label class="check">
       <input v-model="pool.enabled" type="checkbox" />
@@ -41,14 +41,13 @@
       <img class="exhibit-icon" :src="imgUrl('icons', blankExhibit.img)" alt="" />
       {{ blankExhibit.name }}
     </label>
-
-    <p class="hint">{{ t('pool.hint') }}</p>
   </details>
 </template>
 
 <script setup>
 import { computed } from 'vue'
 import { currentState, data, findEntity, imgUrl, t } from '../../store/codex.js'
+import HintIcon from '../shared/HintIcon.vue'
 import ManaIcon from '../shared/ManaIcon.vue'
 
 const COLORS = ['W', 'U', 'B', 'R', 'G', 'C', 'P']
@@ -72,26 +71,27 @@ function toggleOwner(id) {
 </script>
 
 <style scoped>
-summary { font-size: 13px; color: var(--text-dim); cursor: pointer; margin-bottom: 8px; }
+summary { font-size: 12.5px; line-height: 1.3; color: var(--text-dim); cursor: pointer; }
+.pool-filter[open] summary { margin-bottom: 5px; }
 .on-mark { display: inline-block; width: 8px; height: 8px; margin-left: 6px; border-radius: 50%; background: var(--accent); }
-.check { display: flex; align-items: center; gap: 8px; font-size: 13.5px; cursor: pointer; margin-bottom: 10px; }
+.check { display: flex; align-items: center; gap: 6px; font-size: 13px; line-height: 1.3; cursor: pointer; margin-bottom: 6px; }
+.check:last-child { margin-bottom: 0; }
 .check input { accent-color: var(--accent); width: 16px; height: 16px; flex: none; }
-.group { margin-bottom: 10px; }
-.group-label { font-size: 12.5px; color: var(--text-dim); margin-bottom: 5px; }
-.mana-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 5px; }
+.group { margin-bottom: 6px; }
+.group-label { font-size: 12px; line-height: 1.3; color: var(--text-dim); margin-bottom: 3px; }
+.mana-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 3px 4px; }
 .mana-input { display: flex; align-items: center; gap: 3px; }
 .mana-input input {
-  width: 100%; min-width: 0; padding: 4px; border: 1px solid var(--line); border-radius: 6px;
+  width: 100%; min-width: 0; padding: 2px 4px; border: 1px solid var(--line); border-radius: 6px;
   background: var(--surface-2); color: var(--text); font-size: 14px; font-variant-numeric: tabular-nums;
 }
-.chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.chips { display: flex; flex-wrap: wrap; gap: 3px 4px; }
 .chip {
-  display: inline-flex; align-items: center; gap: 5px; min-height: 30px; padding: 3px 10px; font-size: 13px;
+  display: inline-flex; align-items: center; gap: 4px; min-height: 25px; padding: 1px 8px; font-size: 13px;
   border: 1px solid var(--line); border-radius: 15px; background: transparent; color: var(--text); cursor: pointer;
 }
 .chip:hover { background: var(--hover); }
 .chip.on { border-color: var(--accent); background: var(--selected); box-shadow: inset 0 0 0 1px var(--accent); }
 .avatar { width: 20px; height: 20px; border-radius: 50%; object-fit: cover; object-position: top; margin-left: -5px; }
 .exhibit-icon { width: 24px; height: 24px; object-fit: contain; }
-.hint { margin: 0; font-size: 12px; line-height: 1.5; color: var(--text-dim); }
 </style>

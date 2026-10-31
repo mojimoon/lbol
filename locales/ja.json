@@ -54,5 +54,8 @@
   "char.viewPool": "カードプールを見る",
   "char.viewPoolHint": "このルートの初期マナで入手可能カードを絞り込む",
   "link.huiji": "Huiji Wiki",
-  "app.gameBuild": "ゲームバージョン {build}"
+  "app.gameBuild": "ゲームバージョン {build}",
+  "filter.cardPool": "カードプール",
+  "cardPool.in": "プール内",
+  "cardPool.out": "プール外"
 }

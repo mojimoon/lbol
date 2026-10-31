@@ -89,5 +89,8 @@
   "char.cost": "消耗 {n} 能量",
   "char.difficulty": "复杂程度 {n}",
   "char.viewPool": "查看卡池",
-  "char.viewPoolHint": "在卡牌页按这条路线的初始法力筛选可用卡池"
+  "char.viewPoolHint": "在卡牌页按这条路线的初始法力筛选可用卡池",
+  "filter.cardPool": "卡池",
+  "cardPool.in": "卡池内",
+  "cardPool.out": "卡池外"
 }

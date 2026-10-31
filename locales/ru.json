@@ -54,5 +54,8 @@
   "char.viewPool": "Показать набор карт",
   "char.viewPoolHint": "Отфильтровать карты по начальной мане этого пути",
   "link.huiji": "Huiji Wiki",
-  "app.gameBuild": "Версия игры {build}"
+  "app.gameBuild": "Версия игры {build}",
+  "filter.cardPool": "Набор карт",
+  "cardPool.in": "В наборе",
+  "cardPool.out": "Вне набора"
 }

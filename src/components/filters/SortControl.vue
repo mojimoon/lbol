@@ -22,11 +22,11 @@ import { collection, currentState as state, t } from '../../store/codex.js'
 .sort-control { display: flex; align-items: center; gap: 8px; font-size: 14px; }
 .sort-control label { color: var(--text-dim); font-size: 13px; }
 select {
-  flex: 1; min-width: 0; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px;
+  flex: 1; min-width: 0; padding: 3px 6px; border: 1px solid var(--line); border-radius: 6px;
   background: var(--surface-2); color: var(--text); font-size: 14px;
 }
 .direction {
-  width: 32px; height: 32px; border: 1px solid var(--line); border-radius: 6px;
+  width: 28px; height: 28px; border: 1px solid var(--line); border-radius: 6px;
   background: var(--surface-2); color: var(--text); cursor: pointer; font-size: 15px;
 }
 .direction:hover { background: var(--hover); }

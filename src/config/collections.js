@@ -129,6 +129,11 @@ export const COLLECTIONS = [
         match: (c, selected) => matchesColors(c.colors, selected),
       },
       {
+        key: 'cardPool', label: 'filter.cardPool',
+        options: (_, t) => ['in', 'out'].map(v => ({ value: v, label: t(`cardPool.${v}`) })),
+        values: c => [c.pooled ? 'in' : 'out'],
+      },
+      {
         key: 'special', label: 'filter.special',
         options: (_, t) => ['multi', 'discover', 'power'].map(v => ({ value: v, label: t(`special.${v}`) })),
         values: c => c.special,

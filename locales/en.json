@@ -89,5 +89,8 @@
   "char.difficulty": "Complexity {n}",
   "link.miraheze": "Miraheze Wiki",
   "link.steam": "Steam",
-  "app.gameBuild": "Game build {build}"
+  "app.gameBuild": "Game build {build}",
+  "filter.cardPool": "Card pool",
+  "cardPool.in": "In pool",
+  "cardPool.out": "Outside pool"
 }
