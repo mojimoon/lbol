@@ -27,7 +27,8 @@ const hasFilters = computed(() => collection.value.facets.length > 0)
 .collection.has-filters { grid-template-columns: var(--filters-w) minmax(0, 1fr); }
 .collection.has-detail { grid-template-columns: minmax(0, 1fr) var(--detail-w); }
 .collection.has-filters.has-detail { grid-template-columns: var(--filters-w) minmax(0, 1fr) var(--detail-w); }
-.col-filters, .col-grid, .col-detail { overflow-y: auto; min-height: 0; }
+/* position: absolute children (.sr-only) must scroll with their column, not stretch the page. */
+.col-filters, .col-grid, .col-detail { position: relative; overflow-y: auto; min-height: 0; }
 .col-filters { border-right: 1px solid var(--line); }
 .col-detail { border-left: 1px solid var(--line); background: var(--surface); }
 
