@@ -160,7 +160,7 @@ export const COLLECTIONS = [
         key: 'cost', label: 'sort.cost',
         compare: (a, b, ctx) => {
           const [fa, fb] = [cardFace(a, ctx.upgraded), cardFace(b, ctx.upgraded)]
-          return fa.keywords.includes('Forbidden') - fb.keywords.includes('Forbidden')
+          return fa.forbidden - fb.forbidden
             || fa.isX - fb.isX || fa.total - fb.total || a.index - b.index
         },
       },

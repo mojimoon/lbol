@@ -50,6 +50,9 @@ const run = (state, upgraded = false) =>
 
 assert.deepEqual(run({}), ['b', 'a', 'd'], 'hidden cards are not listed')
 assert.deepEqual(run({ sort: 'cost' }), ['d', 'a', 'b'], 'X cost sorts last')
+const forbiddenRows = [card('f', 1, { base: { total: 0, isX: false, forbidden: true, keywords: [] } }), card('g', 2, { base: { total: 5, isX: false, forbidden: false, keywords: ['Forbidden'] } })]
+assert.deepEqual(applyCollection(cards, forbiddenRows, { search: '', sort: 'cost', descending: false, facets: {}, ...cards.initialState() }, {}).map(r => r.id), ['g', 'f'],
+  'forbidden cards sort last; only mentioning the keyword does not count')
 assert.deepEqual(run({ sort: 'rarity', descending: true }), ['a', 'd', 'b'])
 assert.deepEqual(run({ search: 'A' }), ['a'])
 assert.deepEqual(run({ facets: { owner: ['Neutral'] } }), ['b', 'a'])

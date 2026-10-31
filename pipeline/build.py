@@ -52,6 +52,7 @@ GAME_UI = {
 }
 
 ENUM_SECTIONS = ('Rarity', 'CardType')
+FORBIDDEN_BIT = next(bit for name, bit, _ in tables.KEYWORDS if name == 'Forbidden')
 # Typos in the game's translations, which its own formatter would leave blank.
 PLACEHOLDER_FIXES = {name.lower(): name for name in (
     'Value1', 'Value2', 'Value3', 'Damage', 'Block', 'Shield', 'Mana', 'Scry', 'PlayerName', 'SelfName', 'OwnerName')}
@@ -305,6 +306,7 @@ def build_card_face(card, upgraded, text, loc, base_values=None):
         'cost': symbols,
         'total': sum(v for k, v in cost.items() if k != 'HybridColor'),
         'isX': card['IsXCost'],
+        'forbidden': bool(bits & FORBIDDEN_BIT),
         'loyalty': get('Loyalty'),
         'desc': tokens,
         'keywords': loc.canon_keywords(keyword_names(bits | relative) + mentioned),

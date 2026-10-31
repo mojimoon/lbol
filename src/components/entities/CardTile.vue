@@ -8,7 +8,8 @@
 
     <img class="type-icon" :src="imgUrl('card-ui', `type_${entity.type.toLowerCase()}`)" alt="" loading="lazy" />
     <span ref="typeEl" class="type-name">{{ data.enums.CardType[entity.type] }}</span>
-    <ManaCost class="cost" :symbols="face.cost" size="10cqw" />
+    <!-- CardWidget hides the cost of a card that cannot be played. -->
+    <ManaCost v-if="!face.forbidden" class="cost" :symbols="face.cost" size="10cqw" />
 
     <h3 ref="nameEl" class="name" :class="{ upgraded: showUp }">{{ displayName }}</h3>
     <div v-if="entity.type === 'Friend' && face.loyalty != null" class="loyalty" :title="t('detail.loyalty', { n: face.loyalty })">
