@@ -7,7 +7,8 @@ import UnityPy
 CARD_MAX_SIDE = 640
 PORTRAIT_MAX_SIDE = 1400
 # Sprite sheets (resources.assets) -> output name prefix. Sheet sprites are the game's own text icons.
-SHEETS = {'ManaSprite': '', 'ManaSprite2': '', 'BaseManaSprite': 'b_', 'Point': 'pt_', 'TextIcon': 'icon_'}
+SHEETS = {'ManaSprite': '', 'ManaSprite2': '', 'BaseManaSprite': 'b_', 'Point': 'pt_', 'TextIcon': 'icon_',
+          'Passive': 'friend_Passive_', 'Active': 'friend_Active_', 'Ultimate': 'friend_Ultimate_'}
 
 
 def _load(path):
@@ -95,6 +96,6 @@ def export_mana_icons(data_dir, out_dir, force=False):
             continue
         path = out_dir / f'{SHEETS[textures[pid]]}{name}.webp'
         if force or not path.exists():
-            _save(sprite.image, path, 96, 90)
+            _save(sprite.image, path, 128, 90)
         count += 1
     return count

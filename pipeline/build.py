@@ -19,7 +19,7 @@ import assets
 import card_values
 import random_pools
 import tables
-from richtext import Mana, Symbols, mana_symbols, plain_text, tokenize
+from richtext import Mana, Symbols, UnitText, mana_symbols, plain_text, tokenize
 
 ROOT = Path(__file__).resolve().parent.parent
 GAME_DIR = Path(os.environ.get('LBOL_GAME_DIR', r'D:\SteamLibrary\steamapps\common\LBoL'))
@@ -29,10 +29,33 @@ PUBLIC = ROOT / 'public'
 IMG = PUBLIC / 'img'
 
 DEFAULT_LANG = 'zh-Hans'
+FALLBACK_LANG = 'en'  # for text a language lacks, and for browsers in no listed language
 # code: display name. Codes are the game's Localization folder names.
-LANGS = {'zh-Hans': '简体中文'}
+LANGS = {
+    'zh-Hans': '简体中文', 'zh-Hant': '繁體中文', 'en': 'English', 'ja': '日本語', 'ko': '한국어', 'de': 'Deutsch',
+    'es': 'Español', 'fr': 'Français', 'hu': 'Magyar', 'it': 'Italiano', 'pl': 'Polski', 'pt': 'Português',
+    'ru': 'Русский', 'tr': 'Türkçe', 'uk': 'Українська', 'vi': 'Tiếng Việt',
+}
+# UI strings the game already has, used for every language except the reviewed DEFAULT_LANG file.
+GAME_UI = {
+    'tab.exhibits': 'Game.Exhibit', 'tab.characters': 'MainMenu.Characters', 'lang.label': 'Setting.Language',
+    'filter.search': 'Museum.TextFilterHint', 'filter.searchLabel': 'Museum.TextFilterHint',
+    'filter.owner': 'Museum.Character', 'filter.type': 'Museum.CardType', 'filter.cost': 'Museum.ManaCost',
+    'filter.rarity': 'Museum.Rarity', 'filter.color': 'Museum.ManaType', 'filter.keyword': 'Setting.Keyword',
+    'filter.baseMana': 'Tooltip.BaseMana.Name', 'filter.upgraded': 'Museum.UpgradedFilter',
+    'filter.illustrator': 'Game.IllustratorOrder', 'pool.mana': 'Tooltip.BaseMana.Name',
+    'sort.default': 'Game.IndexOrder', 'sort.cost': 'Game.ManaAmountOrder', 'sort.rarity': 'Game.RarityOrder',
+    'sort.illustrator': 'Game.IllustratorOrder', 'detail.before': 'CardDetail.UpgradeNo', 'detail.after': 'CardDetail.UpgradeYes',
+    'detail.notUpgradable': 'Cards.UnUpgradable', 'detail.illustrator': 'CardDetail.Illustrator', 'detail.altArt': 'Museum.CardStyleFilter',
+    'detail.keywords': 'Setting.Keyword', 'char.hp': 'StartGame.StartHp', 'char.money': 'StartGame.StartMoney',
+    'char.mana': 'Tooltip.BaseMana.Name', 'char.exhibit': 'StartGame.SkillExhibit', 'char.deck': 'StartGame.CheckDeck',
+}
 
 ENUM_SECTIONS = ('Rarity', 'CardType')
+# Typos in the game's translations, which its own formatter would leave blank.
+PLACEHOLDER_FIXES = {name.lower(): name for name in (
+    'Value1', 'Value2', 'Value3', 'Damage', 'Block', 'Shield', 'Mana', 'Scry', 'PlayerName', 'SelfName', 'OwnerName')}
+PLACEHOLDER_FIXES.update({'vaule1': 'Value1', 'seflname': 'SelfName'})
 GADGETS_BIT = next(bit for name, bit, _ in tables.KEYWORDS if name == 'Gadgets')
 # File name part of each card frame, per card colour (colourless shares the "any" frame).
 FRAME_COLOR = {'W': 'white', 'U': 'blue', 'B': 'black', 'R': 'red', 'G': 'green', 'C': 'any'}
@@ -40,9 +63,28 @@ FRAME_COLOR = {'W': 'white', 'U': 'blue', 'B': 'black', 'R': 'red', 'G': 'green'
 EXCLUDED_CHARACTERS = {'Alice'}
 
 
-def load_yaml(lang, name):
+def _read_yaml(lang, name):
     path = DATA_DIR / 'StreamingAssets' / 'Localization' / lang / f'{name}.yaml'
-    return yaml.safe_load(path.read_text(encoding='utf-8-sig')) or {}
+    return (yaml.safe_load(path.read_text(encoding='utf-8-sig')) or {}) if path.exists() else {}
+
+
+def _merged(base, own):
+    out = dict(base)
+    for key, value in own.items():
+        out[key] = _merged(out[key], value) if isinstance(value, dict) and isinstance(out.get(key), dict) else value
+    return out
+
+
+def load_yaml(lang, name):
+    """A language's text, with English filling whatever its translation has not covered."""
+    own = _read_yaml(lang, name)
+    return own if lang == FALLBACK_LANG else _merged(_read_yaml(FALLBACK_LANG, name), own)
+
+
+def nested(table, dotted):
+    for key in dotted.split('.'):
+        table = table.get(key) if isinstance(table, dict) else None
+    return table
 
 
 def keyword_names(bits, *, auto_only=False):
@@ -127,8 +169,8 @@ class Localizer:
         self.unit = load_yaml(lang, 'UnitName')
         self.ultimate = load_yaml(lang, 'UltimateSkill')
         self.common = load_yaml(lang, 'Common')
-        self.player_name = (self.unit.get('DefaultPlayer') or {}).get('Default', '')
-        self.owner_name = (self.unit.get('DefaultOwner') or {}).get('Default', '')
+        self.player_name = UnitText(self.unit.get('DefaultPlayer') or {})
+        self.owner_name = UnitText(self.unit.get('DefaultOwner') or {})
         self.dynamic = defaultdict(set)  # placeholder -> entity ids that need battle state
 
         # Name -> ref, used to link |term| markup. First source wins: keywords before effects before entities.
@@ -146,7 +188,7 @@ class Localizer:
     @staticmethod
     def _term_name(name):
         """Keyword names carry display extras: '占卜\u2006X', '三色<sprite ...>'."""
-        return re.sub(r'<[^>]*>|[\s\u2006]*[XY]$', '', name).strip() if name else name
+        return re.sub(r'<[^>]*>|[\s\u2006]+[XY]$', '', name).strip() if name else name
 
     def canon_keywords(self, ids):
         """Some keywords share a display name (Copy, CopyHint); list each name once."""
@@ -162,11 +204,12 @@ class Localizer:
 
     def tokens(self, template, lookup, entity_id='', changed=()):
         def tracked(key):
+            key = PLACEHOLDER_FIXES.get(key.lower(), key)
             value = lookup(key)
             if value is None and entity_id:
                 self.dynamic[key].add(entity_id)
             return value
-        return tokenize(template, tracked, self.term, changed)
+        return tokenize(template, tracked, self.term, changed, self.lang)
 
 
 def _upgraded_getter(card, upgraded):
@@ -205,6 +248,8 @@ def card_lookup(card, upgraded, text_name, loc):
             return text_name
         if key == 'PlayerName':
             return loc.player_name
+        if key == 'OwnerName':
+            return loc.owner_name
         for name, field, kind in (('FriendP', 'PassiveCost', 'Passive'), ('FriendA', 'ActiveCost', 'Active'),
                                   ('FriendA2', 'ActiveCost2', 'Active'), ('FriendU', 'UltimateCost', 'Ultimate')):
             if key == name:
@@ -291,6 +336,19 @@ def in_random_pool(card):
             and tables.CARD_TYPE[card['Type']] not in ('Unknown', 'Misfortune', 'Status'))
 
 
+def card_special(card, *faces):
+    special = []
+    if len(card['Colors']) >= 3:
+        special.append('multi')
+    if card['Id'] in random_pools.DISCOVER:
+        special.append('discover')
+    # "P points": Power, by the sprite or keyword in the text. Sprites and keyword ids are the same in every language.
+    tokens = [tok for face in faces if face for tok in face['desc'] if isinstance(tok, dict)]
+    if any(tok.get('m') == 'pt_Power' for tok in tokens) or any('Power' in face['keywords'] for face in faces if face):
+        special.append('power')
+    return special
+
+
 def build_card(card, loc, images):
     text = loc.card.get(card['Id'], {})
     name = text.get('Name', card['Id'])
@@ -322,6 +380,7 @@ def build_card(card, loc, images):
         'imgUp': assets.safe_name(up_key) if up_key and assets.safe_name(up_key) in images else None,
         'alts': alt_list,
         'pooled': in_random_pool(card),
+        'special': card_special(card, face, up),
         'poolCost': {k: v for k, v in card['Cost'].items() if v},
         'findInBattle': card['FindInBattle'],
         'gadget': bool(card['Keywords'] & GADGETS_BIT),
@@ -398,9 +457,11 @@ def build_ultimate(us, loc, icons):
         return None
     title = text.get('Title')
     content = text.get('Content')
+    spell = loc.common.get('UI', {})
     return {
         'id': us['Id'],
-        'name': f'{title}「{content}」' if title else content,
+        'name': (spell['SpellTitled'].replace('{0}', title).replace('{1}', content) if title
+                 else spell['SpellUntitled'].replace('{0}', content or '')).strip(),
         'cost': us['PowerCost'],
         'desc': loc.tokens(text.get('Description'), lookup, us['Id']),
         'relEffects': us['RelativeEffects'],
@@ -472,16 +533,29 @@ def build_terms(t, loc, icons):
     return terms
 
 
-def load_ui(lang):
-    default = json.loads((ROOT / 'locales' / f'{DEFAULT_LANG}.json').read_text(encoding='utf-8'))
+def load_ui(lang, loc):
+    def read(code):
+        return json.loads((ROOT / 'locales' / f'{code}.json').read_text(encoding='utf-8'))
     if lang == DEFAULT_LANG:
-        return default
-    path = ROOT / 'locales' / f'{lang}.json'
-    own = json.loads(path.read_text(encoding='utf-8')) if path.exists() else {}
-    missing = sorted(set(default) - set(own))
-    if missing:
-        print(f'[{lang}] {len(missing)} UI strings fall back to {DEFAULT_LANG}')
-    return {**default, **own}
+        return read(lang)
+    ui = {**read(FALLBACK_LANG), **read(lang)}
+    for key, source in GAME_UI.items():
+        text = nested(loc.common, source)
+        if isinstance(text, str) and text.strip():
+            ui[key] = re.sub(r'[:：]\s*$', '', text.strip())
+    rate = nested(loc.common, 'StartGame.Rate')
+    if rate:
+        ui['char.difficulty'] = f'{rate} {{n}}'
+    philosophy = loc._term_name(loc.keyword.get('Philosophy', {}).get('Name'))
+    if philosophy:
+        ui['mana.P'] = philosophy
+    names = {'{power}': loc._term_name(loc.keyword.get('Power', {}).get('Name', '')),
+             '{loyalty}': loc._term_name(loc.keyword.get('Loyalty', {}).get('Name', ''))}
+    for key, text in ui.items():
+        for placeholder, name in names.items():
+            text = text.replace(placeholder, name)
+        ui[key] = text
+    return ui
 
 
 def build_lang(lang, t, stems, build_id):
@@ -492,7 +566,7 @@ def build_lang(lang, t, stems, build_id):
     data = {
         'lang': lang,
         'buildId': build_id,
-        'ui': load_ui(lang),
+        'ui': load_ui(lang, loc),
         'enums': {**{s: loc.common.get(s, {}) for s in ENUM_SECTIONS},
                   'ExhibitType': loc.common.get('Museum', {}).get('ExhibitType', {})},
         'terms': build_terms(t, loc, stems['icons']),
@@ -545,7 +619,7 @@ def main():
         if lang == DEFAULT_LANG:
             write_report(loc, missing)
     (out / 'languages.json').write_text(
-        json.dumps({'default': DEFAULT_LANG, 'languages': [{'code': c, 'name': n} for c, n in LANGS.items()]},
+        json.dumps({'default': FALLBACK_LANG, 'languages': [{'code': c, 'name': n} for c, n in LANGS.items()]},
                    ensure_ascii=False), encoding='utf-8')
 
 

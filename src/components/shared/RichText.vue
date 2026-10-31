@@ -6,7 +6,7 @@
       <span v-else-if="'n' in tok" class="num" :class="{ up: tok.up }">{{ tok.n }}</span>
       <ManaIcon v-else-if="'m' in tok" :symbol="tok.m" />
       <span v-else-if="'x' in tok" class="dyn" :title="t('rich.dynamic')">X</span>
-      <span v-else-if="'f' in tok" class="friend" :class="`friend-${tok.f}`">{{ friendCost(tok) }}</span>
+      <img v-else-if="'f' in tok" class="friend" :src="imgUrl('mana', `friend_${tok.f}_${tok.c}`)" :alt="friendCost(tok)" />
       <TermButton v-else-if="interactive && tok.r" :text="tok.t" :term-ref="tok.r" />
       <span v-else class="term">{{ tok.t }}</span>
     </template>
@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-import { t } from '../../store/codex.js'
+import { imgUrl, t } from '../../store/codex.js'
 import ManaIcon from './ManaIcon.vue'
 import TermButton from './TermButton.vue'
 
@@ -32,10 +32,6 @@ const friendCost = tok => (tok.c > 0 ? `+${tok.c}` : `${tok.c}`)
 .num.up { color: var(--up); }
 .dyn { font-weight: 600; color: var(--accent); cursor: help; }
 .term { color: var(--keyword); }
-.friend {
-  display: inline-block; min-width: 2em; margin-right: .3em; padding: 0 .35em; border-radius: 4px; text-align: center;
-  font-size: .9em; font-weight: 600; background: var(--surface-2); border: 1px solid var(--line);
-}
-.friend-Passive { color: var(--up); }
-.friend-Ultimate { color: var(--rarity-rare); }
+/* The game's own badges: green passive, blue active, orange ultimate. */
+.friend { height: 1.5em; width: 3em; vertical-align: -.42em; margin: 0 .2em 0 -.15em; }
 </style>

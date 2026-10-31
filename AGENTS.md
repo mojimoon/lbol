@@ -44,6 +44,7 @@ aa/StandaloneWindows64/*.bundle, resources.assets 精灵图        → pipeline/
 
 ## 本地化
 
-- 所有界面文字走 `t('key')`，定义在 `locales/<code>.json`，**组件里不要硬编码文字**。缺失的键回退到简体中文。
+- 所有界面文字走 `t('key')`，定义在 `locales/<code>.json`，**组件里不要硬编码文字**。简体中文文件完全手写；其他语言按“英文 < 本语言文件 < `build.py` 的 `GAME_UI` 取自游戏文本”合并。
+- 游戏翻译不全的语言（it、tr、pt、uk）由 `load_yaml` 用英文补齐。`{power}`、`{loyalty}` 由 `load_ui` 替换成该语言的游戏术语。
 - 游戏术语（卡名、稀有度、类型等）直接取游戏 YAML，不进 `locales/`。
 - 新增语言：在 `build.py` 的 `LANGS` 加上（代码同游戏 `Localization/` 目录名），创建 `locales/<code>.json`，重跑 `build.py`。语言切换器在有两种语言时自动出现。

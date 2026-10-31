@@ -7,7 +7,7 @@
     <img v-if="entity.owner" class="watermark" :src="imgUrl('card-ui', `owner_${entity.owner.toLowerCase()}`)" alt="" loading="lazy" />
 
     <img class="type-icon" :src="imgUrl('card-ui', `type_${entity.type.toLowerCase()}`)" alt="" loading="lazy" />
-    <span class="type-name">{{ data.enums.CardType[entity.type] }}</span>
+    <span ref="typeEl" class="type-name">{{ data.enums.CardType[entity.type] }}</span>
     <ManaCost class="cost" :symbols="face.cost" size="10cqw" />
 
     <h3 ref="nameEl" class="name" :class="{ upgraded: showUp }">{{ displayName }}</h3>
@@ -42,14 +42,16 @@ const owner = computed(() => (showOwnerAvatar.value && props.entity.owner ? find
 const descEl = ref(null)
 const nameEl = ref(null)
 useFitText(descEl, () => [face.value, owner.value], { max: 14, min: 8.5 })
-useFitText(nameEl, displayName, { max: 15, min: 9 })
+useFitText(nameEl, displayName, { max: 15, min: 7.5 })
+const typeEl = ref(null)
+useFitText(typeEl, () => data.value.enums.CardType[props.entity.type], { max: 11.5, min: 7 })
 </script>
 
 <style scoped>
 .card-tile {
   container-type: inline-size; position: relative; aspect-ratio: 530 / 740; color: #f1eff7;
   /* The frame is dark in both themes, whatever the page theme is. */
-  --keyword: #f4c86c; --up: #72e094; --surface-2: #0d0d14; --line: #5a5a70; --rarity-rare: #f4c86c;
+  --keyword: #f4c86c; --up: #72e094;
   transition: transform .12s;
 }
 a:hover .card-tile { transform: translateY(-3px); }
@@ -63,14 +65,17 @@ a:hover .card-tile { transform: translateY(-3px); }
 .type-icon { position: absolute; left: 3.1%; top: 2.1%; width: 8.2%; height: 5.9%; object-fit: contain; }
 .type-name {
   position: absolute; left: 13.2%; top: 3.18%; width: 26.6%; height: 6.08%; display: flex; align-items: center;
-  font-size: 11.5px; white-space: nowrap; overflow: hidden;
+  white-space: nowrap; overflow: hidden;
 }
 .cost { position: absolute; right: 6.6%; top: 1.35%; height: 9.46%; max-width: 58%; align-items: center; justify-content: flex-end; overflow: hidden; }
 .name {
   position: absolute; left: 9%; right: 9%; top: 51.8%; height: 6.76%; margin: 0; overflow: hidden;
-  display: flex; align-items: center; justify-content: center; text-align: center;
+  /* "safe": a centred overflow would hide on both sides, where the text fit cannot measure it. */
+  display: flex; align-items: center; justify-content: safe center; text-align: center;
   font-weight: 700; line-height: 1.1; text-shadow: 0 1px 2px #000b; white-space: nowrap;
 }
+/* Leave room for the loyalty badge. */
+.type-Friend .name { left: 15%; right: 7%; }
 .name.upgraded { color: var(--up); }
 /* Tool frames have a light ribbon. */
 .type-Tool .name { color: #23232f; text-shadow: none; }

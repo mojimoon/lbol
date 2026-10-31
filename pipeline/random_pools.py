@@ -13,6 +13,15 @@ Cards that roll through their status effect are listed under the card (MoreFrien
 BladePower, YukariFriend).
 """
 
+# "Choose one of several random cards to add to your hand": a RollCards or random CreateCards
+# result passed to a card selection, with the chosen card added to the hand.
+DISCOVER = {
+    'BailianNingshen', 'CallFriends', 'ChooseFriend', 'FindCollection', 'HappyNewYear', 'HuanxiangTouying',
+    'HuiyeMarblePhantasm', 'KoishiTouying', 'LanCard', 'MoguMaster', 'MojingShanjie', 'OutInGap', 'OverJingjie',
+    'PatchouliLibrary', 'PlayWithWaste', 'ReadBook', 'ShenziWake', 'TimeMagic', 'ToolRandomTool', 'UnlimitedTime',
+    'ZoufangSnake',
+}
+
 LOOT = ['Attack', 'Defense', 'Skill', 'Ability', 'Friend']  # CardTypeWeightTable.CanBeLoot
 BATTLE = ['Common', 'Uncommon', 'Rare']  # RarityWeightTable.BattleCard: Shining and Mythic weigh 0
 

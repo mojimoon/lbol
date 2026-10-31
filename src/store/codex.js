@@ -33,6 +33,7 @@ const pickLanguage = (list, fallback) => {
   const codes = list.map(l => l.code)
   if (codes.includes(lang.value)) return lang.value
   const nav = (navigator.language || '').toLowerCase()
+  if (nav.startsWith('zh')) return /hant|tw|hk|mo/.test(nav) ? 'zh-Hant' : 'zh-Hans'
   return codes.find(c => c.toLowerCase() === nav) ?? codes.find(c => c.split('-')[0] === nav.split('-')[0]) ?? fallback
 }
 
@@ -58,9 +59,11 @@ export async function initCodex() {
   }
 }
 
+// The first assignment is auto-detection: only a choice made in the menu is remembered.
 watch(lang, (code, previous) => {
+  if (!previous || !code) return
   lsSet('lang', code)
-  if (previous && code) loadLanguage(code).catch(() => { loadError.value = true })
+  loadLanguage(code).catch(() => { loadError.value = true })
 })
 
 // ---- preferences ----

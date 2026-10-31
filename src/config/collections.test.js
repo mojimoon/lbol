@@ -37,7 +37,7 @@ assert.ok(!canAfford({ W: 1 }, { Any: 1, W: 1 }), 'generic needs mana left over'
 const cards = COLLECTIONS.find(c => c.key === 'cards')
 const card = (id, index, over = {}) => ({
   id, index, name: id, search: id.toLowerCase(), hidden: false, owner: null, type: 'Attack', rarity: 'Common', colors: [],
-  base: { total: 1, isX: false, keywords: [] }, up: null, alts: [], illustrator: null, ...over,
+  base: { total: 1, isX: false, keywords: [] }, up: null, alts: [], illustrator: null, special: [], ...over,
 })
 const rows = [
   card('a', 2, { base: { total: 3, isX: false, keywords: ['Exile'] }, rarity: 'Rare' }),
@@ -57,6 +57,8 @@ assert.deepEqual(run({ facets: { keyword: ['Exile'] } }), ['a'], 'keywords follo
 assert.deepEqual(run({ facets: { keyword: ['Exile'] } }, true), ['a', 'd'], 'and the upgraded face when toggled')
 assert.deepEqual(run({ facets: { owner: ['Neutral'], cost: ['X'] } }), ['b'], 'facets AND together')
 assert.deepEqual(run({ sort: 'illustrator' }), ['b', 'a', 'd'], 'ties fall back to index')
+
+assert.deepEqual(run({ facets: { special: ['multi'] } }), [])
 
 // Random ranges
 const rollCard = over => ({ id: 'x', pooled: true, findInBattle: true, gadget: false, type: 'Ability', rarity: 'Rare', owner: null, colors: [], poolCost: { Any: 2 }, ...over })

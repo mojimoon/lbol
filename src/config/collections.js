@@ -129,6 +129,11 @@ export const COLLECTIONS = [
         match: (c, selected) => matchesColors(c.colors, selected),
       },
       {
+        key: 'special', label: 'filter.special',
+        options: (_, t) => ['multi', 'discover', 'power'].map(v => ({ value: v, label: t(`special.${v}`) })),
+        values: c => c.special,
+      },
+      {
         key: 'keyword', label: 'filter.keyword', collapsible: true,
         options: data => {
           const used = new Set(data.cards.filter(c => !c.hidden).flatMap(c => [...c.base.keywords, ...(c.up?.keywords ?? [])]))
