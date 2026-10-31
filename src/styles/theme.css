@@ -1,0 +1,20 @@
+:root {
+  --radius: 10px;
+  --mana-W: #e8dcae; --mana-U: #4f9be0; --mana-B: #8a63c4; --mana-R: #de6352; --mana-G: #58b276; --mana-C: #9aa0ab; --mana-P: #d59ad8;
+}
+:root, [data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0f1024; --surface: #181a35; --surface-2: #22244a; --line: #3a3d6b;
+  --text: #ecebf4; --text-dim: #a5a6c4; --hover: #ffffff12; --selected: #f0c36a22;
+  --accent: #f0c36a; --on-accent: #1a1420; --keyword: #f0c36a; --up: #6bd68c; --negative: #ef8a7a;
+  --rarity-common: #e4e4ee; --rarity-uncommon: #7cc0f5; --rarity-rare: #f0c36a; --rarity-shining: #f49ad0; --rarity-mythic: #c79bf5;
+  --shadow: 0 8px 30px #00000080;
+}
+[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f4f2ec; --surface: #ffffff; --surface-2: #ece9e0; --line: #d8d4c8;
+  --text: #24233a; --text-dim: #66647c; --hover: #00000010; --selected: #a8730f1f;
+  --accent: #96640a; --on-accent: #ffffff; --keyword: #96640a; --up: #1e8a45; --negative: #bf3f2d;
+  --rarity-common: #24233a; --rarity-uncommon: #1c6fb5; --rarity-rare: #96640a; --rarity-shining: #b5307f; --rarity-mythic: #6f3ebd;
+  --shadow: 0 8px 30px #0000002e;
+}
