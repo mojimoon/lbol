@@ -45,14 +45,33 @@ export function canAfford(mana, cost) {
  * Mirrors GameRunController's card roll with OwnerWeightTable.Valid: card rewards and shops.
  * pool: { mana: {W, U, B, R, G, C, P}, owners: [character ids], blank: holds the Blank Card exhibit }
  */
+const costAmount = cost => ['Any', ...SINGLE_COLORS, 'P', 'Hybrid'].reduce((sum, k) => sum + (cost[k] ?? 0), 0)
+
 export function inCardPool(card, pool) {
   if (!card.pooled) return false
   if (card.owner && !pool.owners.includes(card.owner)) return false
   const cost = card.poolCost
-  const total = ['Any', ...SINGLE_COLORS, 'P', 'Hybrid'].reduce((sum, k) => sum + (cost[k] ?? 0), 0)
   // Above 5 total, the generic part does not limit the pool.
-  if (!canAfford(pool.mana, total > 5 ? { ...cost, Any: 0 } : cost)) return false
+  if (!canAfford(pool.mana, costAmount(cost) > 5 ? { ...cost, Any: 0 } : cost)) return false
   return pool.blank || card.colors.every(c => (pool.mana[c] ?? 0) > 0)
+}
+
+/**
+ * Can a card with this roll spec (pipeline/random_pools.py) create `card`? Mirrors
+ * GameRunController.CreateValidCardsPool with battleRolling on, and CardWeightTable.WeightFor,
+ * whose default includeOutsideKeyword rules out Gadgets cards. Base mana and held exhibits
+ * are not known here; the pool filter can narrow those down separately.
+ */
+export function inRoll(card, spec) {
+  if (!card.pooled || !card.findInBattle || card.gadget) return false
+  if (!spec.types.includes(card.type) || !spec.rarities.includes(card.rarity)) return false
+  if (spec.neutral_only && card.owner) return false
+  if (spec.exclude?.includes(card.id)) return false
+  const amount = costAmount(card.poolCost)
+  if (amount < (spec.cost_min ?? 0) || amount > (spec.cost_max ?? Infinity)) return false
+  if (spec.color_count != null && card.colors.length !== spec.color_count) return false
+  if (spec.colors_within && !(card.colors.length > 0 && card.colors.every(c => spec.colors_within.includes(c)))) return false
+  return true
 }
 
 export function costBucket(face) {
@@ -82,8 +101,8 @@ export const COLLECTIONS = [
     gridClass: 'grid-cards',
     upgradeToggle: true,
     poolBefore: 'keyword',  // PoolFilter sits just above this facet
-    initialState: () => ({ pool: { enabled: false, mana: { W: 0, U: 0, B: 0, R: 0, G: 0, C: 0, P: 0 }, owners: [], blank: false } }),
-    extraFilter: (card, state) => !state.pool.enabled || inCardPool(card, state.pool),
+    initialState: () => ({ roll: null, pool: { enabled: false, mana: { W: 0, U: 0, B: 0, R: 0, G: 0, C: 0, P: 0 }, owners: [], blank: false } }),
+    extraFilter: (card, state, ctx) => (!state.pool.enabled || inCardPool(card, state.pool)) && (!ctx.rollSpec || inRoll(card, ctx.rollSpec)),
     // Same as the in-game museum: HideMesuem cards are reachable by link but not listed.
     listed: card => !card.hidden,
     facets: [
@@ -196,6 +215,7 @@ export function encodeState(collection, state) {
   for (const facet of collection.facets) {
     for (const value of state.facets[facet.key] ?? []) params.append(facet.key, value)
   }
+  if (state.roll) params.set('roll', state.roll)
   if (state.pool?.enabled) {
     params.set('pool', POOL_COLORS.map(c => state.pool.mana[c]).join('.'))
     for (const owner of state.pool.owners) params.append('poolOwner', owner)
@@ -214,6 +234,7 @@ export function decodeState(collection, query) {
     facets: Object.fromEntries(collection.facets.map(f => [f.key, params.getAll(f.key)])),
     ...collection.initialState?.(),
   }
+  if (params.has('roll') && state.pool) state.roll = params.get('roll')
   if (state.pool && params.has('pool')) {
     const counts = params.get('pool').split('.')
     state.pool.enabled = true
@@ -239,7 +260,7 @@ export function applyCollection(collection, rows, state, ctx) {
   const terms = state.search.trim().toLowerCase().split(/\s+/).filter(Boolean)
   const out = rows.filter(row => {
     if (collection.listed && !collection.listed(row)) return false
-    if (collection.extraFilter && !collection.extraFilter(row, state)) return false
+    if (collection.extraFilter && !collection.extraFilter(row, state, ctx)) return false
     if (terms.length && !terms.every(q => (row.search ?? row.name.toLowerCase()).includes(q))) return false
     return collection.facets.every(facet => {
       const selected = state.facets[facet.key] ?? []

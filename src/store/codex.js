@@ -73,6 +73,9 @@ watch(isDark, dark => {
 export const upgraded = ref(lsGet('upgraded', false))
 watch(upgraded, v => lsSet('upgraded', v))
 
+export const showOwnerAvatar = ref(lsGet('showOwnerAvatar', true))
+watch(showOwnerAvatar, v => lsSet('showOwnerAvatar', v))
+
 // ---- route: #/<tab>[/<id>][?<filters>] ----
 const parseHash = () => {
   const [path, query = ''] = location.hash.split('?')
@@ -99,17 +102,19 @@ export const browseState = reactive(Object.fromEntries(COLLECTIONS.map(c => [c.k
 }])))
 export const currentState = computed(() => browseState[route.tab])
 
-// A URL with filters sets them; one without (a tab or tile link) keeps what the tab already has.
-// Either way the address bar then shows the current filters, so any view can be shared.
+// A URL with filters sets them; a fresh link without any (a tab or tile link) keeps what the tab
+// already has. Entries we have written carry a marker, so going back to one restores exactly what
+// it shows, even "no filters". The address bar always shows the current filters, so any view can
+// be shared.
 const applyHash = ({ tab, id, query }) => {
   Object.assign(route, { tab, id })
-  if (query) Object.assign(browseState[tab], decodeState(collection.value, query))
+  if (query || history.state?.lbol) Object.assign(browseState[tab], decodeState(collection.value, query))
 }
 function syncUrl() {
   const query = encodeState(collection.value, currentState.value)
   const path = `#/${route.tab}${route.id ? `/${encodeURIComponent(route.id)}` : ''}`
   const target = query ? `${path}?${query}` : path
-  if (location.hash !== target) history.replaceState(null, '', target)
+  if (location.hash !== target || !history.state?.lbol) history.replaceState({ lbol: true }, '', target)
 }
 applyHash(parsed)
 window.addEventListener('hashchange', () => {
@@ -117,18 +122,43 @@ window.addEventListener('hashchange', () => {
   syncUrl()
 })
 watch(() => encodeState(collection.value, currentState.value), syncUrl)
+syncUrl()
 
 export const results = computed(() => {
   if (!data.value) return []
-  return applyCollection(collection.value, data.value[route.tab], currentState.value, { upgraded: upgraded.value, lang: data.value.lang })
+  const state = currentState.value
+  const rollSpec = state.roll ? findEntity('cards', state.roll)?.roll : null
+  return applyCollection(collection.value, data.value[route.tab], state, { upgraded: upgraded.value, lang: data.value.lang, rollSpec })
 })
 
 export const isFiltered = computed(() => {
   const state = currentState.value
-  return state.search.trim() !== '' || Object.values(state.facets).some(v => v.length > 0) || !!state.pool?.enabled
+  return state.search.trim() !== '' || Object.values(state.facets).some(v => v.length > 0) || !!state.pool?.enabled || !!state.roll
 })
 
+// ---- "cards this card can create" ----
+// The filters and open card to go back to. Lost on reload; the browser's Back button still works.
+export const rollReturn = ref(null)
+
+export function jumpToRoll(cardId) {
+  rollReturn.value = { tab: route.tab, id: route.id, query: encodeState(collection.value, currentState.value) }
+  location.hash = `#/cards/${encodeURIComponent(cardId)}?roll=${encodeURIComponent(cardId)}`
+}
+
+export function returnFromRoll() {
+  const { tab, id, query } = rollReturn.value
+  rollReturn.value = null
+  Object.assign(browseState[tab], decodeState(COLLECTIONS.find(c => c.key === tab), query))
+  navigate(tab, id)
+}
+
+export function clearRoll() {
+  rollReturn.value = null
+  currentState.value.roll = null
+}
+
 export function resetFilters() {
+  rollReturn.value = null
   const state = currentState.value
   state.search = ''
   for (const key of Object.keys(state.facets)) state.facets[key] = []

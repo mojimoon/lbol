@@ -10,12 +10,14 @@
     <span class="type-name">{{ data.enums.CardType[entity.type] }}</span>
     <ManaCost class="cost" :symbols="face.cost" size="10cqw" />
 
-    <h3 class="name" :class="{ upgraded: showUp }">{{ entity.name }}{{ showUp ? '+' : '' }}</h3>
-    <div v-if="entity.type === 'Friend' && entity.loyalty != null" class="loyalty" :title="t('detail.loyalty', { n: entity.loyalty })">
+    <h3 ref="nameEl" class="name" :class="{ upgraded: showUp }">{{ displayName }}</h3>
+    <div v-if="entity.type === 'Friend' && face.loyalty != null" class="loyalty" :title="t('detail.loyalty', { n: face.loyalty })">
       <img :src="imgUrl('card-ui', 'loyal')" alt="" loading="lazy" />
-      <span>{{ entity.loyalty }}</span>
+      <span :class="{ upgraded: showUp && face.loyalty !== entity.base.loyalty }">{{ face.loyalty }}</span>
     </div>
-    <RichText class="desc" :class="`len-${lengthTier}`" :tokens="face.desc" />
+    <RichText ref="descEl" class="desc" :tokens="face.desc">
+      <span v-if="owner" class="avatar-gap"></span>
+    </RichText>
 
     <!-- The one thing the game's card face leaves out: whose card this is. -->
     <img v-if="owner" class="owner" :src="imgUrl('characters', owner.avatar)" :alt="owner.shortName" :title="owner.shortName" loading="lazy" />
@@ -23,9 +25,10 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
+import { useFitText } from '../../composables/fitText.js'
 import { cardFace } from '../../config/collections.js'
-import { data, findEntity, imgUrl, t, upgraded } from '../../store/codex.js'
+import { data, findEntity, imgUrl, showOwnerAvatar, t, upgraded } from '../../store/codex.js'
 import ManaCost from '../shared/ManaCost.vue'
 import RichText from '../shared/RichText.vue'
 
@@ -33,20 +36,13 @@ const props = defineProps({ entity: { type: Object, required: true } })
 const showUp = computed(() => upgraded.value && !!props.entity.up)
 const face = computed(() => cardFace(props.entity, upgraded.value))
 const art = computed(() => (showUp.value && props.entity.imgUp) || props.entity.img)
-const owner = computed(() => (props.entity.owner ? findEntity('characters', props.entity.owner) : null))
+const displayName = computed(() => `${props.entity.name}${showUp.value ? '+' : ''}`)
+const owner = computed(() => (showOwnerAvatar.value && props.entity.owner ? findEntity('characters', props.entity.owner) : null))
 
-// The game shrinks long text to fit the card, so do the same in steps.
-const lengthTier = computed(() => {
-  const length = face.value.desc.reduce((n, tok) => {
-    if (typeof tok !== 'string') return n + (tok.t?.length ?? 2)
-    return n + tok.length + (tok.split('\n').length - 1) * 8  // a line break wastes the rest of its line
-  }, 0)
-  if (length <= 34) return 0
-  if (length <= 60) return 1
-  if (length <= 90) return 2
-  if (length <= 125) return 3
-  return length <= 165 ? 4 : 5
-})
+const descEl = ref(null)
+const nameEl = ref(null)
+useFitText(descEl, () => [face.value, owner.value], { max: 14, min: 8.5 })
+useFitText(nameEl, displayName, { max: 15, min: 9 })
 </script>
 
 <style scoped>
@@ -64,16 +60,16 @@ a:hover .card-tile { transform: translateY(-3px); }
 .watermark {
   position: absolute; left: 6.6%; width: 86.8%; top: 59.5%; height: 32.4%; object-fit: contain; opacity: .14; pointer-events: none;
 }
-.type-icon { position: absolute; left: 1.13%; top: 1.08%; width: 12.08%; height: 8.65%; object-fit: contain; }
+.type-icon { position: absolute; left: 3.1%; top: 2.1%; width: 8.2%; height: 5.9%; object-fit: contain; }
 .type-name {
   position: absolute; left: 13.2%; top: 3.18%; width: 26.6%; height: 6.08%; display: flex; align-items: center;
   font-size: 11.5px; white-space: nowrap; overflow: hidden;
 }
 .cost { position: absolute; right: 6.6%; top: 1.35%; height: 9.46%; max-width: 58%; align-items: center; justify-content: flex-end; overflow: hidden; }
 .name {
-  position: absolute; left: 9%; right: 9%; top: 51.8%; height: 6.76%; margin: 0;
+  position: absolute; left: 9%; right: 9%; top: 51.8%; height: 6.76%; margin: 0; overflow: hidden;
   display: flex; align-items: center; justify-content: center; text-align: center;
-  font-size: max(12px, 5.8cqw); font-weight: 700; line-height: 1.1; text-shadow: 0 1px 2px #000b; white-space: nowrap;
+  font-weight: 700; line-height: 1.1; text-shadow: 0 1px 2px #000b; white-space: nowrap;
 }
 .name.upgraded { color: var(--up); }
 /* Tool frames have a light ribbon. */
@@ -82,19 +78,18 @@ a:hover .card-tile { transform: translateY(-3px); }
 .loyalty { position: absolute; left: -1%; top: 48.8%; width: 17%; aspect-ratio: 1; }
 .loyalty img { width: 100%; height: 100%; }
 .loyalty span {
-  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-  font-size: max(15px, 9.5cqw); font-weight: 800; text-shadow: 0 1px 2px #000;
+  position: absolute; inset: 0 0 12% 0; display: flex; align-items: center; justify-content: center;
+  font-size: max(15px, 9.5cqw); font-weight: 800; line-height: 1; text-shadow: 0 1px 2px #000;
 }
+.loyalty span.upgraded { color: var(--up); }
 .desc { position: absolute; left: 7.5%; right: 7.5%; top: 59.6%; bottom: 4.5%; overflow-y: auto; scrollbar-width: none; line-height: 1.38; }
-/* Text keeps its size as cards shrink, and only long descriptions step down to fit. */
-.len-0 { font-size: 13.5px; }
-.len-1 { font-size: min(13px, 7cqw); }
-.len-2 { font-size: min(12.5px, 6.2cqw); }
-.len-3 { font-size: max(10px, min(12px, 5.5cqw)); }
-.len-4 { font-size: max(9.5px, min(11px, 4.9cqw)); }
-.len-5 { font-size: max(9px, min(10.5px, 4.4cqw)); }
+/* Text flows around the avatar in the frame's bottom right corner. */
+.avatar-gap {
+  float: right; width: 15cqw; height: 100%;
+  shape-outside: inset(calc(100% - 13cqw) 0 0 0);
+}
 .owner {
-  position: absolute; right: 1.4%; bottom: 1%; width: 13cqw; height: 13cqw; border-radius: 50%;
+  position: absolute; right: 7.6%; bottom: 5.2%; width: 13cqw; height: 13cqw; border-radius: 50%;
   object-fit: cover; object-position: top; background: #1a1a2c; box-shadow: 0 0 0 1.5px #000a;
 }
 </style>

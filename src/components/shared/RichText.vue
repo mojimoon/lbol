@@ -1,5 +1,6 @@
 <template>
   <p class="rich-text">
+    <slot />
     <template v-for="(tok, i) in tokens" :key="i">
       <template v-if="typeof tok === 'string'">{{ tok }}</template>
       <span v-else-if="'n' in tok" class="num" :class="{ up: tok.up }">{{ tok.n }}</span>

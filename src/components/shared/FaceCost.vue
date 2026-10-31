@@ -1,7 +1,8 @@
 <template>
   <span class="face-cost">
     <ManaCost :symbols="face.cost" size="22px" wrap />
-    <span class="total">({{ face.isX ? (face.total ? `X+${face.total}` : 'X') : face.total }})</span>
+    <!-- The coloured part of an X cost is only the minimum, and it counts towards X. -->
+    <span class="total">({{ face.isX ? 'X' : face.total }})</span>
   </span>
 </template>
 

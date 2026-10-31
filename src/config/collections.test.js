@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import { COLLECTIONS, applyCollection, canAfford, costBucket, decodeState, encodeState, inCardPool, matchesColors, poolLink } from './collections.js'
+import { COLLECTIONS, applyCollection, canAfford, costBucket, decodeState, encodeState, inCardPool, inRoll, matchesColors, poolLink } from './collections.js'
 
 // The in-game colour rules, per MuseumPanel.FilterCardByMana.
 const WB = ['W', 'B'], W = ['W'], B = ['B'], R = ['R'], WU = ['W', 'U'], WBG = ['W', 'B', 'G'], none = [], C = ['C']
@@ -58,6 +58,21 @@ assert.deepEqual(run({ facets: { keyword: ['Exile'] } }, true), ['a', 'd'], 'and
 assert.deepEqual(run({ facets: { owner: ['Neutral'], cost: ['X'] } }), ['b'], 'facets AND together')
 assert.deepEqual(run({ sort: 'illustrator' }), ['b', 'a', 'd'], 'ties fall back to index')
 
+// Random ranges
+const rollCard = over => ({ id: 'x', pooled: true, findInBattle: true, gadget: false, type: 'Ability', rarity: 'Rare', owner: null, colors: [], poolCost: { Any: 2 }, ...over })
+const snake = { types: ['Ability'], rarities: ['Rare'], neutral_only: true }
+assert.ok(inRoll(rollCard(), snake))
+assert.ok(!inRoll(rollCard({ owner: 'Reimu' }), snake), 'neutral only')
+assert.ok(!inRoll(rollCard({ rarity: 'Common' }), snake) && !inRoll(rollCard({ type: 'Skill' }), snake))
+assert.ok(!inRoll(rollCard({ pooled: false }), snake) && !inRoll(rollCard({ findInBattle: false }), snake), 'must be rollable in battle')
+assert.ok(!inRoll(rollCard({ gadget: true }), snake), 'Gadgets stay out of rolls')
+assert.ok(inRoll(rollCard(), { types: ['Ability'], rarities: ['Rare'], cost_min: 2, cost_max: 2 }))
+assert.ok(!inRoll(rollCard(), { types: ['Ability'], rarities: ['Rare'], cost_max: 1 }))
+const within = { types: ['Ability'], rarities: ['Rare'], colors_within: ['W', 'U'] }
+assert.ok(inRoll(rollCard({ colors: ['W', 'U'] }), within) && !inRoll(rollCard({ colors: ['W', 'R'] }), within) && !inRoll(rollCard(), within))
+assert.ok(!inRoll(rollCard({ id: 'me' }), { types: ['Ability'], rarities: ['Rare'], exclude: ['me'] }))
+assert.equal(applyCollection(cards, [card('r', 1)], { ...decodeState(cards, 'roll=z') }, { rollSpec: { types: ['Skill'], rarities: ['Common'] } }).length, 0, 'roll filter applies')
+
 // URL round trip
 const empty = decodeState(cards, '')
 assert.equal(encodeState(cards, empty), '', 'defaults stay out of the URL')
@@ -68,6 +83,7 @@ Object.assign(filled.pool, { enabled: true, owners: ['Marisa'], blank: true })
 filled.pool.mana.W = 2
 assert.deepEqual(decodeState(cards, encodeState(cards, filled)), filled)
 assert.equal(decodeState(cards, 'sort=nope').sort, 'default', 'unknown sort falls back')
+assert.equal(decodeState(cards, encodeState(cards, { ...empty, roll: 'ZoufangSnake' })).roll, 'ZoufangSnake')
 assert.equal(decodeState(cards, 'pool=x.-3').pool.mana.U, 0, 'bad counts become 0')
 assert.equal(poolLink({ id: 'Reimu' }, { mana: ['R', 'R', 'R', 'W', 'W'] }), '#/cards?pool=2.0.0.3.0.0.0&poolOwner=Reimu')
 console.log('collections ok')

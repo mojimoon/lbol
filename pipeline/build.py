@@ -17,6 +17,7 @@ import yaml
 
 import assets
 import card_values
+import random_pools
 import tables
 from richtext import Mana, Symbols, mana_symbols, plain_text, tokenize
 
@@ -32,6 +33,7 @@ DEFAULT_LANG = 'zh-Hans'
 LANGS = {'zh-Hans': '简体中文'}
 
 ENUM_SECTIONS = ('Rarity', 'CardType')
+GADGETS_BIT = next(bit for name, bit, _ in tables.KEYWORDS if name == 'Gadgets')
 # File name part of each card frame, per card colour (colourless shares the "any" frame).
 FRAME_COLOR = {'W': 'white', 'U': 'blue', 'B': 'black', 'R': 'red', 'G': 'green', 'C': 'any'}
 # ponytail: work-in-progress characters are left out entirely; remove the id to include one.
@@ -258,6 +260,7 @@ def build_card_face(card, upgraded, text, loc, base_values=None):
         'cost': symbols,
         'total': sum(v for k, v in cost.items() if k != 'HybridColor'),
         'isX': card['IsXCost'],
+        'loyalty': get('Loyalty'),
         'desc': tokens,
         'keywords': loc.canon_keywords(keyword_names(bits | relative) + mentioned),
     }
@@ -320,13 +323,15 @@ def build_card(card, loc, images):
         'alts': alt_list,
         'pooled': in_random_pool(card),
         'poolCost': {k: v for k, v in card['Cost'].items() if v},
+        'findInBattle': card['FindInBattle'],
+        'gadget': bool(card['Keywords'] & GADGETS_BIT),
+        'roll': random_pools.roll_spec(card),
         'frames': card_frames(card),
         'hidden': card['HideMesuem'],
         'flavor': loc.tokens(text.get('FlavorText'), lambda k: name if k == 'SelfName' else loc.player_name if k == 'PlayerName' else None),
         'detail': loc.tokens(text.get('DetailText'), card_lookup(card, False, name, loc), card['Id']),
         'base': face,
         'up': up,
-        'loyalty': card['Loyalty'],
         'relCards': sorted(set(card['RelativeCards']) | set(card['UpgradedRelativeCards'])),
         'relEffects': sorted(set(card['RelativeEffects']) | set(card['UpgradedRelativeEffects'])),
         'search': ' '.join(filter(None, (name, card['Id'], plain_text(face['desc']), plain_text(up['desc']) if up else ''))).lower(),

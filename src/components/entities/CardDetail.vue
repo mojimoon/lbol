@@ -34,6 +34,7 @@
         <FaceCost :face="entity.base" />
       </header>
       <RichText class="desc" :tokens="entity.base.desc" interactive />
+      <p v-if="entity.base.loyalty != null" class="face-note">{{ t('detail.loyalty', { n: entity.base.loyalty }) }}</p>
     </section>
     <section v-if="entity.up" class="face upgraded">
       <header>
@@ -41,10 +42,15 @@
         <FaceCost :face="entity.up" />
       </header>
       <RichText class="desc" :tokens="entity.up.desc" interactive />
+      <p v-if="entity.up.loyalty != null" class="face-note">{{ t('detail.loyalty', { n: entity.up.loyalty }) }}</p>
     </section>
 
+    <button
+      v-if="entity.roll" type="button" class="roll-button"
+      :title="t('roll.buttonHint')" @click="jumpToRoll(entity.id)"
+    >{{ t('roll.button') }}</button>
+
     <RichText v-if="entity.detail.length" class="note" :tokens="entity.detail" interactive />
-    <p v-if="entity.loyalty != null" class="muted-line">{{ t('detail.loyalty', { n: entity.loyalty }) }}</p>
     <RichText v-if="entity.flavor.length" class="flavor" :tokens="entity.flavor" />
 
     <RelatedList :cards="entity.relCards" :effects="entity.relEffects" :keywords="keywords" />
@@ -55,7 +61,7 @@
 
 <script setup>
 import { computed, ref } from 'vue'
-import { data, imgUrl, ownerName, t, upgraded } from '../../store/codex.js'
+import { data, imgUrl, jumpToRoll, ownerName, t, upgraded } from '../../store/codex.js'
 import ColorBar from '../shared/ColorBar.vue'
 import FaceCost from '../shared/FaceCost.vue'
 import RelatedList from '../shared/RelatedList.vue'
@@ -90,6 +96,12 @@ h2 { margin: 0; font-size: 21px; }
 .face h3 { margin: 0; font-size: 13px; font-weight: 600; color: var(--text-dim); }
 .face.upgraded h3 { color: var(--up); }
 .desc { font-size: 14.5px; line-height: 1.65; }
+.face-note { margin: 6px 0 0; font-size: 12.5px; color: var(--text-dim); }
+.roll-button {
+  padding: 7px 12px; border-radius: 8px; border: 1px solid var(--accent); background: transparent;
+  color: var(--accent); font-size: 14px; cursor: pointer;
+}
+.roll-button:hover { background: var(--selected); }
 .note { font-size: 13px; line-height: 1.6; color: var(--text-dim); padding: 8px 10px; background: var(--surface-2); border-radius: 8px; }
 .flavor { font-size: 13px; line-height: 1.6; font-style: italic; color: var(--text-dim); }
 </style>

@@ -26,6 +26,7 @@ aa/StandaloneWindows64/*.bundle, resources.assets 精灵图        → pipeline/
 
 - `tables.py`：字段顺序照抄 `LBoL.ConfigData.dll` 各 `Load()`。读完有剩余字节会报错，这就是游戏更新改了结构的信号；用 `ilspycmd`（需 `DOTNET_ROLL_FORWARD=Major`）反编译核对。
 - `richtext.py`：把 `{占位符}`、`|术语|`、`<sprite>` 转成 token 数组，格式见文件头。前端不用 `v-html`。
+- `random_pools.py`：会生成有限范围随机牌的卡牌，逐张抄自 `RollCards` 调用，游戏更新后要复查。前端的 `inRoll`（`collections.js`）据此筛选。
 - `card_values.py`：写在 C# 里的静态数值，游戏更新后要复查。查不到的值显示为 X，列在 `reports/build_report.md`。
 - `build.py` 中 `EXCLUDED_CHARACTERS`：制作中的角色（目前是爱丽丝）及其专属卡牌、展品不进入图鉴。
 - 描述文本、图片键、图鉴可见性都照 `Card.GetBaseDescription`、`CardWidget.RefreshCardImage`、`MuseumPanel` 实现。

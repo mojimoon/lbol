@@ -1,5 +1,7 @@
 <template>
   <section class="filter-panel" :aria-label="t('filter.title')">
+    <RollBanner />
+
     <label class="search">
       <span class="sr-only">{{ t('filter.searchLabel') }}</span>
       <input v-model="state.search" type="search" :placeholder="t('filter.search')" />
@@ -15,6 +17,10 @@
     <label v-if="collection.upgradeToggle" class="upgrade-toggle">
       <input v-model="upgraded" type="checkbox" />
       {{ t('filter.upgraded') }}
+    </label>
+    <label v-if="collection.upgradeToggle" class="upgrade-toggle">
+      <input v-model="showOwnerAvatar" type="checkbox" />
+      {{ t('filter.showOwner') }}
     </label>
 
     <button
@@ -36,9 +42,10 @@
 
 <script setup>
 import { computed, ref } from 'vue'
-import { collection, currentState as state, isFiltered, resetFilters, results, t, upgraded } from '../../store/codex.js'
+import { collection, currentState as state, isFiltered, resetFilters, results, showOwnerAvatar, t, upgraded } from '../../store/codex.js'
 import FacetGroup from './FacetGroup.vue'
 import PoolFilter from './PoolFilter.vue'
+import RollBanner from './RollBanner.vue'
 import SortControl from './SortControl.vue'
 
 const facetsOpen = ref(false)
