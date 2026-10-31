@@ -14,5 +14,5 @@ defineProps({ face: { type: Object, required: true } })
 
 <style scoped>
 .face-cost { display: inline-flex; align-items: center; gap: 6px; }
-.total { font-size: 13px; color: var(--text-dim); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.total { font-size: 13px; color: var(--text); font-variant-numeric: tabular-nums; white-space: nowrap; }
 </style>
