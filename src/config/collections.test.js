@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import { COLLECTIONS, applyCollection, canAfford, costBucket, inCardPool, matchesColors } from './collections.js'
+import { COLLECTIONS, applyCollection, canAfford, costBucket, decodeState, encodeState, inCardPool, matchesColors, poolLink } from './collections.js'
 
 // The in-game colour rules, per MuseumPanel.FilterCardByMana.
 const WB = ['W', 'B'], W = ['W'], B = ['B'], R = ['R'], WU = ['W', 'U'], WBG = ['W', 'B', 'G'], none = [], C = ['C']
@@ -57,4 +57,17 @@ assert.deepEqual(run({ facets: { keyword: ['Exile'] } }), ['a'], 'keywords follo
 assert.deepEqual(run({ facets: { keyword: ['Exile'] } }, true), ['a', 'd'], 'and the upgraded face when toggled')
 assert.deepEqual(run({ facets: { owner: ['Neutral'], cost: ['X'] } }), ['b'], 'facets AND together')
 assert.deepEqual(run({ sort: 'illustrator' }), ['b', 'a', 'd'], 'ties fall back to index')
+
+// URL round trip
+const empty = decodeState(cards, '')
+assert.equal(encodeState(cards, empty), '', 'defaults stay out of the URL')
+const filled = { ...decodeState(cards, ''), search: 'a b', sort: 'cost', descending: true }
+filled.facets.owner = ['Reimu', 'Neutral']
+filled.facets.illustrator = ['Ferdy (IFC), x&y']
+Object.assign(filled.pool, { enabled: true, owners: ['Marisa'], blank: true })
+filled.pool.mana.W = 2
+assert.deepEqual(decodeState(cards, encodeState(cards, filled)), filled)
+assert.equal(decodeState(cards, 'sort=nope').sort, 'default', 'unknown sort falls back')
+assert.equal(decodeState(cards, 'pool=x.-3').pool.mana.U, 0, 'bad counts become 0')
+assert.equal(poolLink({ id: 'Reimu' }, { mana: ['R', 'R', 'R', 'W', 'W'] }), '#/cards?pool=2.0.0.3.0.0.0&poolOwner=Reimu')
 console.log('collections ok')

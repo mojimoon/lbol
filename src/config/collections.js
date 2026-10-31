@@ -81,7 +81,7 @@ export const COLLECTIONS = [
     key: 'cards',
     gridClass: 'grid-cards',
     upgradeToggle: true,
-    poolFilter: true,
+    poolBefore: 'keyword',  // PoolFilter sits just above this facet
     initialState: () => ({ pool: { enabled: false, mana: { W: 0, U: 0, B: 0, R: 0, G: 0, C: 0, P: 0 }, owners: [], blank: false } }),
     extraFilter: (card, state) => !state.pool.enabled || inCardPool(card, state.pool),
     // Same as the in-game museum: HideMesuem cards are reachable by link but not listed.
@@ -91,7 +91,7 @@ export const COLLECTIONS = [
       {
         key: 'type', label: 'filter.type',
         options: data => presentIn(CARD_TYPES, data.cards.filter(c => !c.hidden).map(c => c.type))
-          .map(v => ({ value: v, label: data.enums.CardType[v] ?? v })),
+          .map(v => ({ value: v, label: data.enums.CardType[v] ?? v, icon: `type_${v.toLowerCase()}` })),
         values: c => [c.type],
       },
       {
@@ -181,6 +181,58 @@ export const COLLECTIONS = [
     sorts: [],
   },
 ]
+
+const POOL_COLORS = ['W', 'U', 'B', 'R', 'G', 'C', 'P']
+
+/**
+ * Browsing state <-> URL query. Facets repeat their key (owner=Reimu&owner=Neutral), so
+ * values may contain anything. Defaults are left out to keep links short.
+ */
+export function encodeState(collection, state) {
+  const params = new URLSearchParams()
+  if (state.search.trim()) params.set('q', state.search.trim())
+  if (state.sort && state.sort !== collection.sorts[0]?.key) params.set('sort', state.sort)
+  if (state.descending) params.set('desc', '1')
+  for (const facet of collection.facets) {
+    for (const value of state.facets[facet.key] ?? []) params.append(facet.key, value)
+  }
+  if (state.pool?.enabled) {
+    params.set('pool', POOL_COLORS.map(c => state.pool.mana[c]).join('.'))
+    for (const owner of state.pool.owners) params.append('poolOwner', owner)
+    if (state.pool.blank) params.set('blank', '1')
+  }
+  return params.toString()
+}
+
+export function decodeState(collection, query) {
+  const params = new URLSearchParams(query)
+  const sort = params.get('sort')
+  const state = {
+    search: params.get('q') ?? '',
+    sort: collection.sorts.some(s => s.key === sort) ? sort : collection.sorts[0]?.key ?? null,
+    descending: params.get('desc') === '1',
+    facets: Object.fromEntries(collection.facets.map(f => [f.key, params.getAll(f.key)])),
+    ...collection.initialState?.(),
+  }
+  if (state.pool && params.has('pool')) {
+    const counts = params.get('pool').split('.')
+    state.pool.enabled = true
+    POOL_COLORS.forEach((c, i) => { state.pool.mana[c] = Math.max(0, Number.parseInt(counts[i], 10) || 0) })
+    state.pool.owners = params.getAll('poolOwner')
+    state.pool.blank = params.get('blank') === '1'
+  }
+  return state
+}
+
+/** Link to the card list, filtered to what one character route can find. */
+export function poolLink(character, loadout) {
+  const cards = COLLECTIONS.find(c => c.key === 'cards')
+  const state = decodeState(cards, '')
+  state.pool.enabled = true
+  state.pool.owners = [character.id]
+  for (const symbol of loadout.mana) state.pool.mana[symbol] += 1
+  return `#/cards?${encodeState(cards, state)}`
+}
 
 /** Apply search, facets (OR within a facet, AND across facets) and sort. */
 export function applyCollection(collection, rows, state, ctx) {

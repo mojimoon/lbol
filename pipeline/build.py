@@ -403,13 +403,21 @@ def build_ultimate(us, loc, icons):
     }
 
 
-def build_character(p, loc, ultimates, stems):
+def build_character(p, loc, ultimates, exhibits, stems):
     unit = loc.unit.get(p['Id'], {})
     text = loc.player.get(p['Id'], {})
 
+    left, right = tables.MANA_COLOR[p['LeftColor']], tables.MANA_COLOR[p['RightColor']]
+    if p['InitialMana'][left] != 2 or p['InitialMana'][right] != 2:
+        raise ValueError(f"{p['Id']}: starting mana is no longer 2 + 2")
+
     def loadout(side):
         deck = Counter(p[f'Deck{side}'])
+        exhibit = exhibits[p[f'Exhibit{side}']]
+        extra = [tables.MANA_COLOR[exhibit['BaseManaColor']]] * exhibit['BaseManaAmount'] if exhibit['BaseManaColor'] is not None else []
         return {
+            # Base mana of a run: the character's 2 + 2, plus what the starting exhibit provides.
+            'mana': [left, left, *extra, right, right],
             'ultimate': ultimates.get(p[f'UltimateSkill{side}']),
             'exhibit': p[f'Exhibit{side}'],
             'deck': [{'id': cid, 'count': n} for cid, n in deck.items()],
@@ -422,11 +430,9 @@ def build_character(p, loc, ultimates, stems):
         'fullName': unit.get('Full') or unit.get('Default', p['Id']),
         'title': text.get('Title'),
         'home': text.get('HomeName') if p['HasHomeName'] else None,
-        'colors': [tables.MANA_COLOR[p['LeftColor']], tables.MANA_COLOR[p['RightColor']]],
-        'mana': mana_symbols(p['InitialMana']),
+        'colors': [left, right],
         'hp': p['MaxHp'],
         'money': p['InitialMoney'],
-        'power': p['InitialPower'],
         'stand': p['Id'] if p['Id'] in stems else None,
         'portrait': f"{p['Id']}_Portrait" if f"{p['Id']}_Portrait" in stems else None,
         'avatar': f"{p['Id']}_Avatar" if f"{p['Id']}_Avatar" in stems else None,
@@ -488,7 +494,7 @@ def build_lang(lang, t, stems, build_id):
         'cards': sorted((build_card(c, loc, stems['cards']) for c in cards), key=lambda c: c['index']),
         'exhibits': sorted((build_exhibit(e, loc, stems['icons']) for e in t['exhibits'] if not e['IsDebug']),
                            key=lambda e: e['index']),
-        'characters': [build_character(p, loc, ultimates, stems['characters']) for p in players],
+        'characters': [build_character(p, loc, ultimates, {e['Id']: e for e in t['exhibits']}, stems['characters']) for p in players],
     }
     return data, loc
 

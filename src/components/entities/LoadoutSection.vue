@@ -1,10 +1,18 @@
 <template>
   <section class="loadout">
-    <h3>
-      <ManaIcon :symbol="color" :label="t(`mana.${color}`)" size="20px" />
-      {{ t('char.loadout', { color: t(`mana.${color}`) }) }}
-      <span class="difficulty">{{ t('char.difficulty', { n: loadout.difficulty }) }}</span>
-    </h3>
+    <header class="head">
+      <h3>
+        <ManaIcon :symbol="color" :label="t(`mana.${color}`)" size="22px" />
+        {{ t('char.loadout', { color: t(`mana.${color}`) }) }}
+      </h3>
+      <span class="complexity">{{ t('char.difficulty', { n: loadout.difficulty }) }}</span>
+      <a class="pool-link" :href="poolLink(character, loadout)" :title="t('char.viewPoolHint')">{{ t('char.viewPool') }}</a>
+    </header>
+
+    <div class="block">
+      <h4>{{ t('char.mana') }}</h4>
+      <ManaCost :symbols="loadout.mana" size="24px" wrap />
+    </div>
 
     <div v-if="loadout.ultimate" class="block">
       <h4>{{ t('char.ultimate') }} · {{ loadout.ultimate.name }}</h4>
@@ -38,12 +46,17 @@
 
 <script setup>
 import { computed } from 'vue'
+import { poolLink } from '../../config/collections.js'
 import { findEntity, imgUrl, t } from '../../store/codex.js'
 import ManaCost from '../shared/ManaCost.vue'
 import ManaIcon from '../shared/ManaIcon.vue'
 import RichText from '../shared/RichText.vue'
 
-const props = defineProps({ loadout: { type: Object, required: true }, color: { type: String, required: true } })
+const props = defineProps({
+  character: { type: Object, required: true },
+  loadout: { type: Object, required: true },
+  color: { type: String, required: true },
+})
 const exhibit = computed(() => findEntity('exhibits', props.loadout.exhibit))
 const deck = computed(() => props.loadout.deck
   .map(({ id, count }) => ({ card: findEntity('cards', id), count }))
@@ -51,10 +64,19 @@ const deck = computed(() => props.loadout.deck
 </script>
 
 <style scoped>
-.loadout { border-top: 1px solid var(--line); padding-top: 12px; display: flex; flex-direction: column; gap: 12px; }
+.loadout {
+  display: flex; flex-direction: column; gap: 14px; padding: 14px 16px; border-radius: var(--radius);
+  background: var(--surface); border: 1px solid var(--line);
+}
+.head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 h3 { display: flex; align-items: center; gap: 6px; margin: 0; font-size: 16px; }
-.difficulty { margin-left: auto; font-size: 12px; font-weight: 400; color: var(--text-dim); }
-h4 { margin: 0 0 4px; font-size: 13px; font-weight: 600; color: var(--accent); }
+.complexity { font-size: 12.5px; color: var(--text-dim); }
+.pool-link {
+  margin-left: auto; padding: 4px 12px; border-radius: 14px; font-size: 13px; text-decoration: none;
+  border: 1px solid var(--accent); color: var(--accent);
+}
+.pool-link:hover { background: var(--selected); }
+h4 { margin: 0 0 5px; font-size: 13px; font-weight: 600; color: var(--accent); }
 .cost { margin: 0 0 4px; font-size: 12px; color: var(--text-dim); }
 .text { font-size: 13.5px; line-height: 1.6; }
 .exhibit { display: inline-flex; align-items: center; gap: 8px; color: inherit; font-size: 14px; margin-bottom: 4px; }

@@ -16,6 +16,7 @@
       >
         <ManaIcon v-if="opt.mana" :symbol="opt.mana" :label="opt.label" size="22px" />
         <img v-else-if="opt.avatar" class="avatar" :src="imgUrl('characters', opt.avatar)" alt="" loading="lazy" />
+        <img v-else-if="opt.icon" class="icon" :src="imgUrl('card-ui', opt.icon)" alt="" loading="lazy" />
         <span v-if="!opt.mana">{{ opt.label }}</span>
       </button>
     </div>
@@ -53,5 +54,7 @@ summary.facet-label { display: list-item; cursor: pointer; }
 .chip.on { border-color: var(--accent); background: var(--selected); box-shadow: inset 0 0 0 1px var(--accent); }
 .chip.icon-only { padding: 3px; width: 32px; height: 32px; border-radius: 50%; justify-content: center; }
 .avatar { width: 20px; height: 20px; border-radius: 50%; object-fit: cover; object-position: top; margin-left: -5px; }
+/* Type icons are pale: the dark disc keeps them visible in the light theme. */
+.icon { width: 20px; height: 20px; padding: 1px; object-fit: contain; margin-left: -5px; border-radius: 50%; background: #1d1e33; }
 .hint { margin: 6px 0 0; font-size: 12px; color: var(--text-dim); line-height: 1.5; }
 </style>

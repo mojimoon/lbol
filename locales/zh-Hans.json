@@ -66,7 +66,6 @@
   "detail.loyalty": "初始支援度 {n}",
   "char.hp": "生命值",
   "char.money": "初始金钱",
-  "char.power": "初始能量",
   "char.mana": "初始法力",
   "char.home": "居所",
   "char.loadout": "{color}色路线",
@@ -74,5 +73,7 @@
   "char.exhibit": "初始展品",
   "char.deck": "初始牌组",
   "char.cost": "消耗 {n} 能量",
-  "char.difficulty": "难度 {n}"
+  "char.difficulty": "复杂程度 {n}",
+  "char.viewPool": "查看卡池",
+  "char.viewPoolHint": "在卡牌页按这条路线的初始法力筛选可用卡池"
 }

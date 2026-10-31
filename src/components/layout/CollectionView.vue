@@ -1,5 +1,6 @@
 <template>
-  <main class="collection" :class="{ 'has-filters': hasFilters, 'has-detail': selected }">
+  <main v-if="route.tab === 'characters'" class="characters"><CharacterView /></main>
+  <main v-else class="collection" :class="{ 'has-filters': hasFilters, 'has-detail': selected }">
     <FilterPanel v-if="hasFilters" class="col-filters" />
     <EntityGrid class="col-grid" />
     <DetailPane v-if="selected" class="col-detail" />
@@ -8,7 +9,8 @@
 
 <script setup>
 import { computed } from 'vue'
-import { collection, selected } from '../../store/codex.js'
+import { collection, route, selected } from '../../store/codex.js'
+import CharacterView from '../entities/CharacterView.vue'
 import DetailPane from './DetailPane.vue'
 import EntityGrid from './EntityGrid.vue'
 import FilterPanel from '../filters/FilterPanel.vue'
@@ -17,6 +19,7 @@ const hasFilters = computed(() => collection.value.facets.length > 0)
 </script>
 
 <style scoped>
+.characters { flex: 1; min-height: 0; overflow-y: auto; }
 .collection {
   --filters-w: 300px; --detail-w: 420px;
   display: grid; grid-template-columns: minmax(0, 1fr); min-height: 0; flex: 1;

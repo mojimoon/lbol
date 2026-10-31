@@ -27,18 +27,18 @@
     <section class="face">
       <header v-if="entity.up">
         <h3>{{ t('detail.before') }}</h3>
-        <ManaCost :symbols="entity.base.cost" size="22px" />
+        <FaceCost :face="entity.base" />
       </header>
       <header v-else>
         <h3>{{ t('detail.notUpgradable') }}</h3>
-        <ManaCost :symbols="entity.base.cost" size="22px" />
+        <FaceCost :face="entity.base" />
       </header>
       <RichText class="desc" :tokens="entity.base.desc" interactive />
     </section>
     <section v-if="entity.up" class="face upgraded">
       <header>
         <h3>{{ t('detail.after') }}</h3>
-        <ManaCost :symbols="entity.up.cost" size="22px" />
+        <FaceCost :face="entity.up" />
       </header>
       <RichText class="desc" :tokens="entity.up.desc" interactive />
     </section>
@@ -57,7 +57,7 @@
 import { computed, ref } from 'vue'
 import { data, imgUrl, ownerName, t, upgraded } from '../../store/codex.js'
 import ColorBar from '../shared/ColorBar.vue'
-import ManaCost from '../shared/ManaCost.vue'
+import FaceCost from '../shared/FaceCost.vue'
 import RelatedList from '../shared/RelatedList.vue'
 import RichText from '../shared/RichText.vue'
 

@@ -26,8 +26,10 @@
     >{{ t('filter.toggle') }}<span v-if="activeFacetCount" class="count">{{ activeFacetCount }}</span></button>
 
     <div id="facets" class="facets" :class="{ open: facetsOpen }">
-      <FacetGroup v-for="facet in collection.facets" :key="`${collection.key}-${facet.key}`" :facet="facet" />
-      <PoolFilter v-if="collection.poolFilter" />
+      <template v-for="facet in collection.facets" :key="`${collection.key}-${facet.key}`">
+        <PoolFilter v-if="facet.key === collection.poolBefore" />
+        <FacetGroup :facet="facet" />
+      </template>
     </div>
   </section>
 </template>

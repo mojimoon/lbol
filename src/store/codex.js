@@ -1,6 +1,6 @@
 // Shared state as a plain module store: components import what they use.
 import { computed, reactive, ref, shallowRef, watch } from 'vue'
-import { COLLECTIONS, applyCollection } from '../config/collections.js'
+import { COLLECTIONS, applyCollection, decodeState, encodeState } from '../config/collections.js'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -73,13 +73,14 @@ watch(isDark, dark => {
 export const upgraded = ref(lsGet('upgraded', false))
 watch(upgraded, v => lsSet('upgraded', v))
 
-// ---- route: #/<tab> or #/<tab>/<id> ----
+// ---- route: #/<tab>[/<id>][?<filters>] ----
 const parseHash = () => {
-  const [, tab, id] = location.hash.split('/').map(decodeURIComponent)
-  return { tab: COLLECTIONS.some(c => c.key === tab) ? tab : COLLECTIONS[0].key, id: id || null }
+  const [path, query = ''] = location.hash.split('?')
+  const [, tab, id] = path.split('/').map(decodeURIComponent)
+  return { tab: COLLECTIONS.some(c => c.key === tab) ? tab : COLLECTIONS[0].key, id: id || null, query }
 }
-export const route = reactive(parseHash())
-window.addEventListener('hashchange', () => Object.assign(route, parseHash()))
+const parsed = parseHash()
+export const route = reactive({ tab: parsed.tab, id: parsed.id })
 
 export function navigate(tab, id = null) {
   location.hash = id ? `#/${tab}/${encodeURIComponent(id)}` : `#/${tab}`
@@ -97,6 +98,25 @@ export const browseState = reactive(Object.fromEntries(COLLECTIONS.map(c => [c.k
   ...c.initialState?.(),
 }])))
 export const currentState = computed(() => browseState[route.tab])
+
+// A URL with filters sets them; one without (a tab or tile link) keeps what the tab already has.
+// Either way the address bar then shows the current filters, so any view can be shared.
+const applyHash = ({ tab, id, query }) => {
+  Object.assign(route, { tab, id })
+  if (query) Object.assign(browseState[tab], decodeState(collection.value, query))
+}
+function syncUrl() {
+  const query = encodeState(collection.value, currentState.value)
+  const path = `#/${route.tab}${route.id ? `/${encodeURIComponent(route.id)}` : ''}`
+  const target = query ? `${path}?${query}` : path
+  if (location.hash !== target) history.replaceState(null, '', target)
+}
+applyHash(parsed)
+window.addEventListener('hashchange', () => {
+  applyHash(parseHash())
+  syncUrl()
+})
+watch(() => encodeState(collection.value, currentState.value), syncUrl)
 
 export const results = computed(() => {
   if (!data.value) return []
