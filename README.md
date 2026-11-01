@@ -1,8 +1,12 @@
-# LBoL Codex
+# Touhou: Lost Branch of Legend Codex
 
 [**lbol.mojimoon.top**](https://lbol.mojimoon.top) is a web-based companion app for the game [Touhou: Lost Branch of Legend](https://store.steampowered.com/app/1140150/Touhou_Lost_Branch_of_Legend/), a fan-made rougelike deckbuilder game based on the Touhou Project series.
 
-[**lbol.mojimoon.top**](https://lbol.mojimoon.top) 是 [东方光耀夜 ~Lost Branch of Legend~](https://store.steampowered.com/app/1140150/Touhou_Lost_Branch_of_Legend/) 的网页图鉴，游戏由 Alioth Studio 开发，是一款东方 Project 同人 rougelike 卡牌游戏。
+**Please give a star if you find this project useful!** ⭐
+
+[**lbol.mojimoon.top**](https://lbol.mojimoon.top) 是 [东方光耀夜 \~Lost Branch of Legend\~](https://store.steampowered.com/app/1140150/Touhou_Lost_Branch_of_Legend/) 的网页图鉴，游戏由 Alioth Studio 开发，是一款东方 Project 同人 rougelike 卡牌游戏。
+
+**如果你觉得这个项目有用，请点个星标支持一下！** ⭐
 
 ## Screenshots
 
