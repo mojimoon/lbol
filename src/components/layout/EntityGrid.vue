@@ -1,5 +1,5 @@
 <template>
-  <section class="entity-grid-wrap">
+  <section ref="wrap" class="entity-grid-wrap">
     <p v-if="results.length === 0" class="empty">{{ t('filter.none') }}</p>
     <ul v-else ref="grid" class="entity-grid" :class="collection.gridClass" :style="view.style">
       <li v-for="row in view.items" :key="row.id">
@@ -17,14 +17,67 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { useGridWindow } from '../../composables/gridWindow.js'
 import { collection, results, route, t } from '../../store/codex.js'
 import { ENTITY_COMPONENTS } from '../entities/registry.js'
 
 const tile = computed(() => ENTITY_COMPONENTS[route.tab].tile)
 const grid = ref(null)
-const view = useGridWindow(grid, results, computed(() => collection.value.tileAspect ?? null))
+const wrap = ref(null)
+const { view, measure, tileBox } = useGridWindow(grid, results, computed(() => collection.value.tileAspect ?? null))
+
+const indexOf = id => results.value.findIndex(row => row.id === id)
+const MARGIN = 12
+
+/**
+ * Opening or closing the details changes the column count, which moves every tile. Keep the card
+ * where it was on screen, or scroll it into view if it was not. With no card to follow (closing
+ * after scrolling away), the first tile on screen holds the place instead.
+ */
+function holdPlace(id, previous) {
+  const el = wrap.value
+  // Phones: the document scrolls, the details are a sheet, and the columns never change.
+  if (!el || !grid.value || getComputedStyle(el).overflowY === 'visible') return null
+  const bounds = el.getBoundingClientRect()
+  const onScreen = box => box && box.top < bounds.bottom && box.top + box.height > bounds.top
+  const firstOnScreen = () => {
+    const i = [...grid.value.children].findIndex(li => li.getBoundingClientRect().bottom > bounds.top)
+    return i < 0 ? -1 : indexOf(view.value.items[i].id)
+  }
+  let index = indexOf(id)
+  if (index < 0) {
+    index = indexOf(previous)
+    if (!onScreen(tileBox(index))) index = firstOnScreen()
+  }
+  if (index < 0) return null
+  const before = tileBox(index)
+  return { index, bounds, top: onScreen(before) ? before.top : null }
+}
+
+async function restorePlace(place) {
+  if (!place) return
+  // The new columns first need their list height, or the scroll below hits the old one's end.
+  measure()
+  await nextTick()
+  const after = tileBox(place.index)
+  if (!after) return
+  const { bounds } = place
+  const target = Math.max(bounds.top + MARGIN, Math.min(place.top ?? after.top, bounds.bottom - MARGIN - after.height))
+  wrap.value.scrollBy(0, after.top - target)
+  measure()
+}
+
+// Read the old layout the moment the route changes: a parent's re-render would replace it before
+// any queued watcher here runs.
+let place = null
+watch(() => route.id, (id, previous) => { place = holdPlace(id, previous) }, { flush: 'sync' })
+watch(() => route.id, () => restorePlace(place), { flush: 'post' })
+// Arriving by a link to a card.
+onMounted(async () => {
+  await nextTick()
+  if (route.id) restorePlace(holdPlace(route.id, null))
+})
 </script>
 
 <style scoped>

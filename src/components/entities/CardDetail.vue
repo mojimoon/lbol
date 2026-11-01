@@ -50,7 +50,7 @@
       :title="t('roll.buttonHint')" @click="jumpToRoll(entity.id)"
     >{{ t('roll.button') }}</button>
 
-    <RichText v-if="entity.detail.length" class="note" :tokens="entity.detail" interactive />
+    <RichText v-if="entity.detail.length" class="note-box" :tokens="entity.detail" interactive />
     <RichText v-if="entity.flavor.length" class="flavor" :tokens="entity.flavor" />
 
     <RelatedList :cards="entity.relCards" :effects="entity.relEffects" :keywords="keywords" />
@@ -102,6 +102,5 @@ h2 { margin: 0; font-size: 21px; }
   color: var(--accent); font-size: 14px; cursor: pointer;
 }
 .roll-button:hover { background: var(--selected); }
-.note { font-size: 13px; line-height: 1.6; color: var(--text-dim); padding: 8px 10px; background: var(--surface-2); border-radius: 8px; }
 .flavor { font-size: 13px; line-height: 1.6; font-style: italic; color: var(--text-dim); }
 </style>

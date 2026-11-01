@@ -44,11 +44,12 @@ export function canAfford(mana, cost) {
 /**
  * Mirrors GameRunController's card roll with OwnerWeightTable.Valid: card rewards and shops.
  * pool: { mana: {W, U, B, R, G, C, P}, owners: [character ids], blank: holds the Blank Card exhibit }
+ * Tools are left out: only shops sell them, and any character can buy them, so they tell nothing here.
  */
 const costAmount = cost => ['Any', ...SINGLE_COLORS, 'P', 'Hybrid'].reduce((sum, k) => sum + (cost[k] ?? 0), 0)
 
 export function inCardPool(card, pool) {
-  if (!card.pooled) return false
+  if (!card.pooled || card.type === 'Tool') return false
   if (card.owner && !pool.owners.includes(card.owner)) return false
   const cost = card.poolCost
   // Above 5 total, the generic part does not limit the pool.

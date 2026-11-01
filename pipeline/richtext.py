@@ -176,7 +176,12 @@ def tokenize(template, lookup=lambda key: None, resolve_term=lambda name: None, 
             out.append('|')  # "||" is an escaped pipe
         else:
             inner = part[2:] if len(part) > 2 and part[1] == ':' else part  # "e:Name": colour code
-            name = _plain(_text_tokens(inner, lookup, changed_keys))
+            parts = _text_tokens(inner, lookup, changed_keys)
+            # "|d:(<sprite>, etc.)|": a tinted stretch with icons, not a term. A term is only text.
+            if any(isinstance(tok, dict) and ('m' in tok or 'f' in tok) for tok in parts):
+                out += parts
+                continue
+            name = _plain(parts)
             ref = resolve_term(name)
             out.append({'t': name, 'r': ref} if ref else {'t': name})
     return _merge_strings(out)
@@ -202,6 +207,7 @@ if __name__ == '__main__':
                    {'m': '1'}, {'m': 'R'}, {'m': 'R'}, {'x': 'Missing'}, {'m': 'pt_Gold'},
                    {'f': 'Active', 'c': 3}, '它们'], got
     assert tokenize('a||b') == ['a|b']
+    assert tokenize('|d:(<sprite="ManaSprite" name="1">, etc.)|') == ['(', {'m': '1'}, ', etc.)']
     many = "{Value1:plural one='% |Unik|' few='% |Uniki|' many='% |Uników|'}"
     assert tokenize(many, {'Value1': 3}.get, lang='pl') == [{'n': 3}, ' ', {'t': 'Uniki'}]
     assert tokenize(many, {'Value1': 5}.get, lang='pl') == [{'n': 5}, ' ', {'t': 'Uników'}]

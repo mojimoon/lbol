@@ -1,8 +1,9 @@
 <template>
   <component :is="facet.collapsible ? 'details' : 'div'" class="facet" :open="facet.collapsible ? startOpen : undefined">
     <component :is="facet.collapsible ? 'summary' : 'div'" class="facet-label">
-      {{ t(facet.label) }}<HintIcon v-if="facet.hint" :text="t(facet.hint)" /><span v-if="activeCount" class="count">{{ activeCount }}</span>
+      {{ t(facet.label) }}<HintIcon v-if="facet.hint" v-model:open="hintOpen" :label="t(facet.label)" /><span v-if="activeCount" class="count">{{ activeCount }}</span>
     </component>
+    <RichText v-if="hintOpen" class="note-box" :tokens="[t(facet.hint)]" />
     <div class="chips" role="group" :aria-label="t(facet.label)">
       <button
         v-for="opt in options"
@@ -24,15 +25,17 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { currentState, data, imgUrl, t, toggleFacet } from '../../store/codex.js'
 import HintIcon from '../shared/HintIcon.vue'
 import ManaIcon from '../shared/ManaIcon.vue'
+import RichText from '../shared/RichText.vue'
 
 const props = defineProps({ facet: { type: Object, required: true } })
 const options = computed(() => props.facet.options(data.value, t))
 const active = computed(() => currentState.value.facets[props.facet.key])
 const activeCount = computed(() => active.value.length)
+const hintOpen = ref(false)
 // Only the initial state: clearing the last chip must not collapse the group under the cursor.
 const startOpen = activeCount.value > 0
 </script>
@@ -40,6 +43,7 @@ const startOpen = activeCount.value > 0
 <style scoped>
 .facet-label { font-size: 12.5px; line-height: 1.3; color: var(--text-dim); margin-bottom: 3px; display: block; }
 summary.facet-label { display: list-item; cursor: pointer; }
+.facet .note-box { margin-bottom: 5px; }
 .count {
   display: inline-block; margin-left: 6px; padding: 0 6px; border-radius: 8px; font-size: 11px;
   background: var(--accent); color: var(--on-accent);

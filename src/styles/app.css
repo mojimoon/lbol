@@ -20,6 +20,8 @@ a { color: var(--accent); }
 .tag.link:hover { background: var(--hover); }
 .tag.muted, .muted-line { color: var(--text-dim); }
 .muted-line { margin: 0; font-size: 13px; }
+/* Extra explanations: a card's detail text, the filter hints. */
+.note-box { font-size: 13px; line-height: 1.6; color: var(--text-dim); padding: 8px 10px; background: var(--surface-2); border-radius: 8px; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 
 .sheet-backdrop, .sheet-handle { display: none; }

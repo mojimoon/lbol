@@ -20,14 +20,27 @@ export function visibleRows(top, viewport, rowHeight, totalRows) {
 export function useGridWindow(grid, rows, aspect) {
   const metrics = shallowRef(null)
 
-  function measure() {
-    if (!grid.value || !unref(aspect)) return
+  function currentLayout() {
     const style = getComputedStyle(grid.value)
     const tracks = style.gridTemplateColumns.split(' ')
-    const rowHeight = parseFloat(tracks[0]) * unref(aspect) + (parseFloat(style.rowGap) || 0)
+    const gap = parseFloat(style.rowGap) || 0
+    const rowHeight = parseFloat(tracks[0]) * unref(aspect) + gap
+    return { columns: tracks.length, rowHeight, gap, top: grid.value.getBoundingClientRect().top }
+  }
+
+  /** Where a tile of the full list is on screen, whether it is rendered right now or not. */
+  function tileBox(index) {
+    if (!grid.value || index < 0) return null
+    if (!unref(aspect)) return grid.value.children[index]?.getBoundingClientRect() ?? null
+    const { columns, rowHeight, gap, top } = currentLayout()
+    return { top: top + Math.floor(index / columns) * rowHeight, height: rowHeight - gap }
+  }
+
+  function measure() {
+    if (!grid.value || !unref(aspect)) return
+    const { columns, rowHeight, top } = currentLayout()
     if (!rowHeight) return
-    const top = grid.value.getBoundingClientRect().top
-    const next = { columns: tracks.length, rowHeight, top, viewport: innerHeight }
+    const next = { columns, rowHeight, top, viewport: innerHeight }
     // Scrolling within the same rows should not re-render the list.
     const old = metrics.value
     if (old && old.columns === next.columns && old.rowHeight === next.rowHeight && old.viewport === next.viewport
@@ -74,5 +87,5 @@ export function useGridWindow(grid, rows, aspect) {
     measure()
   }, { flush: 'post' })
 
-  return view
+  return { view, measure, tileBox }
 }

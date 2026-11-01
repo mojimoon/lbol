@@ -26,6 +26,7 @@ assert.ok(!inCardPool(poolCard({ B: 3 }, ['B']), { ...pool, blank: true }), 'but
 assert.ok(inCardPool(poolCard({ Any: 3, W: 3 }, ['W']), pool), 'total 6: generic part ignored (WWW via P)')
 assert.ok(!inCardPool(poolCard({ Any: 4, W: 1 }, ['W']), { ...pool, mana: { ...base, W: 1, R: 0, B: 0, C: 0, P: 0 } }), 'total 5: generic part still counts')
 assert.ok(!inCardPool(poolCard({}, [], { pooled: false }), pool), 'cards outside the random pool are excluded')
+assert.ok(!inCardPool(poolCard({}, [], { type: 'Tool' }), pool) && inCardPool(poolCard({}, [], { type: 'Skill' }), pool), 'tools are shop-only')
 assert.ok(!inCardPool(poolCard({}, [], { owner: 'Cirno' }), pool) && inCardPool(poolCard({}, [], { owner: 'Marisa' }), pool))
 assert.ok(inCardPool(poolCard({ C: 1 }, ['C']), pool) && !inCardPool(poolCard({ C: 2 }, ['C']), { ...pool, mana: { ...base, C: 0, P: 2 } }), 'colourless needs C base mana')
 // Hybrid: cost WR (index 2) x2 is payable by W + R, or by P when short.

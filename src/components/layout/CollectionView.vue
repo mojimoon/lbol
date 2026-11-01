@@ -22,7 +22,7 @@ const hasFilters = computed(() => collection.value.facets.length > 0)
 <style scoped>
 .characters { flex: 1; min-height: 0; overflow-y: auto; }
 .collection {
-  --filters-w: 300px; --detail-w: 420px;
+  --filters-w: 316px; --detail-w: 404px;
   display: grid; grid-template-columns: minmax(0, 1fr); min-height: 0; flex: 1;
 }
 .collection.has-filters { grid-template-columns: var(--filters-w) minmax(0, 1fr); }
@@ -34,7 +34,7 @@ const hasFilters = computed(() => collection.value.facets.length > 0)
 .col-detail { border-left: 1px solid var(--line); background: var(--surface); }
 
 @media (max-width: 1280px) {
-  .collection { --filters-w: 260px; --detail-w: 380px; }
+  .collection { --filters-w: 276px; --detail-w: 364px; }
 }
 /* Too narrow for three columns: detail becomes an overlay. */
 @media (min-width: 721px) and (max-width: 1080px) {

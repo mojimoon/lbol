@@ -557,7 +557,8 @@ def load_ui(lang, loc):
     if philosophy:
         ui['mana.P'] = philosophy
     names = {'{power}': loc._term_name(loc.keyword.get('Power', {}).get('Name', '')),
-             '{loyalty}': loc._term_name(loc.keyword.get('Loyalty', {}).get('Name', ''))}
+             '{loyalty}': loc._term_name(loc.keyword.get('Loyalty', {}).get('Name', '')),
+             '{philosophy}': philosophy or ''}
     for key, text in ui.items():
         for placeholder, name in names.items():
             text = text.replace(placeholder, name)
@@ -565,15 +566,23 @@ def load_ui(lang, loc):
     return ui
 
 
+def pool_rules(text, loc):
+    """The reward pool explanation from locales/: [WWB] stands for that run of mana icons."""
+    icons = re.sub(r'\[([WUBRGCPX]+)\]', lambda m: ''.join(f'<sprite="ManaSprite" name="{c}">' for c in m.group(1)), text)
+    return loc.tokens(icons, lambda _: None)
+
+
 def build_lang(lang, t, stems, build_id):
     loc = Localizer(lang, t)
+    ui = load_ui(lang, loc)
     cards = visible_cards(t['cards'], stems['card_keys'])
     ultimates = {u['Id']: build_ultimate(u, loc, stems['icons']) for u in t['ultimates']}
     players = sorted((p for p in t['players'] if p['IsSelectable']), key=lambda p: p['Order'])
     data = {
         'lang': lang,
         'buildId': build_id,
-        'ui': load_ui(lang, loc),
+        'ui': ui,
+        'poolRules': pool_rules(ui.pop('pool.rules'), loc),
         'enums': {**{s: loc.common.get(s, {}) for s in ENUM_SECTIONS},
                   'ExhibitType': loc.common.get('Museum', {}).get('ExhibitType', {})},
         'terms': build_terms(t, loc, stems['icons']),

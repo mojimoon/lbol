@@ -1,6 +1,6 @@
 <template>
   <div v-if="tip && term" ref="el" class="term-tip" role="tooltip" :style="style">
-    <div v-if="term.name" class="head">
+    <div class="head">
       <img v-if="term.icon" :src="imgUrl('icons', term.icon)" alt="" />
       <strong :class="{ negative: term.negative }">{{ term.name }}</strong>
     </div>
@@ -15,7 +15,7 @@ import RichText from './RichText.vue'
 
 const el = ref(null)
 const style = ref({})
-const term = computed(() => tip.value?.content ?? (tip.value ? resolveTerm(tip.value.ref) : null))
+const term = computed(() => tip.value ? resolveTerm(tip.value.ref) : null)
 
 // Measure after render, then keep the tip inside the viewport.
 watch(tip, async value => {

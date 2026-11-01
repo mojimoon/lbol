@@ -1,6 +1,7 @@
 <template>
   <details class="pool-filter" :open="startOpen">
-    <summary>{{ t('pool.title') }}<HintIcon :text="t('pool.hint')" /><span v-if="pool.enabled" class="on-mark" aria-hidden="true"></span></summary>
+    <summary>{{ t('pool.title') }}<HintIcon v-model:open="rulesOpen" :label="t('pool.title')" /><span v-if="pool.enabled" class="on-mark" aria-hidden="true"></span></summary>
+    <RichText v-if="rulesOpen" class="note-box" :tokens="data.poolRules" />
 
     <label class="check">
       <input v-model="pool.enabled" type="checkbox" />
@@ -39,22 +40,26 @@
     <label v-if="blankExhibit" class="check">
       <input v-model="pool.blank" type="checkbox" @change="pool.enabled = true" />
       <img class="exhibit-icon" :src="imgUrl('icons', blankExhibit.img)" alt="" />
-      {{ blankExhibit.name }}
+      {{ blankExhibit.name }}<HintIcon v-model:open="blankOpen" :label="blankExhibit.name" />
     </label>
+    <RichText v-if="blankExhibit && blankOpen" class="note-box" :tokens="[t('pool.blankHint')]" />
   </details>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { currentState, data, findEntity, imgUrl, t } from '../../store/codex.js'
 import HintIcon from '../shared/HintIcon.vue'
 import ManaIcon from '../shared/ManaIcon.vue'
+import RichText from '../shared/RichText.vue'
 
 const COLORS = ['W', 'U', 'B', 'R', 'G', 'C', 'P']
 const pool = computed(() => currentState.value.pool)
 const blankExhibit = computed(() => findEntity('exhibits', 'KongbaiKapai'))
 // Only the initial state: unticking the filter must not collapse the panel under the cursor.
 const startOpen = pool.value.enabled
+const rulesOpen = ref(false)
+const blankOpen = ref(false)
 
 function setMana(color, raw) {
   const value = Number.parseInt(raw, 10)
@@ -73,9 +78,9 @@ function toggleOwner(id) {
 <style scoped>
 summary { font-size: 12.5px; line-height: 1.3; color: var(--text-dim); cursor: pointer; }
 .pool-filter[open] summary { margin-bottom: 5px; }
+.pool-filter .note-box { margin-bottom: 6px; }
 .on-mark { display: inline-block; width: 8px; height: 8px; margin-left: 6px; border-radius: 50%; background: var(--accent); }
 .check { display: flex; align-items: center; gap: 6px; font-size: 13px; line-height: 1.3; cursor: pointer; margin-bottom: 6px; }
-.check:last-child { margin-bottom: 0; }
 .check input { accent-color: var(--accent); width: 16px; height: 16px; flex: none; }
 .group { margin-bottom: 6px; }
 .group-label { font-size: 12px; line-height: 1.3; color: var(--text-dim); margin-bottom: 3px; }
