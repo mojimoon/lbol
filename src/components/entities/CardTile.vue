@@ -55,7 +55,7 @@ useFitText(typeEl, () => data.value.enums.CardType[props.entity.type], { max: 11
   --keyword: #f4c86c; --up: #72e094;
   transition: transform .12s;
 }
-a:hover .card-tile { transform: translateY(-3px); }
+@media (hover: hover) { a:hover .card-tile { transform: translateY(-3px); } }
 .art { position: absolute; left: 7.17%; top: 9.26%; width: 85.66%; height: 42.3%; object-fit: fill; }
 .frame { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; pointer-events: none; }
 /* Second colour of a two-colour card covers the right part of the frame. */

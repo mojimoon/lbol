@@ -41,6 +41,7 @@ aa/StandaloneWindows64/*.bundle, resources.assets 精灵图        → pipeline/
 - 可用卡池照 `GameRunController` 的抽卡逻辑和 `ManaGroup.CanAfford`，见 `collections.js` 的 `inCardPool`。
 - 展品有两种分类，不要混用：**稀有度** `rarity`（`ExhibitConfig.Rarity`：普通、罕见、稀有、光耀、秘宝）和**展品类型** `exhibitType`（`Index / 100`，文案取 `Museum.ExhibitType.T1`–`T8`：在前五类之外还有商店、事件&其它、最终幕）。
 - 样式：颜色只用 `theme.css` 的变量，组件内用 scoped 样式。
+- 手机（≤720px）：整页滚动，详情和筛选都是底部弹窗（`app.css` 的 `.sheet-open`、`.sheet-backdrop`，`SheetHandle.vue` 下拉关闭）。标签栏和搜索栏吸顶，`FilterPanel` 的 `top` 要等于 `AppHeader` 吸顶部分的高度（45px）。
 
 ## 本地化
 

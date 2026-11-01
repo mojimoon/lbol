@@ -90,8 +90,16 @@ summary { font-size: 12.5px; line-height: 1.3; color: var(--text-dim); cursor: p
   display: inline-flex; align-items: center; gap: 4px; min-height: 25px; padding: 1px 8px; font-size: 13px;
   border: 1px solid var(--line); border-radius: 15px; background: transparent; color: var(--text); cursor: pointer;
 }
-.chip:hover { background: var(--hover); }
+@media (hover: hover) { .chip:hover { background: var(--hover); } }
 .chip.on { border-color: var(--accent); background: var(--selected); box-shadow: inset 0 0 0 1px var(--accent); }
 .avatar { width: 20px; height: 20px; border-radius: 50%; object-fit: cover; object-position: top; margin-left: -5px; }
 .exhibit-icon { width: 24px; height: 24px; object-fit: contain; }
+@media (pointer: coarse) {
+  summary { font-size: 13.5px; }
+  .check { min-height: 32px; font-size: 14px; }
+  .mana-grid { gap: 6px; }
+  .mana-input input { padding: 5px; }
+  .chips { gap: 6px; }
+  .chip { min-height: 34px; padding: 2px 11px; font-size: 14px; }
+}
 </style>

@@ -80,8 +80,11 @@ dd { margin: 2px 0 0; font-size: 16px; font-weight: 600; font-variant-numeric: t
 @media (max-width: 720px) {
   .character-view { padding: 12px 12px 24px; }
   .body { grid-template-columns: minmax(0, 1fr); }
-  .tabs { grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 6px; }
-  .tab { padding: 6px 8px; gap: 6px; flex-wrap: wrap; }
-  .avatar { width: 32px; height: 32px; }
+  /* All five in one row: avatar over name over colours. */
+  .tabs { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; margin-bottom: 12px; }
+  .tab { flex-direction: column; gap: 3px; padding: 6px 2px; }
+  .avatar { width: 36px; height: 36px; }
+  .tab-name { flex: none; max-width: 100%; font-size: 12px; text-align: center; overflow-wrap: anywhere; }
+  .tab-colors :deep(img) { width: 16px; height: 16px; }
 }
 </style>

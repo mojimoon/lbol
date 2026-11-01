@@ -126,6 +126,8 @@ window.addEventListener('hashchange', () => {
 })
 watch(() => encodeState(collection.value, currentState.value), syncUrl)
 syncUrl()
+// Phones scroll the document: new results or another tab start from the top. Desktop never scrolls it.
+watch(() => [route.tab, encodeState(collection.value, currentState.value)].join(), () => window.scrollTo(0, 0))
 
 export const results = computed(() => {
   if (!data.value) return []
@@ -145,12 +147,16 @@ export const rollReturn = ref(null)
 
 export function jumpToRoll(cardId) {
   rollReturn.value = { tab: route.tab, id: route.id, query: encodeState(collection.value, currentState.value) }
-  location.hash = `#/cards/${encodeURIComponent(cardId)}?roll=${encodeURIComponent(cardId)}`
+  // On a phone the card's sheet would cover the results this button is meant to show.
+  const open = matchMedia('(max-width: 720px)').matches ? '' : `/${encodeURIComponent(cardId)}`
+  location.hash = `#/cards${open}?roll=${encodeURIComponent(cardId)}`
 }
 
 export function returnFromRoll() {
   const { tab, id, query } = rollReturn.value
   rollReturn.value = null
+  // Route first: the state change below syncs the URL before the hash change event arrives.
+  Object.assign(route, { tab, id })
   Object.assign(browseState[tab], decodeState(COLLECTIONS.find(c => c.key === tab), query))
   navigate(tab, id)
 }
@@ -203,6 +209,9 @@ export function showHint(text, el) {
 export const hideTip = () => { tip.value = null }
 // The hovered term may disappear on navigation without ever firing mouseleave.
 watch(() => [route.tab, route.id], hideTip)
+// The tip is fixed in place, and touch screens have no mouseleave to dismiss it.
+window.addEventListener('scroll', hideTip, { capture: true, passive: true })
+window.addEventListener('pointerdown', e => { if (!e.target.closest('.term-button, .hint-icon')) hideTip() })
 
 /** Resolve a term ref (k:Block, s:Weak, c:Id, e:Id) to tooltip content. */
 export function resolveTerm(termRef) {

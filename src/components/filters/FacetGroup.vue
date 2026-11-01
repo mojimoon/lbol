@@ -50,9 +50,15 @@ summary.facet-label { display: list-item; cursor: pointer; }
   border: 1px solid var(--line); border-radius: 15px; background: transparent; color: var(--text);
   font-size: 13px; cursor: pointer;
 }
-.chip:hover { background: var(--hover); }
+@media (hover: hover) { .chip:hover { background: var(--hover); } }
 .chip.on { border-color: var(--accent); background: var(--selected); box-shadow: inset 0 0 0 1px var(--accent); }
 .chip.icon-only { padding: 1px; width: 28px; height: 28px; border-radius: 50%; justify-content: center; }
+@media (pointer: coarse) {
+  .facet-label { font-size: 13.5px; margin-bottom: 5px; }
+  .chips { gap: 6px; }
+  .chip { min-height: 34px; padding: 2px 11px; font-size: 14px; }
+  .chip.icon-only { width: 36px; height: 36px; }
+}
 .avatar { width: 20px; height: 20px; border-radius: 50%; object-fit: cover; object-position: top; margin-left: -5px; }
 /* Type icons are pale: the dark disc keeps them visible in the light theme. */
 .icon { width: 20px; height: 20px; padding: 1px; object-fit: contain; margin-left: -5px; border-radius: 50%; background: #1d1e33; }

@@ -15,11 +15,14 @@ import { hideTip, navigate, resolveTerm, showTip } from '../../store/codex.js'
 
 const props = defineProps({ text: { type: String, required: true }, termRef: { type: String, required: true } })
 const show = e => showTip(props.termRef, e.currentTarget)
-const open = () => {
+const open = e => {
   const term = resolveTerm(props.termRef)
   if (term?.tab) {
     hideTip()
     navigate(term.tab, term.id)
+  } else {
+    // A second tap: scrolling hid the tip, and a finger fires no new mouseenter or focus.
+    show(e)
   }
 }
 </script>

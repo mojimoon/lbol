@@ -3,13 +3,14 @@
   <main v-else class="collection" :class="{ 'has-filters': hasFilters, 'has-detail': selected }">
     <FilterPanel v-if="hasFilters" class="col-filters" />
     <EntityGrid class="col-grid" />
-    <DetailPane v-if="selected" class="col-detail" />
+    <div v-if="selected" class="sheet-backdrop" @click="navigate(route.tab)"></div>
+    <DetailPane v-if="selected" class="col-detail sheet-open" />
   </main>
 </template>
 
 <script setup>
 import { computed } from 'vue'
-import { collection, route, selected } from '../../store/codex.js'
+import { collection, navigate, route, selected } from '../../store/codex.js'
 import CharacterView from '../entities/CharacterView.vue'
 import DetailPane from './DetailPane.vue'
 import EntityGrid from './EntityGrid.vue'
@@ -36,16 +37,19 @@ const hasFilters = computed(() => collection.value.facets.length > 0)
   .collection { --filters-w: 260px; --detail-w: 380px; }
 }
 /* Too narrow for three columns: detail becomes an overlay. */
-@media (max-width: 1080px) {
+@media (min-width: 721px) and (max-width: 1080px) {
   .collection.has-detail { grid-template-columns: minmax(0, 1fr); }
   .collection.has-filters.has-detail { grid-template-columns: var(--filters-w) minmax(0, 1fr); }
   .col-detail {
-    position: fixed; inset: 0 0 0 auto; width: min(420px, 100vw); z-index: 20; box-shadow: var(--shadow);
+    position: fixed; inset: 0 0 0 auto; width: 420px; z-index: 20; box-shadow: var(--shadow);
   }
 }
+/* Phones: the page scrolls as a whole and the details rise from the bottom (.sheet-open in app.css). */
 @media (max-width: 720px) {
-  .collection, .collection.has-filters, .collection.has-filters.has-detail { display: block; overflow-y: auto; }
-  .col-filters, .col-grid { overflow: visible; }
-  .col-filters { border-right: 0; border-bottom: 1px solid var(--line); }
+  .characters { overflow: visible; }
+  .collection, .collection.has-filters, .collection.has-filters.has-detail { display: block; }
+  .col-grid { overflow: visible; }
+  .col-filters { display: contents; }
+  .col-detail { position: fixed; border-left: 0; }
 }
 </style>

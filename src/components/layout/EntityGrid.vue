@@ -43,6 +43,6 @@ const tile = computed(() => ENTITY_COMPONENTS[route.tab].tile)
 .tile-link.selected { outline: 2px solid var(--accent); }
 @media (max-width: 480px) {
   .entity-grid-wrap { padding: 12px; }
-  .grid-cards { grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 8px; }
+  .grid-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
 }
 </style>
