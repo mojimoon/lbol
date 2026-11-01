@@ -56,6 +56,7 @@
   "link.huiji": "Huiji Wiki",
   "app.gameBuild": "ゲームバージョン {build}",
   "filter.cardPool": "カードプール",
+  "filter.mechanic": "メカニクス",
   "cardPool.in": "プール内",
   "cardPool.out": "プール外"
 }

@@ -36,6 +36,7 @@ aa/StandaloneWindows64/*.bundle, resources.assets 精灵图        → pipeline/
 - `src/config/collections.js`：每个标签页的筛选项和排序，纯函数，由 `collections.test.js` 用 node 测试。颜色筛选必须与 `MuseumPanel.FilterCardByMana` 一致。
 - `src/store/codex.js`：共享状态（模块级 ref，不用 Pinia），含 hash 路由 `#/<tab>/<id>?<筛选>`。筛选和 URL 的互转是 `collections.js` 的 `encodeState` / `decodeState`：带筛选参数的链接会覆盖当前筛选，不带的保留。
 - `src/components/`：`layout/` 页面骨架，`filters/` 筛选控件，`entities/` 卡牌、展品的 Tile 和 Detail（在 `registry.js` 注册）和独立的角色页 `CharacterView`，`shared/` 通用组件。
+- 卡牌列表是虚拟滚动（`composables/gridWindow.js`），只渲染屏幕上下各一屏的行，因此要求所有格子同样形状（`tileAspect`）。展品高度不一，全部挂载。
 - 新增标签页：`collections.js` 加配置 → `registry.js` 注册组件 → `locales/` 加 `tab.<key>`。
 - 卡牌显示照 `CardWidget`：卡框是 `Sprite/Card/Bg/` 贴图拉伸到 530×740，卡图一律拉伸到 454×313（`object-fit: fill`，贴图本身的比例不代表显示比例）。
 - 可用卡池照 `GameRunController` 的抽卡逻辑和 `ManaGroup.CanAfford`，见 `collections.js` 的 `inCardPool`。

@@ -56,6 +56,7 @@
   "link.huiji": "灰機",
   "app.gameBuild": "遊戲版本 {build}",
   "filter.cardPool": "卡池",
+  "filter.mechanic": "機制",
   "cardPool.in": "卡池內",
   "cardPool.out": "卡池外"
 }

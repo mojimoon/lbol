@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict'
+import { visibleRows } from '../composables/gridWindow.js'
 import { COLLECTIONS, applyCollection, canAfford, costBucket, decodeState, encodeState, inCardPool, inRoll, matchesColors, poolLink } from './collections.js'
 
 // The in-game colour rules, per MuseumPanel.FilterCardByMana.
@@ -66,6 +67,19 @@ const pooledRows = [card('in', 1, { pooled: true }), card('out', 2, { pooled: fa
 const byPool = value => applyCollection(cards, pooledRows, { search: '', sort: 'default', descending: false, facets: { cardPool: [value] }, ...cards.initialState() }, {}).map(r => r.id)
 assert.deepEqual(byPool('in'), ['in'])
 assert.deepEqual(byPool('out'), ['out'])
+
+const effectRows = [card('e1', 1, { base: { total: 1, isX: false, keywords: [], effects: ['Weak'] }, up: { total: 1, isX: false, keywords: [], effects: ['Weak', 'Poison'] } }), card('e2', 2, { base: { total: 1, isX: false, keywords: [], effects: [] } })]
+const byEffect = (value, upgraded) => applyCollection(cards, effectRows, { search: '', sort: 'default', descending: false, facets: { mechanic: [value] }, ...cards.initialState() }, { upgraded }).map(r => r.id)
+assert.deepEqual(byEffect('Weak'), ['e1'])
+assert.deepEqual(byEffect('Poison', false), [], 'effects follow the base face')
+assert.deepEqual(byEffect('Poison', true), ['e1'], 'and the upgraded face when toggled')
+assert.equal(cards.facets.findIndex(f => f.key === 'mechanic'), cards.facets.findIndex(f => f.key === 'keyword') + 1, 'mechanic sits under keyword')
+
+// Virtual scrolling: one screen of rows either way, within the list
+assert.deepEqual(visibleRows(0, 900, 300, 100), [0, 6], 'at the top')
+assert.deepEqual(visibleRows(-3000, 900, 300, 100), [7, 16], 'mid list')
+assert.deepEqual(visibleRows(-3000, 900, 300, 5), [5, 5], 'scrolled past a list that just shrank')
+assert.deepEqual(visibleRows(200, 900, 300, 3), [0, 3], 'short list below the page top')
 
 // Random ranges
 const rollCard = over => ({ id: 'x', pooled: true, findInBattle: true, gadget: false, type: 'Ability', rarity: 'Rare', owner: null, colors: [], poolCost: { Any: 2 }, ...over })

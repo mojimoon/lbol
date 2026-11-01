@@ -99,6 +99,7 @@ export const COLLECTIONS = [
   {
     key: 'cards',
     gridClass: 'grid-cards',
+    tileAspect: 740 / 530,  // every tile this shape: EntityGrid renders only those near the screen
     upgradeToggle: true,
     poolBefore: 'keyword',  // PoolFilter sits just above this facet
     initialState: () => ({ roll: null, pool: { enabled: false, mana: { W: 0, U: 0, B: 0, R: 0, G: 0, C: 0, P: 0 }, owners: [], blank: false } }),
@@ -146,6 +147,16 @@ export const COLLECTIONS = [
             .sort((a, b) => a.label.localeCompare(b.label, data.lang))
         },
         values: (c, ctx) => cardFace(c, ctx.upgraded).keywords,
+      },
+      {
+        // Status effects: the same list as the game's card tooltips, plus any named in the text.
+        key: 'mechanic', label: 'filter.mechanic', collapsible: true,
+        options: data => {
+          const used = new Set(data.cards.filter(c => !c.hidden).flatMap(c => [...c.base.effects, ...(c.up?.effects ?? [])]))
+          return [...used].filter(e => data.terms[`s:${e}`]).map(e => ({ value: e, label: data.terms[`s:${e}`].name }))
+            .sort((a, b) => a.label.localeCompare(b.label, data.lang))
+        },
+        values: (c, ctx) => cardFace(c, ctx.upgraded).effects,
       },
       {
         key: 'illustrator', label: 'filter.illustrator', collapsible: true,

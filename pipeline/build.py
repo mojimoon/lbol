@@ -302,6 +302,9 @@ def build_card_face(card, upgraded, text, loc, base_values=None):
     # Filterable keywords: the card's own, those it references, and any named in its text.
     relative = card['UpgradedRelativeKeyword'] if upgraded else card['RelativeKeyword']
     mentioned = [tok['r'][2:] for tok in tokens if isinstance(tok, dict) and tok.get('r', '').startswith('k:')]
+    # Filterable status effects: those Card.EnumerateDisplayWords shows for this face, and any named in its text.
+    effects = card['UpgradedRelativeEffects'] if upgraded else card['RelativeEffects']
+    named_effects = [tok['r'][2:] for tok in tokens if isinstance(tok, dict) and tok.get('r', '').startswith('s:')]
     return {
         'cost': symbols,
         'total': sum(v for k, v in cost.items() if k != 'HybridColor'),
@@ -310,6 +313,8 @@ def build_card_face(card, upgraded, text, loc, base_values=None):
         'loyalty': get('Loyalty'),
         'desc': tokens,
         'keywords': loc.canon_keywords(keyword_names(bits | relative) + mentioned),
+        # TempElectric and Electric read the same in every language: one chip in the filter.
+        'effects': sorted({'Electric' if e == 'TempElectric' else e for e in {*effects, *named_effects}}),
     }
 
 

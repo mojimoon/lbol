@@ -91,6 +91,7 @@
   "link.steam": "Steam",
   "app.gameBuild": "Game build {build}",
   "filter.cardPool": "Card pool",
+  "filter.mechanic": "Mechanics",
   "cardPool.in": "In pool",
   "cardPool.out": "Outside pool"
 }

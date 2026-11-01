@@ -56,6 +56,7 @@
   "link.huiji": "Huiji Wiki",
   "app.gameBuild": "Versión del juego {build}",
   "filter.cardPool": "Reserva de cartas",
+  "filter.mechanic": "Mecánicas",
   "cardPool.in": "En la reserva",
   "cardPool.out": "Fuera de la reserva"
 }

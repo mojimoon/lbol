@@ -91,6 +91,7 @@
   "char.viewPool": "查看卡池",
   "char.viewPoolHint": "在卡牌页按这条路线的初始法力筛选可用卡池",
   "filter.cardPool": "卡池",
+  "filter.mechanic": "机制",
   "cardPool.in": "卡池内",
   "cardPool.out": "卡池外"
 }

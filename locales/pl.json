@@ -56,6 +56,7 @@
   "link.huiji": "Huiji Wiki",
   "app.gameBuild": "Wersja gry {build}",
   "filter.cardPool": "Pula kart",
+  "filter.mechanic": "Mechaniki",
   "cardPool.in": "W puli",
   "cardPool.out": "Poza pulą"
 }
