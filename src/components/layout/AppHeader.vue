@@ -12,7 +12,8 @@
       >{{ t(`tab.${c.key}`) }}</a>
     </nav>
     <div class="header-tools">
-      <span v-if="data.buildId" class="build">{{ t('app.gameBuild', { build: data.buildId }) }}</span>
+      <!-- <span v-if="data.buildId" class="build">{{ t('app.gameBuild', { build: data.buildId }) }}</span> -->
+      <a href="https://github.com/mojimoon/lbol" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/github/stars/mojimoon/lbol?style=social" alt="GitHub stars" height="20"></a>
       <div class="links">
         <a v-for="link in LINKS" :key="link.key" :href="link.url" target="_blank" rel="noopener">{{ t(link.key) }}</a>
       </div>
