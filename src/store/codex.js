@@ -1,6 +1,6 @@
 // Shared state as a plain module store: components import what they use.
 import { computed, reactive, ref, shallowRef, watch } from 'vue'
-import { COLLECTIONS, applyCollection, decodeState, encodeState } from '../config/collections.js'
+import { COLLECTIONS, applyCollection, decodeState, encodeState, inCardPool, resolvePool, startingPool } from '../config/collections.js'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -129,16 +129,35 @@ syncUrl()
 // Phones scroll the document: new results or another tab start from the top. Desktop never scrolls it.
 watch(() => [route.tab, encodeState(collection.value, currentState.value)].join(), () => window.scrollTo(0, 0))
 
+// ---- reward pool ----
+const cardsState = browseState.cards
+export const resolvedPool = computed(() => resolvePool(data.value, cardsState.pool))
+const poolStart = computed(() => startingPool(data.value, cardsState.pool.route))
+
+/** Listed cards that the current inputs add to, or take from, the pool the route started with. */
+export const poolChanges = computed(() => {
+  if (!poolStart.value) return null
+  const listed = data.value.cards.filter(c => !c.hidden).sort((a, b) => a.index - b.index)
+  const now = listed.filter(c => inCardPool(c, resolvedPool.value))
+  const start = listed.filter(c => inCardPool(c, poolStart.value))
+  return {
+    added: now.filter(c => !start.includes(c)),
+    removed: start.filter(c => !now.includes(c)),
+  }
+})
+
 export const results = computed(() => {
   if (!data.value) return []
   const state = currentState.value
   const rollSpec = state.roll ? findEntity('cards', state.roll)?.roll : null
-  return applyCollection(collection.value, data.value[route.tab], state, { upgraded: upgraded.value, lang: data.value.lang, rollSpec })
+  return applyCollection(collection.value, data.value[route.tab], state, {
+    upgraded: upgraded.value, lang: data.value.lang, rollSpec, pool: resolvedPool.value, poolStart: poolStart.value,
+  })
 })
 
 export const isFiltered = computed(() => {
   const state = currentState.value
-  return state.search.trim() !== '' || Object.values(state.facets).some(v => v.length > 0) || !!state.pool?.enabled || !!state.roll
+  return state.search.trim() !== '' || Object.values(state.facets).some(v => v.length > 0) || !!state.pool?.enabled || !!state.roll || !!state.poolDiff
 })
 
 // ---- "cards this card can create" ----
@@ -150,6 +169,13 @@ export function jumpToRoll(cardId) {
   // On a phone the card's sheet would cover the results this button is meant to show.
   const open = matchMedia('(max-width: 720px)').matches ? '' : `/${encodeURIComponent(cardId)}`
   location.hash = `#/cards${open}?roll=${encodeURIComponent(cardId)}`
+}
+
+/** The same kind of temporary view for what the reward pool inputs changed. */
+export function jumpToPoolDiff(kind) {
+  const cards = COLLECTIONS.find(c => c.key === 'cards')
+  rollReturn.value = { tab: route.tab, id: route.id, query: encodeState(cards, cardsState) }
+  location.hash = `#/cards?${encodeState(cards, { ...decodeState(cards, ''), pool: cardsState.pool, poolDiff: kind })}`
 }
 
 export function returnFromRoll() {
@@ -164,6 +190,7 @@ export function returnFromRoll() {
 export function clearRoll() {
   rollReturn.value = null
   currentState.value.roll = null
+  currentState.value.poolDiff = null
 }
 
 export function resetFilters() {
@@ -215,7 +242,7 @@ export function resolveTerm(termRef) {
     const tab = kind === 'c' ? 'cards' : 'exhibits'
     const row = findEntity(tab, id)
     if (!row) return null
-    return { name: row.name, desc: kind === 'c' ? row.base.desc : row.desc, tab, id }
+    return { name: row.name, desc: kind === 'c' ? row.base.desc : row.desc, icon: kind === 'e' ? row.img : null, tab, id }
   }
   return data.value?.terms?.[termRef] ?? null
 }

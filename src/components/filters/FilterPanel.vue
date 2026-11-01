@@ -52,7 +52,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { collection, currentState as state, isFiltered, resetFilters, results, showOwnerAvatar, t, upgraded } from '../../store/codex.js'
 import SheetHandle from '../shared/SheetHandle.vue'
 import FacetGroup from './FacetGroup.vue'
@@ -61,6 +61,8 @@ import RollBanner from './RollBanner.vue'
 import SortControl from './SortControl.vue'
 
 const facetsOpen = ref(false)
+// Phones: the preview's results are what the sheet would cover.
+watch(() => state.value.poolDiff, kind => { if (kind) facetsOpen.value = false })
 const activeFacetCount = computed(() =>
   Object.values(state.value.facets).reduce((n, list) => n + list.length, 0) + (state.value.pool?.enabled ? 1 : 0))
 </script>
@@ -82,6 +84,14 @@ const activeFacetCount = computed(() =>
 .count {
   display: inline-block; margin-left: 6px; padding: 0 6px; border-radius: 8px; font-size: 11px;
   background: var(--accent); color: var(--on-accent);
+}
+
+/* The way back stays in view while the pool inputs below are adjusted. */
+@media (min-width: 721px) {
+  .filter-panel .roll-banner {
+    position: sticky; top: 0; z-index: 3;
+    background: linear-gradient(var(--selected), var(--selected)), var(--bg);
+  }
 }
 
 /* Phones: search stays in reach under the tabs (45px, see AppHeader); the rest is a bottom sheet. */

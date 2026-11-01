@@ -1,7 +1,7 @@
 <template>
-  <div v-if="source" class="roll-banner" role="status">
-    <p class="title">{{ t('roll.active', { name: source.name }) }}</p>
-    <p v-if="!source.roll.unlimited" class="note">{{ t('roll.runNote') }}</p>
+  <div v-if="source || diffTitle" class="roll-banner" role="status">
+    <p class="title">{{ source ? t('roll.active', { name: source.name }) : diffTitle }}</p>
+    <p v-if="source && !source.roll.unlimited" class="note">{{ t('roll.runNote') }}</p>
     <div class="actions">
       <button v-if="rollReturn" type="button" class="action primary" @click="returnFromRoll">{{ t('roll.back') }}</button>
       <button type="button" class="action" @click="clearRoll">{{ t('roll.clear') }}</button>
@@ -14,6 +14,16 @@ import { computed } from 'vue'
 import { clearRoll, currentState, findEntity, returnFromRoll, rollReturn, t } from '../../store/codex.js'
 
 const source = computed(() => (currentState.value.roll ? findEntity('cards', currentState.value.roll) : null))
+const diffTitle = computed(() => {
+  const { poolDiff, pool } = currentState.value
+  if (!poolDiff) return null
+  const [id, side] = pool.route?.split('.') ?? []
+  const character = findEntity('characters', id)
+  if (!character) return null
+  const color = character.colors[side === 'B' ? 1 : 0]
+  const name = `${character.shortName} (${t(`mana.${color}`)})`
+  return t(poolDiff === 'added' ? 'pool.previewAdded' : 'pool.previewRemoved', { name })
+})
 </script>
 
 <style scoped>

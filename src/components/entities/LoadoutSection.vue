@@ -6,7 +6,7 @@
         {{ t('char.loadout', { color: t(`mana.${color}`) }) }}
       </h3>
       <span class="complexity">{{ t('char.difficulty', { n: loadout.difficulty }) }}</span>
-      <a class="pool-link" :href="poolLink(character, loadout)" :title="t('char.viewPoolHint')">{{ t('char.viewPool') }}</a>
+      <a class="pool-link" :href="poolLink(character, side)" :title="t('char.viewPoolHint')">{{ t('char.viewPool') }}</a>
     </header>
 
     <div class="block">
@@ -56,6 +56,7 @@ const props = defineProps({
   character: { type: Object, required: true },
   loadout: { type: Object, required: true },
   color: { type: String, required: true },
+  side: { type: String, required: true },
 })
 const exhibit = computed(() => findEntity('exhibits', props.loadout.exhibit))
 const deck = computed(() => props.loadout.deck

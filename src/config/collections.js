@@ -12,6 +12,13 @@ const HYBRID_PAIRS = ['WU', 'WB', 'WR', 'WG', 'UB', 'UR', 'UG', 'BR', 'BG', 'RG'
 
 export const cardFace = (card, upgraded) => (upgraded && card.up) || card.base
 
+export const MANA_ORDER = COLORS
+export const BLANK_CARD = 'KongbaiKapai'
+// JunkoColorless and PatchouliPhilosophy, the only events that change base mana. Their selection
+// zeroes these out of what can be picked: colourless and philosophy for one, philosophy for the other.
+export const PURIFY_FROM = ['W', 'U', 'B', 'R', 'G']
+export const REFINE_FROM = ['W', 'U', 'B', 'R', 'G', 'C']
+
 /**
  * Mirrors MuseumPanel.FilterCardByMana.
  * With P ("multicolour") selected: multicolour cards containing every other selected colour.
@@ -55,6 +62,53 @@ export function inCardPool(card, pool) {
   // Above 5 total, the generic part does not limit the pool.
   if (!canAfford(pool.mana, costAmount(cost) > 5 ? { ...cost, Any: 0 } : cost)) return false
   return pool.blank || card.colors.every(c => (pool.mana[c] ?? 0) > 0)
+}
+
+/** Shining exhibits by the mana they give, one row per colour; those with none are "random" (per turn). */
+export function shiningExhibits(data) {
+  const shining = data.exhibits.filter(e => e.rarity === 'Shining')
+  return [...COLORS, 'random']
+    .map(key => ({ key, exhibits: shining.filter(e => (e.baseMana ?? 'random') === key) }))
+    .filter(row => row.exhibits.length)
+}
+
+/**
+ * What the reward pool inputs add up to, for inCardPool. pool.route is 'Reimu.A': the character sets
+ * the 2 + 2 base mana and its own pool; the route only says which exhibit it starts with, which can
+ * be traded away. pool: { route, exhibits: [ids], purify: colour, refine: colour }
+ */
+export function resolvePool(data, pool) {
+  const mana = Object.fromEntries(COLORS.map(c => [c, 0]))
+  const owners = new Set()
+  const character = data.characters.find(c => c.id === pool.route?.split('.')[0])
+  if (character) {
+    owners.add(character.id)
+    for (const c of character.colors) mana[c] += 2
+  }
+  for (const id of pool.exhibits) {
+    const exhibit = data.exhibits.find(e => e.id === id)
+    if (!exhibit) continue
+    if (exhibit.owner) owners.add(exhibit.owner)
+    if (exhibit.baseMana) mana[exhibit.baseMana] += exhibit.baseManaAmount
+  }
+  const beforeEvents = { ...mana }
+  if (mana[pool.purify] > 0) {
+    mana[pool.purify] -= 1
+    mana.C += 2
+  }
+  const afterPurify = { ...mana }
+  if (mana[pool.refine] > 0) {
+    mana[pool.refine] -= 1
+    mana.P += 1
+  }
+  return { mana, owners: [...owners], blank: pool.exhibits.includes(BLANK_CARD), beforeEvents, afterPurify }
+}
+
+/** The pool a route starts a run with, or null without a route. */
+export function startingPool(data, route) {
+  const [id, side] = route?.split('.') ?? []
+  const exhibit = data.characters.find(c => c.id === id)?.loadouts[side]?.exhibit
+  return exhibit ? resolvePool(data, { route, exhibits: [exhibit], purify: null, refine: null }) : null
 }
 
 /**
@@ -103,8 +157,15 @@ export const COLLECTIONS = [
     tileAspect: 740 / 530,  // every tile this shape: EntityGrid renders only those near the screen
     upgradeToggle: true,
     poolBefore: 'keyword',  // PoolFilter sits just above this facet
-    initialState: () => ({ roll: null, pool: { enabled: false, mana: { W: 0, U: 0, B: 0, R: 0, G: 0, C: 0, P: 0 }, owners: [], blank: false } }),
-    extraFilter: (card, state, ctx) => (!state.pool.enabled || inCardPool(card, state.pool)) && (!ctx.rollSpec || inRoll(card, ctx.rollSpec)),
+    initialState: () => ({ roll: null, poolDiff: null, pool: { enabled: false, route: null, exhibits: [], purify: null, refine: null } }),
+    extraFilter: (card, state, ctx) => {
+      if (ctx.rollSpec && !inRoll(card, ctx.rollSpec)) return false
+      if (state.poolDiff && ctx.poolStart) {
+        const [now, start] = [inCardPool(card, ctx.pool), inCardPool(card, ctx.poolStart)]
+        return state.poolDiff === 'added' ? now && !start : start && !now
+      }
+      return !state.pool.enabled || inCardPool(card, ctx.pool)
+    },
     // Same as the in-game museum: HideMesuem cards are reachable by link but not listed.
     listed: card => !card.hidden,
     facets: [
@@ -223,8 +284,6 @@ export const COLLECTIONS = [
   },
 ]
 
-const POOL_COLORS = ['W', 'U', 'B', 'R', 'G', 'C', 'P']
-
 /**
  * Browsing state <-> URL query. Facets repeat their key (owner=Reimu&owner=Neutral), so
  * values may contain anything. Defaults are left out to keep links short.
@@ -238,10 +297,13 @@ export function encodeState(collection, state) {
     for (const value of state.facets[facet.key] ?? []) params.append(facet.key, value)
   }
   if (state.roll) params.set('roll', state.roll)
-  if (state.pool?.enabled) {
-    params.set('pool', POOL_COLORS.map(c => state.pool.mana[c]).join('.'))
-    for (const owner of state.pool.owners) params.append('poolOwner', owner)
-    if (state.pool.blank) params.set('blank', '1')
+  if (state.poolDiff) params.set('poolDiff', state.poolDiff)
+  if (state.pool) {
+    if (state.pool.enabled) params.set('pool', '1')
+    if (state.pool.route) params.set('poolRoute', state.pool.route)
+    for (const id of state.pool.exhibits) params.append('poolExhibit', id)
+    if (state.pool.purify) params.set('purify', state.pool.purify)
+    if (state.pool.refine) params.set('refine', state.pool.refine)
   }
   return params.toString()
 }
@@ -257,23 +319,24 @@ export function decodeState(collection, query) {
     ...collection.initialState?.(),
   }
   if (params.has('roll') && state.pool) state.roll = params.get('roll')
-  if (state.pool && params.has('pool')) {
-    const counts = params.get('pool').split('.')
-    state.pool.enabled = true
-    POOL_COLORS.forEach((c, i) => { state.pool.mana[c] = Math.max(0, Number.parseInt(counts[i], 10) || 0) })
-    state.pool.owners = params.getAll('poolOwner')
-    state.pool.blank = params.get('blank') === '1'
+  if (state.pool) {
+    if (['added', 'removed'].includes(params.get('poolDiff'))) state.poolDiff = params.get('poolDiff')
+    state.pool.enabled = params.get('pool') === '1'
+    state.pool.route = params.get('poolRoute')
+    state.pool.exhibits = params.getAll('poolExhibit')
+    if (PURIFY_FROM.includes(params.get('purify'))) state.pool.purify = params.get('purify')
+    if (REFINE_FROM.includes(params.get('refine'))) state.pool.refine = params.get('refine')
   }
   return state
 }
 
-/** Link to the card list, filtered to what one character route can find. */
-export function poolLink(character, loadout) {
+/** Link to the card list, filtered to what one character route starts a run with. */
+export function poolLink(character, side) {
   const cards = COLLECTIONS.find(c => c.key === 'cards')
   const state = decodeState(cards, '')
   state.pool.enabled = true
-  state.pool.owners = [character.id]
-  for (const symbol of loadout.mana) state.pool.mana[symbol] += 1
+  state.pool.route = `${character.id}.${side}`
+  state.pool.exhibits = [character.loadouts[side].exhibit]
   return `#/cards?${encodeState(cards, state)}`
 }
 

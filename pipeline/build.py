@@ -438,6 +438,7 @@ def build_exhibit(ex, loc, icons):
         'owner': ex['Owner'] or None,
         'appearance': tables.APPEARANCE[ex['Appearance']],
         'baseMana': base_color,
+        'baseManaAmount': ex['BaseManaAmount'] if base_color else 0,
         # GameRunController: Shining exhibits go to their own pool whatever IsPooled says.
         'pooled': ex['IsPooled'] or tables.RARITY[ex['Rarity']] == 'Shining',
         'img': ex['Id'] if ex['Id'] in icons else None,

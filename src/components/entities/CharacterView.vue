@@ -34,6 +34,7 @@
         :character="character"
         :loadout="character.loadouts[side]"
         :color="character.colors[i]"
+        :side="side"
       />
     </div>
   </div>
