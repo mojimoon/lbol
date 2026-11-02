@@ -69,7 +69,7 @@
   "filter.mechanic": "Mekanikler",
   "pool.odds": "Havuz olasılıklarını göster",
   "pool.oddsNeedRoute": " (önce karakter seçin)",
-  "pool.oddsHint": "Filtre yüzdeleri, bir mağazadaki 8 normal kart içindeki beklenen paydır.",
+  "pool.oddsHint": "Filtre yüzdeleri, her kart türünün elit ödülünün 4+. yerindeki payıdır.",
   "odds.title": "Ödül ağırlıkları",
   "odds.normal": "Normal savaş",
   "odds.elite": "Elit savaş",

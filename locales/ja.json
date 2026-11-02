@@ -69,7 +69,7 @@
   "filter.mechanic": "メカニクス",
   "pool.odds": "プール確率を表示",
   "pool.oddsNeedRoute": "（先にキャラクターを選択）",
-  "pool.oddsHint": "フィルターの割合は、ショップの通常カード8枚に占める期待割合です。",
+  "pool.oddsHint": "フィルターの割合は、エリート報酬の4枚目以降に各カードが占める割合です。",
   "odds.title": "報酬ウェイト",
   "odds.normal": "通常戦闘",
   "odds.elite": "エリート戦闘",

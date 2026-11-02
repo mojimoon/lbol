@@ -69,7 +69,7 @@
   "filter.mechanic": "Mechanikák",
   "pool.odds": "Esélyek mutatása",
   "pool.oddsNeedRoute": " (előbb válassz karaktert)",
-  "pool.oddsHint": "A szűrők százalékai a bolt 8 normál kártyájából várható részesedést mutatják.",
+  "pool.oddsHint": "A szűrők százalékai az egyes kártyafajták részesedését mutatják az elit jutalom 4+. helyén.",
   "odds.title": "Jutalomsúlyok",
   "odds.normal": "Normál harc",
   "odds.elite": "Elit harc",

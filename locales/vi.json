@@ -69,7 +69,7 @@
   "filter.mechanic": "Cơ chế",
   "pool.odds": "Hiện xác suất",
   "pool.oddsNeedRoute": " (hãy chọn nhân vật trước)",
-  "pool.oddsHint": "Phần trăm ở bộ lọc là tỉ lệ kỳ vọng trong 8 thẻ thường của một cửa hàng.",
+  "pool.oddsHint": "Phần trăm ở bộ lọc là tỉ lệ của từng loại thẻ ở vị trí 4+ trong phần thưởng tinh anh.",
   "odds.title": "Trọng số phần thưởng",
   "odds.normal": "Trận thường",
   "odds.elite": "Trận tinh anh",

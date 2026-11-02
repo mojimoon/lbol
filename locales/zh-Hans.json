@@ -104,7 +104,7 @@
   "filter.mechanic": "机制",
   "pool.odds": "显示卡池概率",
   "pool.oddsNeedRoute": "（需先选择角色）",
-  "pool.oddsHint": "筛选项的百分比是各类牌在一家商店 8 张普通牌中的预期占比。",
+  "pool.oddsHint": "筛选项的百分比是各类牌在精英战斗第 4+ 张奖励中的占比。",
   "odds.title": "奖励权重",
   "odds.normal": "普通战斗",
   "odds.elite": "精英战斗",

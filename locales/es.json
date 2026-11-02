@@ -69,7 +69,7 @@
   "filter.mechanic": "Mecánicas",
   "pool.odds": "Mostrar probabilidades",
   "pool.oddsNeedRoute": " (elige antes un personaje)",
-  "pool.oddsHint": "Los porcentajes de los filtros son la proporción esperada de las 8 cartas normales de una tienda.",
+  "pool.oddsHint": "Los porcentajes de los filtros son la proporción de cada tipo de carta en la posición 4+ de una recompensa de élite.",
   "odds.title": "Pesos de recompensa",
   "odds.normal": "Combate normal",
   "odds.elite": "Combate de élite",

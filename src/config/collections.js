@@ -85,6 +85,7 @@ const SHOP_OWNER_WEIGHT = SLOT_OWNER_WEIGHT[3]
 const LOOT_TYPES = ['Attack', 'Defense', 'Skill', 'Ability', 'Friend']
 const SHOP_FRIEND_WEIGHT = 5
 const SHOP_GADGET_WEIGHT = 2
+const SHARE_SLOT = 3  // Slot 4+.
 
 export const percent = chance => (chance * 100).toFixed(1)
 
@@ -152,16 +153,17 @@ export function poolOdds(cards, pool) {
 }
 
 /**
- * What share of the cards a shop offers falls under each option of a facet. Shop odds rather than
- * card counts: most of a pool's rares rarely turn up, and rewards fix the owners slot by slot.
+ * What share of an elite reward's slot 4+ falls under each option of a facet. The weights a typical
+ * run sees most, close to a shop's, but with no fixed owner per slot or shop quota per card type.
  */
 export function oddsShares(facet, values, odds, ctx) {
   const entries = [...odds.values()]
-  const total = entries.reduce((sum, e) => sum + e.shop.p, 0)
+  const chance = e => e.elite[SHARE_SLOT].p
+  const total = entries.reduce((sum, e) => sum + chance(e), 0)
   const has = (card, value) => (facet.oddsValues ?? facet.values)(card, ctx).includes(value)
   return Object.fromEntries(values.map(value => [
     value,
-    entries.reduce((sum, e) => sum + (has(e.card, value) ? e.shop.p : 0), 0) / total,
+    entries.reduce((sum, e) => sum + (has(e.card, value) ? chance(e) : 0), 0) / total,
   ]))
 }
 

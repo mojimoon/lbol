@@ -69,7 +69,7 @@
   "filter.mechanic": "메커니즘",
   "pool.odds": "풀 확률 표시",
   "pool.oddsNeedRoute": " (먼저 캐릭터 선택)",
-  "pool.oddsHint": "필터의 비율은 상점 일반 카드 8장 중 예상 비중입니다.",
+  "pool.oddsHint": "필터의 비율은 엘리트 보상 4번째 이후 자리에서 각 카드가 차지하는 비중입니다.",
   "odds.title": "보상 가중치",
   "odds.normal": "일반 전투",
   "odds.elite": "엘리트 전투",

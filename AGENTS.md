@@ -39,10 +39,18 @@ aa/StandaloneWindows64/*.bundle, resources.assets 精灵图        → pipeline/
 - 卡牌列表是虚拟滚动（`composables/gridWindow.js`），只渲染屏幕上下各一屏的行，因此要求所有格子同样形状（`tileAspect`）。展品高度不一，全部挂载。
 - 新增标签页：`collections.js` 加配置 → `registry.js` 注册组件 → `locales/` 加 `tab.<key>`。
 - 卡牌显示照 `CardWidget`：卡框是 `Sprite/Card/Bg/` 贴图拉伸到 530×740，卡图一律拉伸到 454×313（`object-fit: fill`，贴图本身的比例不代表显示比例）。
-- 奖励卡池照 `GameRunController` 的抽卡逻辑和 `ManaGroup.CanAfford`，见 `collections.js` 的 `inCardPool`；不含道具牌，含只在商店出售的发明牌。卡池概率（`pool.odds`）由 `poolOdds` 算出，公式见 `docs/card-reward-weights.md`，稀有牌系数固定 0.85；筛选项百分比是商店概率的占比（`oddsShares`，配置 `oddsShare`）。输入是角色路线、光耀展品和两个改变基础法力的事件（`JunkoColorless`、`PatchouliPhilosophy`），由 `resolvePool` 算出法力和可用角色；“卡池变化”对比 `startingPool`，预览和 `roll` 共用临时筛选的返回逻辑。规则说明是 `locales/` 的 `pool.rules`（`Rule.yaml` 的 `CardPool` 的精简版，`[WWB]` 表示一串法力图标），构建时转成数据里的 `poolRules`。
+- 奖励卡池照 `GameRunController` 的抽卡逻辑和 `ManaGroup.CanAfford`，见 `collections.js` 的 `inCardPool`；不含道具牌，含只在商店出售的发明牌。卡池概率（`pool.odds`）由 `poolOdds` 算出，公式见 `docs/card-reward-weights.md`，稀有牌系数固定 0.85；筛选项百分比是精英战斗第 4+ 张概率的占比（`oddsShares`，配置 `oddsShare`）。输入是角色路线、光耀展品和两个改变基础法力的事件（`JunkoColorless`、`PatchouliPhilosophy`），由 `resolvePool` 算出法力和可用角色；“卡池变化”对比 `startingPool`，预览和 `roll` 共用临时筛选的返回逻辑。规则说明是 `locales/` 的 `pool.rules`（`Rule.yaml` 的 `CardPool` 的精简版，`[WWB]` 表示一串法力图标），构建时转成数据里的 `poolRules`。
 - 展品有两种分类，不要混用：**稀有度** `rarity`（`ExhibitConfig.Rarity`：普通、罕见、稀有、光耀、秘宝）和**展品类型** `exhibitType`（`Index / 100`，文案取 `Museum.ExhibitType.T1`–`T8`：在前五类之外还有商店、事件&其它、最终幕）。
 - 样式：颜色只用 `theme.css` 的变量，组件内用 scoped 样式。
 - 手机（≤720px）：整页滚动，详情和筛选都是底部弹窗（`app.css` 的 `.sheet-open`、`.sheet-backdrop`，`SheetHandle.vue` 下拉关闭）。标签栏和搜索栏吸顶，`FilterPanel` 的 `top` 要等于 `AppHeader` 吸顶部分的高度（45px）。
+
+## RNGMaster（游戏内 mod）
+
+`RNGMaster/` 是独立的 BepInEx 插件，和网页图鉴不共用代码，用法见它的 `README.md`。
+
+- 概率和预测都运行游戏自己的代码：保存随机流和相关状态，空跑，再恢复（`src/Core/RunSnapshot.cs`、`CardForecast.cs`、`MapForecast.cs`）。不要自己重新实现权重公式。
+- 改完跑 `pwsh RNGMaster/test.ps1 -Scenario predict`（无头，对比预测和实际结果），界面改动再跑 `-Scenario ui -Windowed` 看截图。
+- 交付前用 `pwsh RNGMaster/build.ps1 -Configuration Release` 覆盖部署，调试构建带测试入口。
 
 ## 本地化
 

@@ -69,7 +69,7 @@
   "filter.mechanic": "Meccaniche",
   "pool.odds": "Mostra probabilità",
   "pool.oddsNeedRoute": " (scegli prima un personaggio)",
-  "pool.oddsHint": "Le percentuali dei filtri sono la quota attesa delle 8 carte normali di un negozio.",
+  "pool.oddsHint": "Le percentuali dei filtri sono la quota di ogni tipo di carta nella posizione 4+ di una ricompensa d’élite.",
   "odds.title": "Pesi delle ricompense",
   "odds.normal": "Battaglia normale",
   "odds.elite": "Battaglia d’élite",

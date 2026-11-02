@@ -69,7 +69,7 @@
   "filter.mechanic": "機制",
   "pool.odds": "顯示卡池機率",
   "pool.oddsNeedRoute": "（需先選擇角色）",
-  "pool.oddsHint": "篩選項的百分比是各類牌在一家商店 8 張普通牌中的預期占比。",
+  "pool.oddsHint": "篩選項的百分比是各類牌在精英戰鬥第 4+ 張獎勵中的占比。",
   "odds.title": "獎勵權重",
   "odds.normal": "普通戰鬥",
   "odds.elite": "精英戰鬥",

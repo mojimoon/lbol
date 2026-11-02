@@ -104,7 +104,7 @@
   "filter.mechanic": "Mechanics",
   "pool.odds": "Show pool odds",
   "pool.oddsNeedRoute": " (choose a character first)",
-  "pool.oddsHint": "Filter percentages are the expected share of the 8 regular cards in a shop.",
+  "pool.oddsHint": "Filter percentages are the share of each kind of card in slot 4+ of an elite reward.",
   "odds.title": "Reward weights",
   "odds.normal": "Normal battle",
   "odds.elite": "Elite battle",

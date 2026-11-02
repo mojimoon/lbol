@@ -69,7 +69,7 @@
   "filter.mechanic": "Mechaniken",
   "pool.odds": "Pool-Chancen anzeigen",
   "pool.oddsNeedRoute": " (zuerst Charakter wählen)",
-  "pool.oddsHint": "Die Prozente der Filter sind der erwartete Anteil an den 8 normalen Karten eines Ladens.",
+  "pool.oddsHint": "Die Prozente der Filter sind der Anteil jeder Kartenart auf Platz 4+ einer Elite-Belohnung.",
   "odds.title": "Belohnungsgewichte",
   "odds.normal": "Normaler Kampf",
   "odds.elite": "Elitekampf",
