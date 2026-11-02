@@ -68,5 +68,6 @@
   "filter.cardPool": "Kart havuzu",
   "filter.mechanic": "Mekanikler",
   "cardPool.in": "Havuzda",
+  "cardPool.shop": "Yalnızca mağaza",
   "cardPool.out": "Havuz dışında"
 }

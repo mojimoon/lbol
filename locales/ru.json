@@ -68,5 +68,6 @@
   "filter.cardPool": "Набор карт",
   "filter.mechanic": "Механики",
   "cardPool.in": "В наборе",
+  "cardPool.shop": "Только магазин",
   "cardPool.out": "Вне набора"
 }

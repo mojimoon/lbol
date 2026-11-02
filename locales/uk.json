@@ -68,5 +68,6 @@
   "filter.cardPool": "Набір карт",
   "filter.mechanic": "Механіки",
   "cardPool.in": "У наборі",
+  "cardPool.shop": "Лише крамниця",
   "cardPool.out": "Поза набором"
 }

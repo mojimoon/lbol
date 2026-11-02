@@ -103,5 +103,6 @@
   "filter.cardPool": "Card pool",
   "filter.mechanic": "Mechanics",
   "cardPool.in": "In pool",
+  "cardPool.shop": "Shop only",
   "cardPool.out": "Outside pool"
 }

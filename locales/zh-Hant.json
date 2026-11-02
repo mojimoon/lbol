@@ -68,5 +68,6 @@
   "filter.cardPool": "卡池",
   "filter.mechanic": "機制",
   "cardPool.in": "卡池內",
+  "cardPool.shop": "僅商店",
   "cardPool.out": "卡池外"
 }

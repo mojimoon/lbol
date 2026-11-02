@@ -49,14 +49,19 @@ export function canAfford(mana, cost) {
 }
 
 /**
- * Mirrors GameRunController's card roll with OwnerWeightTable.Valid: card rewards and shops.
- * pool: { mana: {W, U, B, R, G, C, P}, owners: [character ids], blank: holds the Blank Card exhibit }
- * Tools are left out: only shops sell them, and any character can buy them, so they tell nothing here.
+ * Where a card can come from. Rewards use CardTypeWeightTable.CanBeLoot (no tools) and leave out
+ * Gadgets cards (CardWeightTable.WeightFor); shops have their own slots for both.
  */
+export const poolKind = card => (!card.pooled ? 'out' : card.type === 'Tool' || card.gadget ? 'shop' : 'in')
+
 const costAmount = cost => ['Any', ...SINGLE_COLORS, 'P', 'Hybrid'].reduce((sum, k) => sum + (cost[k] ?? 0), 0)
 
+/**
+ * Mirrors GameRunController's card reward roll.
+ * pool: { mana: {W, U, B, R, G, C, P}, owners: [character ids], blank: holds the Blank Card exhibit }
+ */
 export function inCardPool(card, pool) {
-  if (!card.pooled || card.type === 'Tool') return false
+  if (poolKind(card) !== 'in') return false
   if (card.owner && !pool.owners.includes(card.owner)) return false
   const cost = card.poolCost
   // Above 5 total, the generic part does not limit the pool.
@@ -193,8 +198,8 @@ export const COLLECTIONS = [
       },
       {
         key: 'cardPool', label: 'filter.cardPool',
-        options: (_, t) => ['in', 'out'].map(v => ({ value: v, label: t(`cardPool.${v}`) })),
-        values: c => [c.pooled ? 'in' : 'out'],
+        options: (_, t) => ['in', 'shop', 'out'].map(v => ({ value: v, label: t(`cardPool.${v}`) })),
+        values: c => [poolKind(c)],
       },
       {
         key: 'special', label: 'filter.special',

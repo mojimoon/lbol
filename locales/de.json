@@ -68,5 +68,6 @@
   "filter.cardPool": "Kartenpool",
   "filter.mechanic": "Mechaniken",
   "cardPool.in": "Im Pool",
+  "cardPool.shop": "Nur im Laden",
   "cardPool.out": "Außerhalb"
 }

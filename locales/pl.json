@@ -68,5 +68,6 @@
   "filter.cardPool": "Pula kart",
   "filter.mechanic": "Mechaniki",
   "cardPool.in": "W puli",
+  "cardPool.shop": "Tylko sklep",
   "cardPool.out": "Poza pulą"
 }

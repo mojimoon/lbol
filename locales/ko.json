@@ -68,5 +68,6 @@
   "filter.cardPool": "카드 풀",
   "filter.mechanic": "메커니즘",
   "cardPool.in": "풀 내",
+  "cardPool.shop": "상점 전용",
   "cardPool.out": "풀 외"
 }

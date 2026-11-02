@@ -68,5 +68,6 @@
   "filter.cardPool": "Kártyakészlet",
   "filter.mechanic": "Mechanikák",
   "cardPool.in": "Készletben",
+  "cardPool.shop": "Csak boltban",
   "cardPool.out": "Készleten kívül"
 }

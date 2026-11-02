@@ -68,5 +68,6 @@
   "filter.cardPool": "Riserva di carte",
   "filter.mechanic": "Meccaniche",
   "cardPool.in": "Nella riserva",
+  "cardPool.shop": "Solo negozio",
   "cardPool.out": "Fuori riserva"
 }
