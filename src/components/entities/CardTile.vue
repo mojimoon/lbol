@@ -74,8 +74,8 @@ useFitText(typeEl, () => data.value.enums.CardType[props.entity.type], { max: 11
 .art { position: absolute; left: 7.17%; top: 9.26%; width: 85.66%; height: 42.3%; object-fit: fill; }
 /* Centred on the art, and only as big as the text. */
 .odds {
-  position: absolute; left: 50%; top: 30.41%; transform: translate(-50%, -50%); max-width: 85.66%; padding: 1.5cqw 3cqw;
-  border-radius: 2cqw; background: #000a; color: #fff; text-align: center; font-size: 5.6cqw; line-height: 1.3;
+  position: absolute; left: 50%; top: 30.41%; transform: translate(-50%, 20%); width: 85.66%; padding: 1.5cqw 3cqw;
+  background: #000b; color: #fff; text-align: center; font-size: 5.6cqw; line-height: 1.3;
   white-space: nowrap; font-variant-numeric: tabular-nums;
 }
 .odds-label { color: var(--keyword); }

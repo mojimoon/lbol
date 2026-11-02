@@ -11,7 +11,7 @@
       <input v-model="pool.odds" type="checkbox" :disabled="!pool.route" />
       <span>{{ t('pool.odds') }}<template v-if="!pool.route">{{ t('pool.oddsNeedRoute') }}</template></span>
     </label>
-    <p v-if="poolOdds" class="odds-hint">{{ t('pool.oddsHint') }}</p>
+    <!-- <p v-if="poolOdds" class="odds-hint">{{ t('pool.oddsHint') }}</p>  -->
 
     <div class="group">
       <div class="group-label">{{ t('filter.owner') }}</div>
