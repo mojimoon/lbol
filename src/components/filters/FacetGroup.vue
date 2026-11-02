@@ -10,7 +10,7 @@
         :key="opt.value"
         type="button"
         class="chip"
-        :class="{ on: active.includes(opt.value), 'icon-only': opt.mana }"
+        :class="{ on: active.includes(opt.value), 'icon-only': opt.mana && !shareText(opt.value) }"
         :aria-pressed="active.includes(opt.value)"
         :title="opt.label"
         @click="toggleFacet(facet.key, opt.value)"
@@ -19,6 +19,7 @@
         <img v-else-if="opt.avatar" class="avatar" :src="imgUrl('characters', opt.avatar)" alt="" loading="lazy" />
         <img v-else-if="opt.icon" class="icon" :src="imgUrl('card-ui', opt.icon)" alt="" loading="lazy" />
         <span v-if="!opt.mana">{{ opt.label }}</span>
+        <span v-if="shareText(opt.value)" class="share">{{ shareText(opt.value) }}</span>
       </button>
     </div>
   </component>
@@ -26,7 +27,8 @@
 
 <script setup>
 import { computed, ref } from 'vue'
-import { currentState, data, imgUrl, t, toggleFacet } from '../../store/codex.js'
+import { oddsShares, percent } from '../../config/collections.js'
+import { currentState, data, imgUrl, poolOdds, t, toggleFacet, upgraded } from '../../store/codex.js'
 import HintIcon from '../shared/HintIcon.vue'
 import ManaIcon from '../shared/ManaIcon.vue'
 import RichText from '../shared/RichText.vue'
@@ -35,6 +37,10 @@ const props = defineProps({ facet: { type: Object, required: true } })
 const options = computed(() => props.facet.options(data.value, t))
 const active = computed(() => currentState.value.facets[props.facet.key])
 const activeCount = computed(() => active.value.length)
+const shares = computed(() => (props.facet.oddsShare && poolOdds.value
+  ? oddsShares(props.facet, options.value.map(o => o.value), poolOdds.value, { upgraded: upgraded.value })
+  : null))
+const shareText = value => (shares.value?.[value] > 0 ? `${percent(shares.value[value])}%` : '')
 const hintOpen = ref(false)
 // Only the initial state: clearing the last chip must not collapse the group under the cursor.
 const startOpen = activeCount.value > 0
@@ -55,6 +61,7 @@ summary.facet-label { display: list-item; cursor: pointer; }
   font-size: 13px; cursor: pointer;
 }
 @media (hover: hover) { .chip:hover { background: var(--hover); } }
+.share { font-size: 11.5px; color: var(--text-dim); font-variant-numeric: tabular-nums; }
 .chip.on { border-color: var(--accent); background: var(--selected); box-shadow: inset 0 0 0 1px var(--accent); }
 .chip.icon-only { padding: 1px; width: 28px; height: 28px; border-radius: 50%; justify-content: center; }
 @media (pointer: coarse) {

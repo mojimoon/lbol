@@ -50,6 +50,8 @@
       :title="t('roll.buttonHint')" @click="jumpToRoll(entity.id)"
     >{{ t('roll.button') }}</button>
 
+    <OddsPanel :card="entity" />
+
     <RichText v-if="entity.detail.length" class="note-box" :tokens="entity.detail" interactive />
     <RichText v-if="entity.flavor.length" class="flavor" :tokens="entity.flavor" />
 
@@ -64,6 +66,7 @@ import { computed, ref } from 'vue'
 import { data, imgUrl, jumpToRoll, ownerName, t, upgraded } from '../../store/codex.js'
 import ColorBar from '../shared/ColorBar.vue'
 import FaceCost from '../shared/FaceCost.vue'
+import OddsPanel from './OddsPanel.vue'
 import RelatedList from '../shared/RelatedList.vue'
 import RichText from '../shared/RichText.vue'
 

@@ -1,6 +1,6 @@
 // Shared state as a plain module store: components import what they use.
 import { computed, reactive, ref, shallowRef, watch } from 'vue'
-import { COLLECTIONS, applyCollection, decodeState, encodeState, inCardPool, resolvePool, startingPool } from '../config/collections.js'
+import { COLLECTIONS, applyCollection, decodeState, encodeState, inCardPool, poolOdds as computeOdds, resolvePool, startingPool } from '../config/collections.js'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -133,6 +133,8 @@ watch(() => [route.tab, encodeState(collection.value, currentState.value)].join(
 const cardsState = browseState.cards
 export const resolvedPool = computed(() => resolvePool(data.value, cardsState.pool))
 const poolStart = computed(() => startingPool(data.value, cardsState.pool.route))
+/** Map(card id -> odds) while the odds display is on and a character is chosen, else null. */
+export const poolOdds = computed(() => (cardsState.pool.odds ? computeOdds(data.value.cards, resolvedPool.value) : null))
 
 /** Listed cards that the current inputs add to, or take from, the pool the route started with. */
 export const poolChanges = computed(() => {

@@ -2,6 +2,14 @@
   <!-- Layout follows the game's 530×740 CardWidget; positions are percentages of that. -->
   <article class="card-tile" :class="`type-${entity.type}`">
     <img v-if="art" class="art" :src="imgUrl('cards', art)" alt="" loading="lazy" decoding="async" />
+    <div v-if="odds" class="odds">
+      <div v-for="row in oddsRows" :key="row.label">
+        <span class="odds-label">{{ row.label }}: </span>
+        <template v-for="(value, i) in row.values" :key="i">
+          <template v-if="i">/</template><span :class="{ zero: value === '0.0' }">{{ value }}{{ i === row.values.length - 1 ? '%' : '' }}</span>
+        </template>
+      </div>
+    </div>
     <img class="frame" :src="imgUrl('card-ui', entity.frames[0])" alt="" loading="lazy" decoding="async" />
     <img v-if="entity.frames[1]" class="frame sub" :src="imgUrl('card-ui', entity.frames[1])" alt="" loading="lazy" decoding="async" />
     <img v-if="entity.owner" class="watermark" :src="imgUrl('card-ui', `owner_${entity.owner.toLowerCase()}`)" alt="" loading="lazy" />
@@ -28,17 +36,24 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { useFitText } from '../../composables/fitText.js'
-import { cardFace } from '../../config/collections.js'
-import { data, findEntity, imgUrl, showOwnerAvatar, t, upgraded } from '../../store/codex.js'
+import { cardFace, percent } from '../../config/collections.js'
+import { data, findEntity, imgUrl, poolOdds, showOwnerAvatar, t, upgraded } from '../../store/codex.js'
 import ManaCost from '../shared/ManaCost.vue'
 import RichText from '../shared/RichText.vue'
 
-const props = defineProps({ entity: { type: Object, required: true } })
+const props = defineProps({ entity: { type: Object, required: true }, noOdds: Boolean })
 const showUp = computed(() => upgraded.value && !!props.entity.up)
 const face = computed(() => cardFace(props.entity, upgraded.value))
 const art = computed(() => (showUp.value && props.entity.imgUp) || props.entity.img)
 const displayName = computed(() => `${props.entity.name}${showUp.value ? '+' : ''}`)
 const owner = computed(() => (showOwnerAvatar.value && props.entity.owner ? findEntity('characters', props.entity.owner) : null))
+
+const odds = computed(() => (props.noOdds ? null : poolOdds.value?.get(props.entity.id)))
+const oddsRows = computed(() => [
+  { label: t('odds.normalShort'), values: odds.value.normal.map(s => percent(s.p)) },
+  { label: t('odds.eliteShort'), values: odds.value.elite.map(s => percent(s.p)) },
+  { label: t('odds.shop'), values: [percent(odds.value.shop.p)] },
+])
 
 const descEl = ref(null)
 const nameEl = ref(null)
@@ -57,6 +72,14 @@ useFitText(typeEl, () => data.value.enums.CardType[props.entity.type], { max: 11
 }
 @media (hover: hover) { a:hover .card-tile { transform: translateY(-3px); } }
 .art { position: absolute; left: 7.17%; top: 9.26%; width: 85.66%; height: 42.3%; object-fit: fill; }
+/* Centred on the art, and only as big as the text. */
+.odds {
+  position: absolute; left: 50%; top: 30.41%; transform: translate(-50%, -50%); max-width: 85.66%; padding: 1.5cqw 3cqw;
+  border-radius: 2cqw; background: #000a; color: #fff; text-align: center; font-size: 5.6cqw; line-height: 1.3;
+  white-space: nowrap; font-variant-numeric: tabular-nums;
+}
+.odds-label { color: var(--keyword); }
+.odds .zero { color: #8f8f9c; }
 .frame { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; pointer-events: none; }
 /* Second colour of a two-colour card covers the right part of the frame. */
 .frame.sub { mask-image: linear-gradient(90deg, transparent 42%, #000 58%); }

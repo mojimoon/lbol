@@ -12,7 +12,7 @@
       <h4>{{ t('detail.relatedCards') }}</h4>
       <ul class="cards">
         <li v-for="c in relatedCards" :key="c.id">
-          <a :href="`#/cards/${encodeURIComponent(c.id)}`" :aria-label="c.name"><CardTile :entity="c" /></a>
+          <a :href="`#/cards/${encodeURIComponent(c.id)}`" :aria-label="c.name"><CardTile :entity="c" no-odds /></a>
         </li>
       </ul>
     </section>

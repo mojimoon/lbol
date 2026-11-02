@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 import { visibleRows } from '../composables/gridWindow.js'
-import { COLLECTIONS, applyCollection, canAfford, costBucket, decodeState, encodeState, inCardPool, inRoll, matchesColors, poolLink, resolvePool, shiningExhibits, startingPool } from './collections.js'
+import { readFileSync } from 'node:fs'
+import { COLLECTIONS, applyCollection, canAfford, costBucket, decodeState, encodeState, inCardPool, inRoll, matchesColors, oddsShares, percent, poolLink, poolOdds, resolvePool, shiningExhibits, startingPool } from './collections.js'
 
 // The in-game colour rules, per MuseumPanel.FilterCardByMana.
 const WB = ['W', 'B'], W = ['W'], B = ['B'], R = ['R'], WU = ['W', 'U'], WBG = ['W', 'B', 'G'], none = [], C = ['C']
@@ -27,7 +28,7 @@ assert.ok(inCardPool(poolCard({ Any: 3, W: 3 }, ['W']), pool), 'total 6: generic
 assert.ok(!inCardPool(poolCard({ Any: 4, W: 1 }, ['W']), { ...pool, mana: { ...base, W: 1, R: 0, B: 0, C: 0, P: 0 } }), 'total 5: generic part still counts')
 assert.ok(!inCardPool(poolCard({}, [], { pooled: false }), pool), 'cards outside the random pool are excluded')
 assert.ok(!inCardPool(poolCard({}, [], { type: 'Tool' }), pool) && inCardPool(poolCard({}, [], { type: 'Skill' }), pool), 'tools are shop-only')
-assert.ok(!inCardPool(poolCard({}, [], { gadget: true }), pool), 'Gadgets cards are shop-only')
+assert.ok(inCardPool(poolCard({}, [], { gadget: true }), pool), 'Gadgets cards stay in for their shop odds')
 assert.ok(!inCardPool(poolCard({}, [], { owner: 'Cirno' }), pool) && inCardPool(poolCard({}, [], { owner: 'Marisa' }), pool))
 assert.ok(inCardPool(poolCard({ C: 1 }, ['C']), pool) && !inCardPool(poolCard({ C: 2 }, ['C']), { ...pool, mana: { ...base, C: 0, P: 2 } }), 'colourless needs C base mana')
 // Hybrid: cost WR (index 2) x2 is payable by W + R, or by P when short.
@@ -168,4 +169,33 @@ assert.equal(decodeState(cards, 'purify=C').pool.purify, null, 'nor colourless')
 assert.equal(decodeState(cards, 'refine=P').pool.refine, null, 'philosophy cannot be refined')
 assert.equal(decodeState(cards, 'pool=2.0.0.3.0.0.0').pool.enabled, false, 'old-style links are ignored')
 assert.equal(poolLink(poolData.characters[0], 'B'), '#/cards?pool=1&poolRoute=Reimu.B&poolExhibit=ReimuW')
+// Odds on the real data, against docs/card-reward-weights.md (Reimu A, RRRWW).
+const real = JSON.parse(readFileSync(new URL('../../public/data/lbol.en.json', import.meta.url)))
+const realFacets = COLLECTIONS[0].facets
+const odds = poolOdds(real.cards, resolvePool(real, { route: 'Reimu.A', exhibits: ['ReimuR'], purify: null, refine: null }))
+assert.equal(odds.size, 92, '89 reward cards and the 3 Gadgets cards')
+assert.equal(poolOdds(real.cards, resolvePool(real, { route: null, exhibits: [], purify: null, refine: null })), null)
+const buster = odds.get('YaoguaiBuster')
+assert.deepEqual(buster.normal.map(s => percent(s.p)), ['4.6', '4.6', '0.0', '2.9'], 'own card: slots 1 and 2, then 4+')
+assert.equal(+buster.normal[0].w.toFixed(2), 1.08)
+assert.equal(buster.cost, 1)
+assert.equal(+buster.color.toFixed(2), 1.08)
+assert.ok(odds.get('ShopAttack').normal.every(s => s.p === 0) && odds.get('ShopAttack').shop.p > 0, 'Gadgets: shops only')
+const sumOf = pick => [...odds.values()].reduce((sum, e) => sum + pick(e), 0)
+for (const slot of [0, 1, 2, 3]) assert.ok(Math.abs(sumOf(e => e.normal[slot].p) - 1) < 1e-9 && Math.abs(sumOf(e => e.elite[slot].p) - 1) < 1e-9)
+assert.ok(Math.abs(sumOf(e => e.shop.p) - 8) < 1e-9, 'a shop offers 8 such cards')
+for (const e of odds.values()) assert.ok(Number.isFinite(e.cost) && e.shop.p <= 1, e.card.id)
+const typeShares = oddsShares(realFacets.find(f => f.key === 'type'), ['Attack', 'Defense', 'Ability', 'Tool'], odds, {})
+for (const type of ['Attack', 'Defense', 'Ability']) assert.ok(Math.abs(typeShares[type] - 0.25) < 1e-9, 'two of eight shop slots each')
+assert.equal(typeShares.Tool, 0)
+const colorShares = oddsShares(realFacets.find(f => f.key === 'color'), ['W', 'U', 'B', 'R', 'G', 'C', 'P'], odds, {})
+assert.ok(colorShares.R > 0 && colorShares.C > 0 && colorShares.P > 0 && colorShares.B === 0, 'colourless is the Gadgets cards')
+assert.ok(Math.abs(Object.values(colorShares).reduce((sum, n) => sum + n, 0) - 1) < 1e-9, 'multicolour cards count once, as P')
+const redWhite = [...odds.values()].filter(e => e.card.colors.length > 1).reduce((sum, e) => sum + e.shop.p, 0) / 8
+assert.ok(Math.abs(colorShares.P - redWhite) < 1e-9)
+const friends = poolOdds(real.cards, resolvePool(real, { route: 'Cirno.A', exhibits: ['CirnoU'], purify: null, refine: null }))
+const friendChance = [...friends.values()].filter(e => e.card.type === 'Friend').reduce((sum, e) => sum + e.shop.p, 0)
+assert.ok(friendChance > 0.5 && friendChance < 0.65, `the skill or friend slot leans to friends: ${friendChance}`)
+assert.equal(decodeState(COLLECTIONS[0], 'odds=1').pool.odds, true)
+assert.equal(encodeState(COLLECTIONS[0], decodeState(COLLECTIONS[0], 'odds=1')), 'odds=1')
 console.log('collections ok')

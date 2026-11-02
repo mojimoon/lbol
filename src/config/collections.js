@@ -57,16 +57,112 @@ export const poolKind = card => (!card.pooled ? 'out' : card.type === 'Tool' || 
 const costAmount = cost => ['Any', ...SINGLE_COLORS, 'P', 'Hybrid'].reduce((sum, k) => sum + (cost[k] ?? 0), 0)
 
 /**
- * Mirrors GameRunController's card reward roll.
+ * Mirrors GameRunController's card roll for rewards and shops. Shop tools are left out: any character
+ * can buy them, so they tell nothing here. Gadgets cards stay in for their shop odds.
  * pool: { mana: {W, U, B, R, G, C, P}, owners: [character ids], blank: holds the Blank Card exhibit }
  */
 export function inCardPool(card, pool) {
-  if (poolKind(card) !== 'in') return false
+  if (!card.pooled || card.type === 'Tool') return false
   if (card.owner && !pool.owners.includes(card.owner)) return false
   const cost = card.poolCost
   // Above 5 total, the generic part does not limit the pool.
   if (!canAfford(pool.mana, costAmount(cost) > 5 ? { ...cost, Any: 0 } : cost)) return false
   return pool.blank || card.colors.every(c => (pool.mana[c] ?? 0) > 0)
+}
+
+// GameRunController.BaseCardWeight and the stage weight tables, see docs/card-reward-weights.md.
+const RARE_FACTOR = 0.85  // Where the factor starts. It drifts during a run, which a codex cannot know.
+const TRIVIAL_COLORS = ['W', 'U', 'B', 'R', 'G']
+const COST_FACTOR = { 1: [0.9, 0.9, 1, 1.1, 1.2], 2: [0.9, 1, 1.1] }
+const RARITY_WEIGHT = {
+  normal: { Common: 1, Uncommon: 0.5, Rare: 0.05 },
+  elite: { Common: 1, Uncommon: 0.8, Rare: 0.15 },
+  shop: { Common: 1, Uncommon: 0.7, Rare: 0.15 },
+}
+// Player, other character with a held exhibit, neutral: reward slots 1, 2, 3 and 4+. Shops use the last.
+const SLOT_OWNER_WEIGHT = [[1, 0, 0], [0.2, 0.8, 0], [0, 0, 1], [1, 0.8, 0.7]]
+const SHOP_OWNER_WEIGHT = SLOT_OWNER_WEIGHT[3]
+const LOOT_TYPES = ['Attack', 'Defense', 'Skill', 'Ability', 'Friend']
+const SHOP_FRIEND_WEIGHT = 5
+const SHOP_GADGET_WEIGHT = 2
+
+export const percent = chance => (chance * 100).toFixed(1)
+
+function costFactor(card) {
+  const pips = TRIVIAL_COLORS.map(c => card.poolCost[c] ?? 0)
+  const kinds = Math.max(card.colors.length, pips.filter(Boolean).length)
+  if (kinds === 0) return 0.9
+  return kinds >= 3 ? 1.3 : COST_FACTOR[kinds][Math.max(...pips)]
+}
+
+function colorFactor(card, mana) {
+  if (!card.colors.length) return 0.8
+  const total = Object.values(mana).reduce((sum, n) => sum + n, 0)
+  return Math.max(0.8, card.colors.reduce((f, c) => f + ((mana[c] ?? 0) / total - 0.5) * 0.8, 1))
+}
+
+/**
+ * The chance a card turns up in two draws without replacement, where the second may also hold cards
+ * the first cannot. Cards in both weigh the same in both. Gives Map(entry -> chance) over `second`.
+ */
+function drawTwice(first, second) {
+  const total = list => list.reduce((sum, e) => sum + e.shop.w, 0)
+  const [t1, t2] = [total(first), total(second)]
+  return new Map(second.map(e => {
+    let chance = first.includes(e) ? e.shop.w / t1 : 0
+    for (const f of first) if (f !== e) chance += (f.shop.w / t1) * (e.shop.w / (t2 - f.shop.w))
+    return [e, chance]
+  }))
+}
+
+/**
+ * Per card in the pool, Map(id -> odds): the chance and weight in each reward slot of a normal and an
+ * elite battle, one draw at a time, and in a shop, the chance one shop offers the card at all.
+ * Null without a character, whose cards the slots are defined by.
+ */
+export function poolOdds(cards, pool) {
+  if (!pool.player) return null
+  const entries = cards.filter(card => inCardPool(card, pool)).map(card => {
+    const [cost, color] = [costFactor(card), colorFactor(card, pool.mana)]
+    const owner = !card.owner ? 2 : card.owner === pool.player ? 0 : 1
+    const rare = card.rarity === 'Rare' ? RARE_FACTOR : 1
+    const rarity = Object.fromEntries(Object.entries(RARITY_WEIGHT).map(([k, table]) => [k, table[card.rarity] ?? 0]))
+    const loot = !card.gadget && LOOT_TYPES.includes(card.type)
+    const slots = kind => SLOT_OWNER_WEIGHT.map(row => ({ p: 0, w: loot ? rarity[kind] * row[owner] * cost * color * rare : 0 }))
+    const bonus = (card.gadget ? SHOP_GADGET_WEIGHT : 1) * (card.type === 'Friend' ? SHOP_FRIEND_WEIGHT : 1)
+    return {
+      card, cost, color, rarity,
+      normal: slots('normal'),
+      elite: slots('elite'),
+      shop: { p: 0, w: rarity.shop * SHOP_OWNER_WEIGHT[owner] * bonus * cost * color * rare },
+    }
+  })
+  for (const kind of ['normal', 'elite']) {
+    for (let slot = 0; slot < SLOT_OWNER_WEIGHT.length; slot++) {
+      const total = entries.reduce((sum, e) => sum + e[kind][slot].w, 0)
+      for (const e of entries) e[kind][slot].p = total ? e[kind][slot].w / total : 0
+    }
+  }
+  // Stage.GetShopNormalCards: two each of attack, defense and ability; one skill; one skill or friend.
+  const ofType = (...types) => entries.filter(e => types.includes(e.card.type))
+  const draws = ['Attack', 'Defense', 'Ability'].map(type => drawTwice(ofType(type), ofType(type)))
+  draws.push(drawTwice(ofType('Skill'), ofType('Skill', 'Friend')))
+  for (const draw of draws) for (const [e, chance] of draw) e.shop.p = chance
+  return new Map(entries.map(e => [e.card.id, e]))
+}
+
+/**
+ * What share of the cards a shop offers falls under each option of a facet. Shop odds rather than
+ * card counts: most of a pool's rares rarely turn up, and rewards fix the owners slot by slot.
+ */
+export function oddsShares(facet, values, odds, ctx) {
+  const entries = [...odds.values()]
+  const total = entries.reduce((sum, e) => sum + e.shop.p, 0)
+  const has = (card, value) => (facet.oddsValues ?? facet.values)(card, ctx).includes(value)
+  return Object.fromEntries(values.map(value => [
+    value,
+    entries.reduce((sum, e) => sum + (has(e.card, value) ? e.shop.p : 0), 0) / total,
+  ]))
 }
 
 /** Shining exhibits by the mana they give, one row per colour; those with none are "random" (per turn). */
@@ -106,7 +202,7 @@ export function resolvePool(data, pool) {
     mana[pool.refine] -= 1
     mana.P += 1
   }
-  return { mana, owners: [...owners], blank: pool.exhibits.includes(BLANK_CARD), beforeEvents, afterPurify }
+  return { mana, player: character?.id ?? null, owners: [...owners], blank: pool.exhibits.includes(BLANK_CARD), beforeEvents, afterPurify }
 }
 
 /** The pool a route starts a run with, or null without a route. */
@@ -162,7 +258,7 @@ export const COLLECTIONS = [
     tileAspect: 740 / 530,  // every tile this shape: EntityGrid renders only those near the screen
     upgradeToggle: true,
     poolBefore: 'keyword',  // PoolFilter sits just above this facet
-    initialState: () => ({ roll: null, poolDiff: null, pool: { enabled: false, route: null, exhibits: [], purify: null, refine: null } }),
+    initialState: () => ({ roll: null, poolDiff: null, pool: { enabled: false, odds: false, route: null, exhibits: [], purify: null, refine: null } }),
     extraFilter: (card, state, ctx) => {
       if (ctx.rollSpec && !inRoll(card, ctx.rollSpec)) return false
       if (state.poolDiff && ctx.poolStart) {
@@ -174,27 +270,29 @@ export const COLLECTIONS = [
     // Same as the in-game museum: HideMesuem cards are reachable by link but not listed.
     listed: card => !card.hidden,
     facets: [
-      { key: 'owner', label: 'filter.owner', options: ownerOptions, values: c => [c.owner ?? 'Neutral'] },
+      { key: 'owner', label: 'filter.owner', oddsShare: true, options: ownerOptions, values: c => [c.owner ?? 'Neutral'] },
       {
-        key: 'type', label: 'filter.type',
+        key: 'type', label: 'filter.type', oddsShare: true,
         options: data => presentIn(CARD_TYPES, data.cards.filter(c => !c.hidden).map(c => c.type))
           .map(v => ({ value: v, label: data.enums.CardType[v] ?? v, icon: `type_${v.toLowerCase()}` })),
         values: c => [c.type],
       },
       {
-        key: 'cost', label: 'filter.cost',
+        key: 'cost', label: 'filter.cost', oddsShare: true,
         options: () => COSTS.map(v => ({ value: v, label: v })),
         values: (c, ctx) => [costBucket(cardFace(c, ctx.upgraded))],
       },
       {
-        key: 'rarity', label: 'filter.rarity',
+        key: 'rarity', label: 'filter.rarity', oddsShare: true,
         options: data => rarityOptions(data.cards.filter(c => !c.hidden), data),
         values: c => [c.rarity],
       },
       {
-        key: 'color', label: 'filter.color', hint: 'filter.colorHint',
+        key: 'color', label: 'filter.color', hint: 'filter.colorHint', oddsShare: true,
         options: (_, t) => COLORS.map(v => ({ value: v, label: t(`mana.${v}`), mana: v })),
         match: (c, selected) => matchesColors(c.colors, selected),
+        // Unlike the filter, each card counts once, so the shares add up to 100%.
+        oddsValues: c => [c.colors.length > 1 ? 'P' : c.colors[0] ?? 'C'],
       },
       {
         key: 'cardPool', label: 'filter.cardPool',
@@ -305,6 +403,7 @@ export function encodeState(collection, state) {
   if (state.poolDiff) params.set('poolDiff', state.poolDiff)
   if (state.pool) {
     if (state.pool.enabled) params.set('pool', '1')
+    if (state.pool.odds) params.set('odds', '1')
     if (state.pool.route) params.set('poolRoute', state.pool.route)
     for (const id of state.pool.exhibits) params.append('poolExhibit', id)
     if (state.pool.purify) params.set('purify', state.pool.purify)
@@ -327,6 +426,7 @@ export function decodeState(collection, query) {
   if (state.pool) {
     if (['added', 'removed'].includes(params.get('poolDiff'))) state.poolDiff = params.get('poolDiff')
     state.pool.enabled = params.get('pool') === '1'
+    state.pool.odds = params.get('odds') === '1'
     state.pool.route = params.get('poolRoute')
     state.pool.exhibits = params.getAll('poolExhibit')
     if (PURIFY_FROM.includes(params.get('purify'))) state.pool.purify = params.get('purify')

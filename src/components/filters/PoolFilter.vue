@@ -7,6 +7,11 @@
       <input v-model="pool.enabled" type="checkbox" />
       {{ t('pool.enable') }}
     </label>
+    <label class="check" :class="{ off: !pool.route }">
+      <input v-model="pool.odds" type="checkbox" :disabled="!pool.route" />
+      <span>{{ t('pool.odds') }}<template v-if="!pool.route">{{ t('pool.oddsNeedRoute') }}</template></span>
+    </label>
+    <p v-if="poolOdds" class="odds-hint">{{ t('pool.oddsHint') }}</p>
 
     <div class="group">
       <div class="group-label">{{ t('filter.owner') }}</div>
@@ -92,7 +97,7 @@
 <script setup>
 import { computed, ref, watchEffect } from 'vue'
 import { BLANK_CARD, MANA_ORDER, PURIFY_FROM, REFINE_FROM, shiningExhibits } from '../../config/collections.js'
-import { currentState, data, findEntity, hideTip, imgUrl, jumpToPoolDiff, poolChanges, resolvedPool, showTip, t } from '../../store/codex.js'
+import { currentState, data, findEntity, hideTip, imgUrl, jumpToPoolDiff, poolChanges, poolOdds, resolvedPool, showTip, t } from '../../store/codex.js'
 import HintIcon from '../shared/HintIcon.vue'
 import ManaCost from '../shared/ManaCost.vue'
 import ManaIcon from '../shared/ManaIcon.vue'
@@ -158,6 +163,8 @@ summary { font-size: 12.5px; line-height: 1.3; color: var(--text-dim); cursor: p
 .on-mark { display: inline-block; width: 8px; height: 8px; margin-left: 6px; border-radius: 50%; background: var(--accent); }
 .check { display: flex; align-items: center; gap: 6px; font-size: 13px; line-height: 1.3; cursor: pointer; margin-bottom: 6px; }
 .check input { accent-color: var(--accent); width: 16px; height: 16px; flex: none; }
+.check.off { color: var(--text-dim); cursor: not-allowed; }
+.odds-hint { margin: 0 0 6px; font-size: 12px; line-height: 1.4; color: var(--text-dim); }
 .group { margin-bottom: 7px; }
 .group-label { font-size: 12px; line-height: 1.3; color: var(--text-dim); margin-bottom: 3px; }
 

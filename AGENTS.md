@@ -39,7 +39,7 @@ aa/StandaloneWindows64/*.bundle, resources.assets 精灵图        → pipeline/
 - 卡牌列表是虚拟滚动（`composables/gridWindow.js`），只渲染屏幕上下各一屏的行，因此要求所有格子同样形状（`tileAspect`）。展品高度不一，全部挂载。
 - 新增标签页：`collections.js` 加配置 → `registry.js` 注册组件 → `locales/` 加 `tab.<key>`。
 - 卡牌显示照 `CardWidget`：卡框是 `Sprite/Card/Bg/` 贴图拉伸到 530×740，卡图一律拉伸到 454×313（`object-fit: fill`，贴图本身的比例不代表显示比例）。
-- 奖励卡池照 `GameRunController` 的抽卡逻辑和 `ManaGroup.CanAfford`，见 `collections.js` 的 `inCardPool`；只包含 `poolKind` 为 `in` 的牌，不含只在商店出售的道具牌和发明牌（`shop`）。输入是角色路线、光耀展品和两个改变基础法力的事件（`JunkoColorless`、`PatchouliPhilosophy`），由 `resolvePool` 算出法力和可用角色；“卡池变化”对比 `startingPool`，预览和 `roll` 共用临时筛选的返回逻辑。规则说明是 `locales/` 的 `pool.rules`（`Rule.yaml` 的 `CardPool` 的精简版，`[WWB]` 表示一串法力图标），构建时转成数据里的 `poolRules`。
+- 奖励卡池照 `GameRunController` 的抽卡逻辑和 `ManaGroup.CanAfford`，见 `collections.js` 的 `inCardPool`；不含道具牌，含只在商店出售的发明牌。卡池概率（`pool.odds`）由 `poolOdds` 算出，公式见 `docs/card-reward-weights.md`，稀有牌系数固定 0.85；筛选项百分比是商店概率的占比（`oddsShares`，配置 `oddsShare`）。输入是角色路线、光耀展品和两个改变基础法力的事件（`JunkoColorless`、`PatchouliPhilosophy`），由 `resolvePool` 算出法力和可用角色；“卡池变化”对比 `startingPool`，预览和 `roll` 共用临时筛选的返回逻辑。规则说明是 `locales/` 的 `pool.rules`（`Rule.yaml` 的 `CardPool` 的精简版，`[WWB]` 表示一串法力图标），构建时转成数据里的 `poolRules`。
 - 展品有两种分类，不要混用：**稀有度** `rarity`（`ExhibitConfig.Rarity`：普通、罕见、稀有、光耀、秘宝）和**展品类型** `exhibitType`（`Index / 100`，文案取 `Museum.ExhibitType.T1`–`T8`：在前五类之外还有商店、事件&其它、最终幕）。
 - 样式：颜色只用 `theme.css` 的变量，组件内用 scoped 样式。
 - 手机（≤720px）：整页滚动，详情和筛选都是底部弹窗（`app.css` 的 `.sheet-open`、`.sheet-backdrop`，`SheetHandle.vue` 下拉关闭）。标签栏和搜索栏吸顶，`FilterPanel` 的 `top` 要等于 `AppHeader` 吸顶部分的高度（45px）。
