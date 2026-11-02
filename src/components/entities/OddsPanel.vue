@@ -24,7 +24,7 @@
     </table>
     <dl>
       <dt>{{ t('odds.rarity') }}</dt>
-      <dd>{{ t('odds.normal') }} {{ weight(odds.rarity.normal) }} / {{ t('odds.elite') }} {{ weight(odds.rarity.elite) }} / {{ t('odds.shop') }} {{ weight(odds.rarity.shop) }}</dd>
+      <dd>{{ t('odds.normalShort') }} {{ weight(odds.rarity.normal) }} / {{ t('odds.eliteShort') }} {{ weight(odds.rarity.elite) }} / {{ t('odds.shop') }} {{ weight(odds.rarity.shop) }}</dd>
       <dt>{{ t('odds.color') }}</dt>
       <dd>{{ weight(odds.color) }}</dd>
       <dt>{{ t('odds.cost') }}</dt>
