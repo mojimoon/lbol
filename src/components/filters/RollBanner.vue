@@ -11,12 +11,13 @@
 
 <script setup>
 import { computed } from 'vue'
-import { clearRoll, currentState, findEntity, returnFromRoll, rollReturn, t } from '../../store/codex.js'
+import { clearRoll, currentState, findEntity, poolBaseline, returnFromRoll, rollReturn, t } from '../../store/codex.js'
 
 const source = computed(() => (currentState.value.roll ? findEntity('cards', currentState.value.roll) : null))
 const diffTitle = computed(() => {
   const { poolDiff, pool } = currentState.value
   if (!poolDiff) return null
+  if (poolBaseline.value) return t(poolDiff === 'added' ? 'pool.previewAddedBase' : 'pool.previewRemovedBase')
   const [id, side] = pool.route?.split('.') ?? []
   const character = findEntity('characters', id)
   if (!character) return null

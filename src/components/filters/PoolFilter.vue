@@ -76,6 +76,10 @@
         <ManaCost :symbols="symbols" size="22px" wrap />
         <span class="total-count">({{ symbols.length }})</span>
       </div>
+      <div class="baseline">
+        <button type="button" class="link-button" @click="setBaseline">[{{ t('pool.setBaseline') }}]</button>
+        <button v-if="poolBaseline" type="button" class="link-button" @click="poolBaseline = null">[{{ t('pool.clearBaseline') }}]</button>
+      </div>
     </div>
 
     <template v-if="poolChanges && (poolChanges.added.length || poolChanges.removed.length)">
@@ -97,7 +101,7 @@
 <script setup>
 import { computed, ref, watchEffect } from 'vue'
 import { BLANK_CARD, MANA_ORDER, PURIFY_FROM, REFINE_FROM, shiningExhibits } from '../../config/collections.js'
-import { currentState, data, findEntity, hideTip, imgUrl, jumpToPoolDiff, poolChanges, poolOdds, resolvedPool, showTip, t } from '../../store/codex.js'
+import { currentState, data, findEntity, hideTip, imgUrl, jumpToPoolDiff, poolBaseline, poolChanges, poolOdds, resolvedPool, showTip, t } from '../../store/codex.js'
 import HintIcon from '../shared/HintIcon.vue'
 import ManaCost from '../shared/ManaCost.vue'
 import ManaIcon from '../shared/ManaIcon.vue'
@@ -143,6 +147,10 @@ function toggleExhibit(id) {
   if (i >= 0) list.splice(i, 1)
   else list.push(id)
   pool.value.enabled = true
+}
+function setBaseline() {
+  const { route, exhibits, purify, refine } = pool.value
+  poolBaseline.value = { route, exhibits: [...exhibits], purify, refine }
 }
 function pickEvent(key, color) {
   pool.value[key] = pool.value[key] === color ? null : color
@@ -209,6 +217,7 @@ summary { font-size: 12.5px; line-height: 1.3; color: var(--text-dim); cursor: p
 .arrow { margin: 0 2px; color: var(--text-dim); }
 
 .total { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; min-height: 22px; }
+.baseline { display: flex; gap: 8px; margin-top: 4px; font-size: 12px; }
 .total-count { font-size: 13px; color: var(--text-dim); font-variant-numeric: tabular-nums; }
 
 .changes-toggle {

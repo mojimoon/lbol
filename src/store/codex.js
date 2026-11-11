@@ -132,11 +132,13 @@ watch(() => [route.tab, encodeState(collection.value, currentState.value)].join(
 // ---- reward pool ----
 const cardsState = browseState.cards
 export const resolvedPool = computed(() => resolvePool(data.value, cardsState.pool))
-const poolStart = computed(() => startingPool(data.value, cardsState.pool.route))
+/** Pool inputs saved by "set as baseline"; pool changes compare against these instead of the route's start. Lost on reload. */
+export const poolBaseline = ref(null)
+const poolStart = computed(() => (poolBaseline.value ? resolvePool(data.value, poolBaseline.value) : startingPool(data.value, cardsState.pool.route)))
 /** Map(card id -> odds) while the odds display is on and a character is chosen, else null. */
 export const poolOdds = computed(() => (cardsState.pool.odds ? computeOdds(data.value.cards, resolvedPool.value) : null))
 
-/** Listed cards that the current inputs add to, or take from, the pool the route started with. */
+/** Listed cards that the current inputs add to, or take from, the baseline (by default the pool the route started with). */
 export const poolChanges = computed(() => {
   if (!poolStart.value) return null
   const listed = data.value.cards.filter(c => !c.hidden).sort((a, b) => a.index - b.index)
