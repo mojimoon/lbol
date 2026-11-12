@@ -1,6 +1,7 @@
 <template>
   <div v-if="source || diffTitle" class="roll-banner" role="status">
-    <p class="title">{{ source ? t('roll.active', { name: source.name }) : diffTitle }}</p>
+    <p v-if="source" class="title">{{ t('roll.active', { name: source.name }) }}</p>
+    <RichText v-else class="title" :tokens="diffTitle" />
     <p v-if="source && !source.roll.unlimited" class="note">{{ t('roll.runNote') }}</p>
     <div class="actions">
       <button v-if="rollReturn" type="button" class="action primary" @click="returnFromRoll">{{ t('roll.back') }}</button>
@@ -11,19 +12,20 @@
 
 <script setup>
 import { computed } from 'vue'
-import { clearRoll, currentState, findEntity, poolBaseline, returnFromRoll, rollReturn, t } from '../../store/codex.js'
+import RichText from '../shared/RichText.vue'
+import { MANA_ORDER } from '../../config/collections.js'
+import { clearRoll, currentState, findEntity, poolBaseline, poolStart, returnFromRoll, rollReturn, t } from '../../store/codex.js'
 
 const source = computed(() => (currentState.value.roll ? findEntity('cards', currentState.value.roll) : null))
 const diffTitle = computed(() => {
   const { poolDiff, pool } = currentState.value
-  if (!poolDiff) return null
-  if (poolBaseline.value) return t(poolDiff === 'added' ? 'pool.previewAddedBase' : 'pool.previewRemovedBase')
-  const [id, side] = pool.route?.split('.') ?? []
-  const character = findEntity('characters', id)
-  if (!character) return null
-  const color = character.colors[side === 'B' ? 1 : 0]
-  const name = `${character.shortName} (${t(`mana.${color}`)})`
-  return t(poolDiff === 'added' ? 'pool.previewAdded' : 'pool.previewRemoved', { name })
+  if (!poolDiff || !poolStart.value) return null
+  // e.g. 琪露诺(mana icons): who the compared pool belongs to, and its base mana.
+  const route = poolBaseline.value ? poolBaseline.value.route : pool.route
+  const character = findEntity('characters', route?.split('.')[0])
+  const mana = MANA_ORDER.flatMap(c => Array(poolStart.value.mana[c]).fill({ m: c }))
+  const [before, after] = t(poolDiff === 'added' ? 'pool.previewAdded' : 'pool.previewRemoved').split('{name}')
+  return [before, `${character?.shortName ?? ''}(`, ...mana, ')', after]
 })
 </script>
 

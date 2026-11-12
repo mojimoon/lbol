@@ -134,7 +134,7 @@ const cardsState = browseState.cards
 export const resolvedPool = computed(() => resolvePool(data.value, cardsState.pool))
 /** Pool inputs saved by "set as baseline"; pool changes compare against these instead of the route's start. Lost on reload. */
 export const poolBaseline = ref(null)
-const poolStart = computed(() => (poolBaseline.value ? resolvePool(data.value, poolBaseline.value) : startingPool(data.value, cardsState.pool.route)))
+export const poolStart = computed(() => (poolBaseline.value ? resolvePool(data.value, poolBaseline.value) : startingPool(data.value, cardsState.pool.route)))
 /** Map(card id -> odds) while the odds display is on and a character is chosen, else null. */
 export const poolOdds = computed(() => (cardsState.pool.odds ? computeOdds(data.value.cards, resolvedPool.value) : null))
 
