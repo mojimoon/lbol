@@ -260,7 +260,7 @@ export const COLLECTIONS = [
     tileAspect: 740 / 530,  // every tile this shape: EntityGrid renders only those near the screen
     upgradeToggle: true,
     poolBefore: 'keyword',  // PoolFilter sits just above this facet
-    initialState: () => ({ roll: null, poolDiff: null, pool: { enabled: false, odds: false, route: null, exhibits: [], purify: null, refine: null } }),
+    initialState: () => ({ roll: null, poolDiff: null, poolBase: null, pool: { enabled: false, odds: false, route: null, exhibits: [], purify: null, refine: null } }),
     extraFilter: (card, state, ctx) => {
       if (ctx.rollSpec && !inRoll(card, ctx.rollSpec)) return false
       if (state.poolDiff && ctx.poolStart) {
@@ -411,6 +411,14 @@ export function encodeState(collection, state) {
     if (state.pool.purify) params.set('purify', state.pool.purify)
     if (state.pool.refine) params.set('refine', state.pool.refine)
   }
+  // The pool "set as baseline" saved, so a shared pool-changes link compares against the same pool.
+  if (state.poolBase) {
+    params.set('base', '1')
+    if (state.poolBase.route) params.set('baseRoute', state.poolBase.route)
+    for (const id of state.poolBase.exhibits) params.append('baseExhibit', id)
+    if (state.poolBase.purify) params.set('basePurify', state.poolBase.purify)
+    if (state.poolBase.refine) params.set('baseRefine', state.poolBase.refine)
+  }
   return params.toString()
 }
 
@@ -433,6 +441,14 @@ export function decodeState(collection, query) {
     state.pool.exhibits = params.getAll('poolExhibit')
     if (PURIFY_FROM.includes(params.get('purify'))) state.pool.purify = params.get('purify')
     if (REFINE_FROM.includes(params.get('refine'))) state.pool.refine = params.get('refine')
+    if (params.get('base') === '1') {
+      state.poolBase = {
+        route: params.get('baseRoute'),
+        exhibits: params.getAll('baseExhibit'),
+        purify: PURIFY_FROM.includes(params.get('basePurify')) ? params.get('basePurify') : null,
+        refine: REFINE_FROM.includes(params.get('baseRefine')) ? params.get('baseRefine') : null,
+      }
+    }
   }
   return state
 }

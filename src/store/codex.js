@@ -132,9 +132,8 @@ watch(() => [route.tab, encodeState(collection.value, currentState.value)].join(
 // ---- reward pool ----
 const cardsState = browseState.cards
 export const resolvedPool = computed(() => resolvePool(data.value, cardsState.pool))
-/** Pool inputs saved by "set as baseline"; pool changes compare against these instead of the route's start. Lost on reload. */
-export const poolBaseline = ref(null)
-export const poolStart = computed(() => (poolBaseline.value ? resolvePool(data.value, poolBaseline.value) : startingPool(data.value, cardsState.pool.route)))
+/** Pool changes compare against the inputs saved by "set as baseline", else the pool the route starts with. */
+export const poolStart = computed(() => (cardsState.poolBase ? resolvePool(data.value, cardsState.poolBase) : startingPool(data.value, cardsState.pool.route)))
 /** Map(card id -> odds) while the odds display is on and a character is chosen, else null. */
 export const poolOdds = computed(() => (cardsState.pool.odds ? computeOdds(data.value.cards, resolvedPool.value) : null))
 
@@ -179,7 +178,7 @@ export function jumpToRoll(cardId) {
 export function jumpToPoolDiff(kind) {
   const cards = COLLECTIONS.find(c => c.key === 'cards')
   rollReturn.value = { tab: route.tab, id: route.id, query: encodeState(cards, cardsState) }
-  location.hash = `#/cards?${encodeState(cards, { ...decodeState(cards, ''), pool: cardsState.pool, poolDiff: kind })}`
+  location.hash = `#/cards?${encodeState(cards, { ...decodeState(cards, ''), pool: cardsState.pool, poolBase: cardsState.poolBase, poolDiff: kind })}`
 }
 
 export function returnFromRoll() {

@@ -14,14 +14,14 @@
 import { computed } from 'vue'
 import RichText from '../shared/RichText.vue'
 import { MANA_ORDER } from '../../config/collections.js'
-import { clearRoll, currentState, findEntity, poolBaseline, poolStart, returnFromRoll, rollReturn, t } from '../../store/codex.js'
+import { clearRoll, currentState, findEntity, poolStart, returnFromRoll, rollReturn, t } from '../../store/codex.js'
 
 const source = computed(() => (currentState.value.roll ? findEntity('cards', currentState.value.roll) : null))
 const diffTitle = computed(() => {
-  const { poolDiff, pool } = currentState.value
+  const { poolDiff, pool, poolBase } = currentState.value
   if (!poolDiff || !poolStart.value) return null
   // e.g. 琪露诺(mana icons): who the compared pool belongs to, and its base mana.
-  const route = poolBaseline.value ? poolBaseline.value.route : pool.route
+  const route = poolBase ? poolBase.route : pool.route
   const character = findEntity('characters', route?.split('.')[0])
   const mana = MANA_ORDER.flatMap(c => Array(poolStart.value.mana[c]).fill({ m: c }))
   const [before, after] = t(poolDiff === 'added' ? 'pool.previewAdded' : 'pool.previewRemoved').split('{name}')

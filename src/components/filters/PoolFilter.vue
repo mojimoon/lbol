@@ -78,7 +78,7 @@
       </div>
       <div class="baseline">
         <button type="button" class="link-button" @click="setBaseline">[{{ t('pool.setBaseline') }}]</button>
-        <button v-if="poolBaseline" type="button" class="link-button" @click="poolBaseline = null">[{{ t('pool.clearBaseline') }}]</button>
+        <button v-if="currentState.poolBase" type="button" class="link-button" @click="currentState.poolBase = null">[{{ t('pool.clearBaseline') }}]</button>
       </div>
     </div>
 
@@ -101,7 +101,7 @@
 <script setup>
 import { computed, ref, watchEffect } from 'vue'
 import { BLANK_CARD, MANA_ORDER, PURIFY_FROM, REFINE_FROM, shiningExhibits } from '../../config/collections.js'
-import { currentState, data, findEntity, hideTip, imgUrl, jumpToPoolDiff, poolBaseline, poolChanges, poolOdds, resolvedPool, showTip, t } from '../../store/codex.js'
+import { currentState, data, findEntity, hideTip, imgUrl, jumpToPoolDiff, poolChanges, poolOdds, resolvedPool, showTip, t } from '../../store/codex.js'
 import HintIcon from '../shared/HintIcon.vue'
 import ManaCost from '../shared/ManaCost.vue'
 import ManaIcon from '../shared/ManaIcon.vue'
@@ -150,7 +150,7 @@ function toggleExhibit(id) {
 }
 function setBaseline() {
   const { route, exhibits, purify, refine } = pool.value
-  poolBaseline.value = { route, exhibits: [...exhibits], purify, refine }
+  currentState.value.poolBase = { route, exhibits: [...exhibits], purify, refine }
 }
 function pickEvent(key, color) {
   pool.value[key] = pool.value[key] === color ? null : color
