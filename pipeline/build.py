@@ -196,6 +196,7 @@ class Localizer:
         self.enemy_unit = load_yaml(lang, 'EnemyUnit')
         self.jade_box = load_yaml(lang, 'JadeBox')
         self.stage = load_yaml(lang, 'Stage')
+        self.pack = {**load_yaml('en', 'Pack'), **load_yaml(lang, 'Pack')}
         self.player_name = UnitText(self.unit.get('DefaultPlayer') or {})
         self.owner_name = UnitText(self.unit.get('DefaultOwner') or {})
         self.dynamic = defaultdict(set)  # placeholder -> entity ids that need battle state
@@ -365,7 +366,8 @@ def card_frames(card):
 
 def in_random_pool(card):
     """Static part of GameRunController's card roll (Library.EnumerateRollableCardTypes + filters)."""
-    return (card['IsPooled'] and card['DebugLevel'] == 0 and not card['Pack']
+    # Pack cards (Card.Pack) need their pack enabled in the settings; treated as enabled here.
+    return (card['IsPooled'] and card['DebugLevel'] == 0
             and tables.CARD_TYPE[card['Type']] not in ('Unknown', 'Misfortune', 'Status'))
 
 
@@ -413,6 +415,7 @@ def build_card(card, loc, images, ratings):
         'imgUp': assets.safe_name(up_key) if up_key and assets.safe_name(up_key) in images else None,
         'alts': alt_list,
         'pooled': in_random_pool(card),
+        'pack': card['Pack'] or None,
         'special': card_special(card, face, up),
         'poolCost': {k: v for k, v in card['Cost'].items() if v},
         'findInBattle': card['FindInBattle'],
@@ -619,6 +622,7 @@ def build_lang(lang, t, stems, build_id, ratings):
                            key=lambda e: e['index']),
         'characters': [build_character(p, loc, ultimates, {e['Id']: e for e in t['exhibits']}, stems['characters']) for p in players],
         'enemyStages': enemies.stage_names(loc),
+        'packs': {k: (v or {}).get('Name', k) for k, v in loc.pack.items()},
     }
     data['enemies'] = enemies.build_enemies(lang, loc, ui, t, data, stems['enemies'])
     return data, loc

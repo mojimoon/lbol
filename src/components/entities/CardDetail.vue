@@ -22,6 +22,7 @@
       <a v-if="entity.owner" class="tag link" :href="`#/characters/${entity.owner}`">{{ ownerName(entity.owner) }}</a>
       <span v-else class="tag">{{ t('owner.Neutral') }}</span>
       <span v-if="!entity.pooled" class="tag muted">{{ t('detail.notPooled') }}</span>
+      <span v-if="entity.pack" class="tag">{{ data.packs?.[entity.pack] ?? entity.pack }}</span>
       <span class="tag muted">{{ entity.id }}</span>
     </div>
 

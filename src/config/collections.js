@@ -327,7 +327,7 @@ export const COLLECTIONS = [
     upgradeToggle: true,
     costSearch: true,
     searchHint: 'filter.searchCards',
-    poolBefore: 'keyword',  // PoolFilter sits just above this facet
+    poolBefore: 'pack',  // PoolFilter sits just above this facet
     initialState: () => ({ roll: null, poolDiff: null, poolBase: null, pool: { enabled: false, odds: false, route: null, exhibits: [], purify: null, refine: null, manual: null } }),
     extraFilter: (card, state, ctx) => {
       if (ctx.rollSpec && !inRoll(card, ctx.rollSpec)) return false
@@ -373,6 +373,13 @@ export const COLLECTIONS = [
         key: 'special', label: 'filter.special',
         options: (_, t) => ['multi', 'discover'].map(v => ({ value: v, label: t(`special.${v}`) })),
         values: c => c.special,
+      },
+      {
+        key: 'pack', label: 'filter.pack', collapsible: true,
+        options: data => Object.entries(data.packs ?? {})
+          .filter(([k]) => data.cards.some(c => c.pack === k && !c.hidden))
+          .map(([value, label]) => ({ value, label })),
+        values: c => (c.pack ? [c.pack] : []),
       },
       {
         key: 'keyword', label: 'filter.keyword', collapsible: true,
