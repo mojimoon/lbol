@@ -303,7 +303,7 @@ export const COLLECTIONS = [
       },
       {
         key: 'special', label: 'filter.special',
-        options: (_, t) => ['multi', 'discover', 'power'].map(v => ({ value: v, label: t(`special.${v}`) })),
+        options: (_, t) => ['multi', 'discover'].map(v => ({ value: v, label: t(`special.${v}`) })),
         values: c => c.special,
       },
       {

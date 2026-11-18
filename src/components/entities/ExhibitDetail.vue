@@ -9,6 +9,7 @@
       <span v-else class="tag">{{ t('owner.Neutral') }}</span>
       <span v-if="entity.appearance === 'NonShop'" class="tag muted">{{ t('appearance.NonShop') }}</span>
       <span v-if="!entity.pooled" class="tag muted">{{ t('detail.exhibitNotPooled') }}</span>
+      <span class="tag muted">{{ entity.id }}</span>
     </div>
     <RichText class="desc" :tokens="entity.desc" interactive />
     <RichText v-if="entity.flavor.length" class="flavor" :tokens="entity.flavor" />

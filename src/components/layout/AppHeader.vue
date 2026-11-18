@@ -36,6 +36,7 @@ import ThemeToggle from '../shared/ThemeToggle.vue'
 const LINKS = [
   { key: 'link.miraheze', url: 'https://lbol.miraheze.org' },
   { key: 'link.huiji', url: 'https://lbol.huijiwiki.com' },
+  { key: 'link.wikiwiki', url: 'https://wikiwiki.jp/tohokoyoya' },
   { key: 'link.steam', url: 'https://store.steampowered.com/app/1140150/' },
 ]
 </script>

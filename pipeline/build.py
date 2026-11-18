@@ -350,9 +350,9 @@ def card_special(card, *faces):
     if card['Id'] in random_pools.DISCOVER:
         special.append('discover')
     # "P points": Power, by the sprite or keyword in the text. Sprites and keyword ids are the same in every language.
-    tokens = [tok for face in faces if face for tok in face['desc'] if isinstance(tok, dict)]
-    if any(tok.get('m') == 'pt_Power' for tok in tokens) or any('Power' in face['keywords'] for face in faces if face):
-        special.append('power')
+    # tokens = [tok for face in faces if face for tok in face['desc'] if isinstance(tok, dict)]
+    # if any(tok.get('m') == 'pt_Power' for tok in tokens) or any('Power' in face['keywords'] for face in faces if face):
+    #     special.append('power')
     return special
 
 
