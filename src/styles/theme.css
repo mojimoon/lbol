@@ -7,6 +7,7 @@
   --bg: #0f1024; --surface: #181a35; --surface-2: #22244a; --line: #3a3d6b;
   --text: #ecebf4; --text-dim: #a5a6c4; --hover: #ffffff12; --selected: #f0c36a22;
   --accent: #f0c36a; --on-accent: #1a1420; --keyword: #f0c36a; --up: #6bd68c; --negative: #ef8a7a;
+  --diff-N: #ecebf4; --diff-H: #6fb3ff; --diff-L: #c79bf5; --rating-low: #8f8f9c;
   --rarity-common: #e4e4ee; --rarity-uncommon: #7cc0f5; --rarity-rare: #f0c36a; --rarity-shining: #f49ad0; --rarity-mythic: #c79bf5;
   --shadow: 0 8px 30px #00000080;
 }
@@ -15,6 +16,7 @@
   --bg: #f4f2ec; --surface: #ffffff; --surface-2: #ece9e0; --line: #d8d4c8;
   --text: #24233a; --text-dim: #66647c; --hover: #00000010; --selected: #a8730f1f;
   --accent: #96640a; --on-accent: #ffffff; --keyword: #96640a; --up: #1e8a45; --negative: #bf3f2d;
+  --diff-N: #24233a; --diff-H: #1c6fb5; --diff-L: #7a3fc4; --rating-low: #8a8898;
   --rarity-common: #24233a; --rarity-uncommon: #1c6fb5; --rarity-rare: #96640a; --rarity-shining: #b5307f; --rarity-mythic: #6f3ebd;
   --shadow: 0 8px 30px #0000002e;
 }

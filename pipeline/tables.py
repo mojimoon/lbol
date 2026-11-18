@@ -46,6 +46,9 @@ class Reader:
     def i32(self):
         return struct.unpack('<i', self.f.read(4))[0]
 
+    def f32(self):
+        return struct.unpack('<f', self.f.read(4))[0]
+
     def keyword(self):
         return struct.unpack('<Q', self.f.read(8))[0]
 
@@ -148,6 +151,39 @@ def ultimate_skill(r):
         ('Id', lambda _: r.str()), ('Order', i32), ('PowerCost', i32), ('PowerPerLevel', i32), ('MaxPowerLevel', i32),
         ('RepeatableType', i32), ('Damage', i32), ('Value1', i32), ('Value2', i32),
         ('Keywords', lambda _: r.keyword()), ('RelativeEffects', ls), ('RelativeCards', ls),
+    ])
+
+
+ENEMY_TYPE = ['Normal', 'Normal', 'Elite', 'Boss']  # LBoL.Base.EnemyType; 0 is unused
+
+
+def enemy_unit(r):
+    i32, s, b = (lambda _: r.i32()), (lambda _: r.str()), (lambda _: r.bool())
+    oi = lambda _: r.opt(r.i32)
+    ls = lambda _: r.list(r.str)
+    minmax = lambda _: (r.i32(), r.i32())
+    stats = ['Damage1', 'Damage2', 'Damage3', 'Damage4', 'Power', 'Defend', 'Count1', 'Count2']
+    spec = [
+        ('Id', s), ('RealName', b), ('OnlyLore', b), ('BaseManaColor', lambda _: r.list(r.i32)), ('Order', i32),
+        ('ModleName', s), ('NarrativeColor', s), ('Type', i32), ('IsPreludeOpponent', b),
+        ('HpLength', lambda _: r.opt(r.f32)), ('MaxHpAdd', oi), ('MaxHp', i32),
+        *[(k, oi) for k in stats],
+        ('MaxHpHard', oi), *[(k + 'Hard', oi) for k in stats],
+        ('MaxHpLunatic', oi), *[(k + 'Lunatic', oi) for k in stats],
+        ('PowerLoot', minmax), ('BluePointLoot', minmax),
+        ('Gun1', ls), ('Gun2', ls), ('Gun3', ls), ('Gun4', ls),
+    ]
+    return _fields(r, spec)
+
+
+def enemy_group(r):
+    s, b = (lambda _: r.str()), (lambda _: r.bool())
+    ls = lambda _: r.list(r.str)
+    return _fields(r, [
+        ('Id', s), ('IsSub', b), ('Subs', ls), ('Name', s), ('FormationName', s), ('Enemies', ls),
+        ('EnemyType', lambda _: r.i32()), ('Hidden', b), ('DebutTime', lambda _: r.f32()), ('RollBossExhibit', b),
+        ('PlayerRoot', lambda _: (r.f32(), r.f32())), ('PreBattleDialogName', s), ('PostBattleDialogName', s),
+        ('Environment', s),
     ])
 
 

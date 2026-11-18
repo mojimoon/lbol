@@ -5,7 +5,7 @@
     <div class="bar">
       <label class="search">
         <span class="sr-only">{{ t('filter.searchLabel') }}</span>
-        <input v-model="state.search" type="search" :placeholder="t('filter.search')" @keydown.enter="$event.target.blur()" />
+        <input v-model="state.search" type="search" :placeholder="t(collection.searchHint ?? 'filter.search')" @keydown.enter="$event.target.blur()" />
       </label>
       <button
         class="facets-toggle"
@@ -27,14 +27,22 @@
 
       <SortControl v-if="collection.sorts.length" />
 
-      <label v-if="collection.upgradeToggle" class="upgrade-toggle">
-        <input v-model="upgraded" type="checkbox" />
-        {{ t('filter.upgraded') }}
-      </label>
-      <label v-if="collection.upgradeToggle" class="upgrade-toggle">
-        <input v-model="showOwnerAvatar" type="checkbox" />
-        {{ t('filter.showOwner') }}
-      </label>
+      <div v-if="collection.upgradeToggle" class="toggles">
+        <label class="upgrade-toggle">
+          <input v-model="upgraded" type="checkbox" />
+          {{ t('filter.upgraded') }}
+        </label>
+        <label class="upgrade-toggle">
+          <input v-model="showOwnerAvatar" type="checkbox" />
+          {{ t('filter.showOwner') }}
+        </label>
+        <label class="upgrade-toggle">
+          <input v-model="showRating" type="checkbox" />
+          {{ t('filter.showRating') }}<HintIcon v-model:open="ratingHint" :label="t('rating.label')" />
+        </label>
+      </div>
+      <p v-if="collection.upgradeToggle && ratingHint" class="note-box rating-note">{{ t('rating.hint') }}</p>
+      <DifficultyPicker v-if="collection.difficultyToggle" />
 
       <div class="facets">
         <template v-for="facet in collection.facets" :key="`${collection.key}-${facet.key}`">
@@ -53,7 +61,9 @@
 
 <script setup>
 import { computed, ref, watch } from 'vue'
-import { collection, currentState as state, isFiltered, resetFilters, results, showOwnerAvatar, t, upgraded } from '../../store/codex.js'
+import { collection, currentState as state, isFiltered, resetFilters, results, showOwnerAvatar, showRating, t, upgraded } from '../../store/codex.js'
+import DifficultyPicker from '../shared/DifficultyPicker.vue'
+import HintIcon from '../shared/HintIcon.vue'
 import SheetHandle from '../shared/SheetHandle.vue'
 import FacetGroup from './FacetGroup.vue'
 import PoolFilter from './PoolFilter.vue'
@@ -61,6 +71,7 @@ import RollBanner from './RollBanner.vue'
 import SortControl from './SortControl.vue'
 
 const facetsOpen = ref(false)
+const ratingHint = ref(false)
 // Phones: the preview's results are what the sheet would cover.
 watch(() => state.value.poolDiff, kind => { if (kind) facetsOpen.value = false })
 const activeFacetCount = computed(() =>
@@ -80,6 +91,9 @@ const activeFacetCount = computed(() =>
 .drawer-actions, .facets-toggle { display: none; }
 .upgrade-toggle { display: flex; align-items: center; gap: 6px; font-size: 13px; line-height: 1.3; cursor: pointer; }
 .upgrade-toggle input { accent-color: var(--up); width: 16px; height: 16px; }
+.toggles { display: flex; flex-wrap: wrap; gap: 4px 10px; }
+.toggles .upgrade-toggle { gap: 4px; white-space: nowrap; }
+.rating-note { margin: 0; }
 .facets { display: flex; flex-direction: column; gap: 7px; }
 .count {
   display: inline-block; margin-left: 6px; padding: 0 6px; border-radius: 8px; font-size: 11px;

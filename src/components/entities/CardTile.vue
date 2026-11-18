@@ -2,6 +2,7 @@
   <!-- Layout follows the game's 530×740 CardWidget; positions are percentages of that. -->
   <article class="card-tile" :class="`type-${entity.type}`">
     <img v-if="art" class="art" :src="imgUrl('cards', art)" alt="" loading="lazy" decoding="async" />
+    <span v-if="rating" class="rating" :style="{ color: ratingColor(entity.rating[0]) }" :title="t('rating.label')">{{ rating }}</span>
     <div v-if="odds" class="odds">
       <div v-for="row in oddsRows" :key="row.label">
         <span class="odds-label">{{ row.label }}: </span>
@@ -36,8 +37,8 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { useFitText } from '../../composables/fitText.js'
-import { cardFace, percent } from '../../config/collections.js'
-import { data, findEntity, imgUrl, poolOdds, showOwnerAvatar, t, upgraded } from '../../store/codex.js'
+import { cardFace, percent, ratingColor } from '../../config/collections.js'
+import { data, findEntity, imgUrl, poolOdds, showOwnerAvatar, showRating, t, upgraded } from '../../store/codex.js'
 import ManaCost from '../shared/ManaCost.vue'
 import RichText from '../shared/RichText.vue'
 
@@ -46,6 +47,7 @@ const showUp = computed(() => upgraded.value && !!props.entity.up)
 const face = computed(() => cardFace(props.entity, upgraded.value))
 const art = computed(() => (showUp.value && props.entity.imgUp) || props.entity.img)
 const displayName = computed(() => `${props.entity.name}${showUp.value ? '+' : ''}`)
+const rating = computed(() => (showRating.value && props.entity.rating ? props.entity.rating[0].toFixed(1) : null))
 const owner = computed(() => (showOwnerAvatar.value && props.entity.owner ? findEntity('characters', props.entity.owner) : null))
 
 const odds = computed(() => (props.noOdds ? null : poolOdds.value?.get(props.entity.id)))
@@ -87,9 +89,17 @@ useFitText(typeEl, () => data.value.enums.CardType[props.entity.type], { max: 11
   position: absolute; left: 6.6%; width: 86.8%; top: 59.5%; height: 32.4%; object-fit: contain; opacity: .14; pointer-events: none;
 }
 .type-icon { position: absolute; left: 3.1%; top: 2.1%; width: 8.2%; height: 5.9%; object-fit: contain; }
+/* Centred in the frame's ribbon beside the type icon, as CardWidget shows it. */
 .type-name {
-  position: absolute; left: 13.2%; top: 3.18%; width: 26.6%; height: 6.08%; display: flex; align-items: center;
-  white-space: nowrap; overflow: hidden;
+  position: absolute; left: 12.6%; top: 3.1%; width: 28.6%; height: 5.8%; display: flex; align-items: center;
+  justify-content: safe center; font-weight: 700; white-space: nowrap; overflow: hidden;
+}
+/* Tool frames have a light ribbon. */
+.type-Tool .type-name { color: #23232f; }
+.rating {
+  position: absolute; left: 8.5%; top: 10.6%; padding: .4cqw 2.4cqw; border-radius: 3cqw;
+  background: #000c; --rating-low: #9a9aa6; font-size: 6.4cqw; font-weight: 700; line-height: 1.25;
+  font-variant-numeric: tabular-nums;
 }
 .cost { position: absolute; right: 6.6%; top: 1.35%; height: 9.46%; max-width: 58%; align-items: center; justify-content: flex-end; overflow: hidden; }
 .name {

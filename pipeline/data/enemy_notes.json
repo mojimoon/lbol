@@ -1,0 +1,2553 @@
+{
+ "source": "Better LBoL (Steam Workshop 3808435406)",
+ "enemies": [
+  {
+   "id": "Maoyu",
+   "kind": "Normal",
+   "page": "毛玉"
+  },
+  {
+   "id": "MaoyuRed",
+   "kind": "Normal",
+   "page": "毛玉"
+  },
+  {
+   "id": "MaoyuBlue",
+   "kind": "Normal",
+   "page": "毛玉"
+  },
+  {
+   "id": "MaoyuBlack",
+   "kind": "Normal",
+   "page": "毛玉"
+  },
+  {
+   "id": "WhiteFairy",
+   "kind": "Normal",
+   "page": "向日葵妖精"
+  },
+  {
+   "id": "BlackFairy",
+   "kind": "Normal",
+   "page": "克劳恩皮丝"
+  },
+  {
+   "id": "RavenWen",
+   "kind": "Normal",
+   "page": "乌鸦"
+  },
+  {
+   "id": "RavenGuo",
+   "kind": "Normal",
+   "page": "乌鸦"
+  },
+  {
+   "id": "GuihuoGreen",
+   "kind": "Normal",
+   "page": "怨灵"
+  },
+  {
+   "id": "GuihuoBlue",
+   "kind": "Normal",
+   "page": "火焰猫燐"
+  },
+  {
+   "id": "YinyangyuRed",
+   "kind": "Normal",
+   "page": "阴阳玉"
+  },
+  {
+   "id": "YinyangyuBlue",
+   "kind": "Normal",
+   "page": "阴阳玉"
+  },
+  {
+   "id": "SickGirl",
+   "kind": "Normal",
+   "page": "病弱少女"
+  },
+  {
+   "id": "FraudRabbit",
+   "kind": "Normal",
+   "page": "诈骗兔子"
+  },
+  {
+   "id": "DollBlue",
+   "kind": "Normal",
+   "page": "人偶"
+  },
+  {
+   "id": "DollPurple",
+   "kind": "Normal",
+   "page": "人偶"
+  },
+  {
+   "id": "Yaoshi",
+   "kind": "Normal",
+   "page": "废弃的要石"
+  },
+  {
+   "id": "WaterGirl",
+   "kind": "Normal",
+   "page": "溺水少女"
+  },
+  {
+   "id": "Fox",
+   "kind": "Normal",
+   "page": "妖狐"
+  },
+  {
+   "id": "Bat",
+   "kind": "Normal",
+   "page": "蝙蝠"
+  },
+  {
+   "id": "BatLord",
+   "kind": "Normal",
+   "page": "蝙蝠"
+  },
+  {
+   "id": "Scout",
+   "kind": "Normal",
+   "page": "无人机"
+  },
+  {
+   "id": "Purifier",
+   "kind": "Normal",
+   "page": "无人机"
+  },
+  {
+   "id": "Terminator",
+   "kind": "Normal",
+   "page": "无人机"
+  },
+  {
+   "id": "HetongKailang",
+   "kind": "Normal",
+   "page": "河童"
+  },
+  {
+   "id": "HetongYinchen",
+   "kind": "Normal",
+   "page": "河童"
+  },
+  {
+   "id": "KanakoLimao",
+   "kind": "Normal",
+   "page": "八坂神奈子？"
+  },
+  {
+   "id": "SuwakoLimao",
+   "kind": "Normal",
+   "page": "洩矢诹访子？"
+  },
+  {
+   "id": "ShenlingPurple",
+   "kind": "Normal",
+   "page": "神灵"
+  },
+  {
+   "id": "ShenlingWhite",
+   "kind": "Normal",
+   "page": "神灵"
+  },
+  {
+   "id": "LoveGirl",
+   "kind": "Normal",
+   "page": "恋爱少女"
+  },
+  {
+   "id": "YaTiangou",
+   "kind": "Normal",
+   "page": "天狗"
+  },
+  {
+   "id": "LangTiangou",
+   "kind": "Normal",
+   "page": "天狗"
+  },
+  {
+   "id": "HardworkRabbit",
+   "kind": "Normal",
+   "page": "月兔"
+  },
+  {
+   "id": "LazyRabbit",
+   "kind": "Normal",
+   "page": "月兔"
+  },
+  {
+   "id": "Sunny",
+   "kind": "Elite",
+   "page": "光之三妖精"
+  },
+  {
+   "id": "Luna",
+   "kind": "Elite",
+   "page": "光之三妖精"
+  },
+  {
+   "id": "Star",
+   "kind": "Elite",
+   "page": "光之三妖精"
+  },
+  {
+   "id": "Aya",
+   "kind": "Elite",
+   "page": "射命丸文"
+  },
+  {
+   "id": "Rin",
+   "kind": "Elite",
+   "page": "火焰猫燐"
+  },
+  {
+   "id": "Nitori",
+   "kind": "Elite",
+   "page": "河城荷取"
+  },
+  {
+   "id": "Kokoro",
+   "kind": "Elite",
+   "page": "秦心"
+  },
+  {
+   "id": "Youmu",
+   "kind": "Elite",
+   "page": "魂魄妖梦"
+  },
+  {
+   "id": "Clownpiece",
+   "kind": "Elite",
+   "page": "克劳恩皮丝"
+  },
+  {
+   "id": "Siji",
+   "kind": "Elite",
+   "page": "四季映姬"
+  },
+  {
+   "id": "Doremy",
+   "kind": "Elite",
+   "page": "哆来咪"
+  },
+  {
+   "id": "Reimu",
+   "kind": "Boss",
+   "page": "博丽灵梦(Boss)"
+  },
+  {
+   "id": "Marisa",
+   "kind": "Boss",
+   "page": "雾雨魔理沙(Boss)"
+  },
+  {
+   "id": "Sakuya",
+   "kind": "Boss",
+   "page": "十六夜咲夜(Boss)"
+  },
+  {
+   "id": "Cirno",
+   "kind": "Boss",
+   "page": "琪露诺(Boss)"
+  },
+  {
+   "id": "Koishi",
+   "kind": "Boss",
+   "page": "古明地恋(Boss)"
+  },
+  {
+   "id": "Long",
+   "kind": "Boss",
+   "page": "饭纲丸龙"
+  },
+  {
+   "id": "Tianzi",
+   "kind": "Boss",
+   "page": "比那名居天子"
+  },
+  {
+   "id": "Yuyuko",
+   "kind": "Boss",
+   "page": "西行寺幽幽子"
+  },
+  {
+   "id": "Sanae",
+   "kind": "Boss",
+   "page": "东风谷早苗"
+  },
+  {
+   "id": "Remilia",
+   "kind": "Boss",
+   "page": "蕾米莉亚"
+  },
+  {
+   "id": "Junko",
+   "kind": "Boss",
+   "page": "纯狐"
+  },
+  {
+   "id": "Seija",
+   "kind": "Boss",
+   "page": "鬼人正邪"
+  },
+  {
+   "id": "ScoutElite",
+   "kind": "Summon",
+   "page": "河城荷取"
+  },
+  {
+   "id": "PurifierElite",
+   "kind": "Summon",
+   "page": "河城荷取"
+  },
+  {
+   "id": "TerminatorElite",
+   "kind": "Summon",
+   "page": "河城荷取"
+  },
+  {
+   "id": "GuihuoRed",
+   "kind": "Summon",
+   "page": "火焰猫燐"
+  },
+  {
+   "id": "MaskRed",
+   "kind": "Summon",
+   "page": "秦心"
+  },
+  {
+   "id": "MaskGreen",
+   "kind": "Summon",
+   "page": "秦心"
+  },
+  {
+   "id": "MaskBlue",
+   "kind": "Summon",
+   "page": "秦心"
+  },
+  {
+   "id": "Wangling",
+   "kind": "Summon",
+   "page": "西行寺幽幽子"
+  },
+  {
+   "id": "DreamRemilia",
+   "kind": "Summon",
+   "page": "哆来咪"
+  },
+  {
+   "id": "DreamAya",
+   "kind": "Summon",
+   "page": "哆来咪"
+  },
+  {
+   "id": "DreamJunko",
+   "kind": "Summon",
+   "page": "哆来咪"
+  },
+  {
+   "id": "DreamYoumu",
+   "kind": "Summon",
+   "page": "哆来咪"
+  },
+  {
+   "id": "YinyangyuRedReimu",
+   "kind": "Summon",
+   "page": "博丽灵梦(Boss)"
+  },
+  {
+   "id": "YinyangyuBlueReimu",
+   "kind": "Summon",
+   "page": "博丽灵梦(Boss)"
+  },
+  {
+   "id": "RavenWen3",
+   "kind": "Summon",
+   "page": "鬼人正邪"
+  },
+  {
+   "id": "RavenGuo3",
+   "kind": "Summon",
+   "page": "鬼人正邪"
+  }
+ ],
+ "logicIds": {
+  "DreamRemilia": "Remilia",
+  "DreamAya": "Aya",
+  "DreamJunko": "Junko",
+  "DreamYoumu": "Youmu",
+  "ScoutElite": "Scout",
+  "PurifierElite": "Purifier",
+  "TerminatorElite": "Terminator",
+  "RavenWen3": "RavenWen",
+  "RavenGuo3": "RavenGuo",
+  "YinyangyuRedReimu": "YinyangyuRed",
+  "YinyangyuBlueReimu": "YinyangyuBlue"
+ },
+ "actions": {
+  "Maoyu": {
+   "passive": {
+    "zh": "开战获得 {Defend~2} 层 [[S:MaoyuBlock]]。",
+    "en": "Starts with {Defend~2} [[S:MaoyuBlock]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1~2} 点伤害。",
+     "en": "Deal {Damage1~2} damage."
+    },
+    {
+     "index": "1",
+     "zh": "施加 {Count1} 回合 [[S:Fragil]]。",
+     "en": "Apply [[S:Fragil]] for {Count1} turns."
+    }
+   ]
+  },
+  "MaoyuRed": {
+   "passive": {
+    "zh": "开战获得 {Defend~2} 层 [[S:MaoyuBlock]]。",
+    "en": "Starts with {Defend~2} [[S:MaoyuBlock]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1~2} 点伤害。",
+     "en": "Deal {Damage1~2} damage."
+    },
+    {
+     "index": "1",
+     "zh": "施加 {Count1} 回合 [[S:Fragil]]。",
+     "en": "Apply [[S:Fragil]] for {Count1} turns."
+    }
+   ]
+  },
+  "MaoyuBlue": {
+   "passive": {
+    "zh": "开战获得 {Defend~2} 层 [[S:MaoyuBlock]]。",
+    "en": "Starts with {Defend~2} [[S:MaoyuBlock]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1~2} 点伤害。",
+     "en": "Deal {Damage1~2} damage."
+    },
+    {
+     "index": "1",
+     "zh": "施加 {Count1} 回合 [[S:Weak]]。",
+     "en": "Apply [[S:Weak]] for {Count1} turns."
+    }
+   ]
+  },
+  "MaoyuBlack": {
+   "passive": {
+    "zh": "开战获得 {Defend~2} 层 [[S:MaoyuBlock]]。",
+    "en": "Starts with {Defend~2} [[S:MaoyuBlock]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1~2} 点伤害。",
+     "en": "Deal {Damage1~2} damage."
+    },
+    {
+     "index": "1",
+     "zh": "获得 {Power} 点 [[S:Firepower]]。",
+     "en": "Gain {Power} [[S:Firepower]]."
+    }
+   ]
+  },
+  "WhiteFairy": {
+   "passive": {
+    "zh": "获得 [[S:Lunatic]] 后，[[0]] 和 [[2]] 提供的格挡改为护盾。",
+    "en": "With [[S:Lunatic]], [[0]] and [[2]] grant Barrier instead of Block."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1} 点伤害，获得 {Defend} 点格挡。疯狂时改为护盾。",
+     "en": "Deal {Damage1} damage and gain {Defend} Block (Barrier when Lunatic)."
+    },
+    {
+     "index": "1",
+     "zh": "造成 {Damage2} 点伤害 2 次。",
+     "en": "Deal {Damage2} damage twice."
+    },
+    {
+     "index": "2",
+     "zh": "获得 {Defend} 点格挡和 {Power} 点 [[S:Firepower]]。疯狂时格挡改为护盾。",
+     "en": "Gain {Defend} Block (Barrier when Lunatic) and {Power} [[S:Firepower]]."
+    }
+   ]
+  },
+  "BlackFairy": {
+   "passive": {
+    "zh": "开战获得 {Count1} 点护盾。首次 [[2]] 转为 [[S:Lunatic]]；之后的 [[2]] 增加火力。",
+    "en": "Starts with {Count1} Barrier. The first [[2]] grants [[S:Lunatic]]; later uses increase Firepower."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1} 点伤害；向弃牌堆加入 1 张 [[C:BlackResidue]]。疯狂后改为 2 张。",
+     "en": "Deal {Damage1} damage; add 1 [[C:BlackResidue]] to discard (2 when Lunatic)."
+    },
+    {
+     "index": "1",
+     "zh": "精准：造成 {Damage2} 点伤害 2 次；疯狂后基础伤害额外 +{Power}。",
+     "en": "Accurate: deal {Damage2} damage twice; Lunatic adds {Power} base damage."
+    },
+    {
+     "index": "2",
+     "zh": "首次获得 {Defend} 点格挡及 [[S:Lunatic]]；后续获得 {Defend} 点护盾及 {Power} 点 [[S:Firepower]]。",
+     "en": "First: {Defend} Block and [[S:Lunatic]]. Later: {Defend} Barrier and {Power} [[S:Firepower]]."
+    }
+   ]
+  },
+  "RavenWen": {
+   "passive": {
+    "zh": "开战获得 {Count1} 层 [[S:Graze]]。",
+    "en": "Starts with {Count1} [[S:Graze]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1~2} 点伤害。",
+     "en": "Deal {Damage1~2} damage."
+    },
+    {
+     "index": "1",
+     "zh": "向弃牌堆加入 {Count2} 张 [[C:AyaNews]]。",
+     "en": "Add {Count2} [[C:AyaNews]] to discard."
+    },
+    {
+     "index": "2",
+     "zh": "获得 {Defend} 层 [[S:Graze]]。",
+     "en": "Gain {Defend} [[S:Graze]]."
+    }
+   ]
+  },
+  "RavenGuo": {
+   "passive": {
+    "zh": "开战获得 {Count1} 层 [[S:Graze]]。",
+    "en": "Starts with {Count1} [[S:Graze]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1~2} 点伤害。",
+     "en": "Deal {Damage1~2} damage."
+    },
+    {
+     "index": "1",
+     "zh": "向弃牌堆加入 {Count2} 张 [[C:HatateNews]]。",
+     "en": "Add {Count2} [[C:HatateNews]] to discard."
+    },
+    {
+     "index": "2",
+     "zh": "获得 {Defend} 层 [[S:Graze]]。",
+     "en": "Gain {Defend} [[S:Graze]]."
+    }
+   ]
+  },
+  "GuihuoGreen": {
+   "passive": {
+    "zh": "死亡时对主角造成 {Count1~Count2} 点攻击伤害。自爆或被燐引爆时，这次伤害翻倍。",
+    "en": "On death, attack the player for {Count1~Count2} damage. Self-explosion or Rin’s detonation doubles this damage."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1~2} 点伤害。",
+     "en": "Deal {Damage1~2} damage."
+    },
+    {
+     "index": "1",
+     "zh": "施加 {Count2} 回合 [[S:Fragil]]。",
+     "en": "Apply [[S:Fragil]] for {Count2} turns."
+    },
+    {
+     "index": "2",
+     "zh": "自爆，对主角造成 {Count1*2~Count2*2} 点攻击伤害。",
+     "en": "Self-destruct and attack the player for {Count1*2~Count2*2} damage."
+    }
+   ]
+  },
+  "GuihuoBlue": {
+   "passive": {
+    "zh": "死亡时对主角造成 {Count1~Count2} 点攻击伤害。自爆或被燐引爆时，这次伤害翻倍。",
+    "en": "On death, attack the player for {Count1~Count2} damage. Self-explosion or Rin’s detonation doubles this damage."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1~2} 点伤害。",
+     "en": "Deal {Damage1~2} damage."
+    },
+    {
+     "index": "1",
+     "zh": "施加 {Count2} 回合 [[S:Weak]]。",
+     "en": "Apply [[S:Weak]] for {Count2} turns."
+    },
+    {
+     "index": "2",
+     "zh": "自爆，对主角造成 {Count1*2~Count2*2} 点攻击伤害。",
+     "en": "Self-destruct and attack the player for {Count1*2~Count2*2} damage."
+    }
+   ]
+  },
+  "GuihuoRed": {
+   "passive": {
+    "zh": "死亡时对主角造成 {Count1~Count2} 点攻击伤害。自爆或被燐引爆时，这次伤害翻倍。",
+    "en": "On death, attack the player for {Count1~Count2} damage. Self-explosion or Rin’s detonation doubles this damage."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1~2} 点伤害。",
+     "en": "Deal {Damage1~2} damage."
+    },
+    {
+     "index": "1",
+     "zh": "施加 {Count2} 回合 [[S:Vulnerable]]。",
+     "en": "Apply [[S:Vulnerable]] for {Count2} turns."
+    },
+    {
+     "index": "2",
+     "zh": "自爆，对主角造成 {Count1*2~Count2*2} 点攻击伤害。",
+     "en": "Self-destruct and attack the player for {Count1*2~Count2*2} damage."
+    }
+   ]
+  },
+  "YinyangyuRed": {
+   "passive": {
+    "zh": "开战获得 {Power} 层 [[S:AbsorbPower]]。",
+    "en": "Starts with {Power} [[S:AbsorbPower]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1} 点伤害。",
+     "en": "Deal {Damage1} damage."
+    },
+    {
+     "index": "1",
+     "zh": "造成 {Damage2} 点伤害 2 次。",
+     "en": "Deal {Damage2} damage twice."
+    }
+   ]
+  },
+  "YinyangyuBlue": {
+   "passive": {
+    "zh": "开战获得 {Power} 层 [[S:AbsorbSpirit]]。",
+    "en": "Starts with {Power} [[S:AbsorbSpirit]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1} 点伤害。",
+     "en": "Deal {Damage1} damage."
+    },
+    {
+     "index": "1",
+     "zh": "为自身以外的随机一名存活敌人提供 {Defend} 点护盾；若独自存活则给自己。",
+     "en": "Give a random other living enemy {Defend} Barrier, or itself if alone."
+    }
+   ]
+  },
+  "SickGirl": {
+   "passive": {
+    "zh": "开战获得 {Count1} 层 [[S:DeathVulnerable]]。",
+    "en": "Starts with {Count1} [[S:DeathVulnerable]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1} 点伤害。",
+     "en": "Deal {Damage1} damage."
+    },
+    {
+     "index": "1",
+     "zh": "获得 {Power} 点 [[S:Firepower]]。",
+     "en": "Gain {Power} [[S:Firepower]]."
+    }
+   ]
+  },
+  "FraudRabbit": {
+   "passive": {
+    "zh": "开战获得 [[S:PhoneBillSe]]，每次收费收取 {Power} 枚金币，最多收取主角当前持有的金币。",
+    "en": "Starts with [[S:PhoneBillSe]]. Each bill takes {Power} money, capped by the player’s current money."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "向手牌加入 1 张 [[C:Payment]]，收取 {Power} 枚金币。",
+     "en": "Add 1 [[C:Payment]] to hand and take {Power} money."
+    },
+    {
+     "index": "1",
+     "zh": "交替对主角施加 {Count1} 层 [[S:TempFirepowerNegative]] 或 [[S:TempSpiritNegative]]，收取 {Power} 枚金币。",
+     "en": "Alternate {Count1} [[S:TempFirepowerNegative]] and [[S:TempSpiritNegative]] on the player, taking {Power} money."
+    },
+    {
+     "index": "2",
+     "zh": "获得 {Defend} 层 [[S:Graze]]，准备逃跑。",
+     "en": "Gain {Defend} [[S:Graze]] before fleeing."
+    },
+    {
+     "index": "3",
+     "zh": "逃跑并放逐战斗区域内剩余的转账。",
+     "en": "Escape and exile remaining Payments from battle zones."
+    }
+   ]
+  },
+  "DollBlue": {
+   "passive": {
+    "zh": "开战获得 {Count1} 层 [[S:DeathPoison]]。",
+    "en": "Starts with {Count1} [[S:DeathPoison]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1} 点伤害 2 次。",
+     "en": "Deal {Damage1} damage twice."
+    },
+    {
+     "index": "1",
+     "zh": "精准：造成 {Damage2~2} 点伤害，施加 {Power} 层 [[S:Poison]]。",
+     "en": "Accurate: deal {Damage2~2} damage and apply {Power} [[S:Poison]]."
+    },
+    {
+     "index": "2",
+     "zh": "[[S:DeathPoison]] 增加 {Count1} 层。",
+     "en": "Gain {Count1} [[S:DeathPoison]]."
+    }
+   ]
+  },
+  "DollPurple": {
+   "passive": {
+    "zh": "开战获得 {Count1} 层 [[S:DeathPoison]]。",
+    "en": "Starts with {Count1} [[S:DeathPoison]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1} 点伤害 2 次。",
+     "en": "Deal {Damage1} damage twice."
+    },
+    {
+     "index": "1",
+     "zh": "精准：造成 {Damage2~2} 点伤害，施加 {Power} 层 [[S:Poison]]。",
+     "en": "Accurate: deal {Damage2~2} damage and apply {Power} [[S:Poison]]."
+    },
+    {
+     "index": "2",
+     "zh": "[[S:DeathPoison]] 增加 {Count1} 层。",
+     "en": "Gain {Count1} [[S:DeathPoison]]."
+    }
+   ]
+  },
+  "Yaoshi": {
+   "passive": {
+    "zh": "开战获得 {Count1} 层 [[S:RockHard]]，其他非要石敌人获得 {Count2} 层 [[S:RockHardAura]]。",
+    "en": "Starts with {Count1} [[S:RockHard]]. Other non-rock enemies gain {Count2} [[S:RockHardAura]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1} 点伤害。",
+     "en": "Deal {Damage1} damage."
+    },
+    {
+     "index": "1",
+     "zh": "获得 {Power} 层 [[S:Electric]]，持续至战斗结束。",
+     "en": "Gain {Power} [[S:Electric]] for the rest of the battle."
+    },
+    {
+     "index": "2",
+     "zh": "造成 {Damage2} 点伤害；向弃牌堆加入 2 张 [[C:Xuanguang]]。",
+     "en": "Deal {Damage2} damage; add 2 [[C:Xuanguang]] to discard."
+    }
+   ]
+  },
+  "WaterGirl": {
+   "passive": null,
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1} 点伤害 2 次。",
+     "en": "Deal {Damage1} damage twice."
+    },
+    {
+     "index": "1",
+     "zh": "精准：造成 {Damage2} 点伤害。",
+     "en": "Accurate: deal {Damage2} damage."
+    },
+    {
+     "index": "2",
+     "zh": "施加 {Power} 层 [[S:Drowning]]。",
+     "en": "Apply {Power} [[S:Drowning]]."
+    }
+   ]
+  },
+  "Fox": {
+   "passive": {
+    "zh": "[[S:FoxCharm]] 每个玩家回合最多打出 3 张牌；击败妖狐后移除。",
+    "en": "[[S:FoxCharm]] allows at most 3 cards to be played per player turn and is removed when Fox dies."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1} 点伤害 2 次。",
+     "en": "Deal {Damage1} damage twice."
+    },
+    {
+     "index": "1",
+     "zh": "精准：造成 {Damage2} 点伤害，施加 {Power} 回合 [[S:Weak]]；自身获得 {Power} 点 [[S:Firepower]]。",
+     "en": "Accurate: deal {Damage2} damage, apply {Power}-turn [[S:Weak]], gain {Power} [[S:Firepower]]."
+    },
+    {
+     "index": "2",
+     "zh": "施加 [[S:FoxCharm]]（每回合上限 3 张）。",
+     "en": "Apply [[S:FoxCharm]] (3 cards per turn)."
+    }
+   ]
+  },
+  "Bat": {
+   "passive": {
+    "zh": "开战获得 [[S:Vampire]] 和 {Count1} 层 [[S:Graze]]。",
+    "en": "Starts with [[S:Vampire]] and {Count1} [[S:Graze]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1} 点伤害。",
+     "en": "Deal {Damage1} damage."
+    },
+    {
+     "index": "1",
+     "zh": "造成 {Damage2} 点伤害 2 次。",
+     "en": "Deal {Damage2} damage twice."
+    },
+    {
+     "index": "2",
+     "zh": "获得 {Defend} 层 [[S:Graze]]。",
+     "en": "Gain {Defend} [[S:Graze]]."
+    },
+    {
+     "index": "3",
+     "zh": "施加 {Power} 层 [[S:LockedOn]]。",
+     "en": "Apply {Power} [[S:LockedOn]]."
+    }
+   ]
+  },
+  "BatLord": {
+   "passive": {
+    "zh": "开战获得 [[S:Vampire]] 和 {Count1} 层 [[S:Graze]]。",
+    "en": "Starts with [[S:Vampire]] and {Count1} [[S:Graze]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1} 点伤害。",
+     "en": "Deal {Damage1} damage."
+    },
+    {
+     "index": "1",
+     "zh": "造成 {Damage2} 点伤害 2 次。",
+     "en": "Deal {Damage2} damage twice."
+    },
+    {
+     "index": "2",
+     "zh": "获得 {Defend} 层 [[S:Graze]]。",
+     "en": "Gain {Defend} [[S:Graze]]."
+    },
+    {
+     "index": "3",
+     "zh": "施加 {Power} 层 [[S:LockedOn]]。",
+     "en": "Apply {Power} [[S:LockedOn]]."
+    }
+   ]
+  },
+  "Scout": {
+   "passive": {
+    "zh": "持有 [[S:Appliance]]。",
+    "en": "Has [[S:Appliance]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1} 点伤害 2 次。",
+     "en": "Deal {Damage1} damage twice."
+    },
+    {
+     "index": "1",
+     "zh": "获得 {Defend} 点格挡及 {Defend} 点护盾。",
+     "en": "Gain {Defend} Block and {Defend} Barrier."
+    },
+    {
+     "index": "2",
+     "zh": "施加 {Power} 层 [[S:LockedOn]]；向弃牌堆加入 1 张 [[C:Xuanguang]]。",
+     "en": "Apply {Power} [[S:LockedOn]]; add 1 [[C:Xuanguang]] to discard."
+    },
+    {
+     "index": "3",
+     "zh": "眩晕，不行动。",
+     "en": "Stunned; take no action."
+    }
+   ]
+  },
+  "Purifier": {
+   "passive": {
+    "zh": "持有 [[S:Appliance]]。",
+    "en": "Has [[S:Appliance]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1} 点伤害 2 次。",
+     "en": "Deal {Damage1} damage twice."
+    },
+    {
+     "index": "1",
+     "zh": "获得 {Defend} 点格挡及 {Defend} 点护盾。",
+     "en": "Gain {Defend} Block and {Defend} Barrier."
+    },
+    {
+     "index": "2",
+     "zh": "造成 {Damage2} 点伤害，施加 {Power} 层 [[S:TurnStartPurify]]。",
+     "en": "Deal {Damage2} damage and apply {Power} [[S:TurnStartPurify]]."
+    },
+    {
+     "index": "3",
+     "zh": "眩晕，不行动。",
+     "en": "Stunned; take no action."
+    }
+   ]
+  },
+  "Terminator": {
+   "passive": {
+    "zh": "持有 [[S:Appliance]]。",
+    "en": "Has [[S:Appliance]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "精准：造成 {Damage2} 点伤害。",
+     "en": "Accurate: deal {Damage2} damage."
+    },
+    {
+     "index": "1",
+     "zh": "造成 {Damage1} 点伤害 3 次。",
+     "en": "Deal {Damage1} damage 3 times."
+    },
+    {
+     "index": "2",
+     "zh": "满生命时：获得 2 点 [[S:Firepower]]。损失生命少于 {Count1/2} 点时：恢复 {Count1/2} 点生命，获得 1 点 [[S:Firepower]]。其他情况：恢复 {Count1} 点生命。",
+     "en": "At full HP: gain 2 [[S:Firepower]]. Missing less than {Count1/2} HP: heal {Count1/2} and gain 1 [[S:Firepower]]. Otherwise: heal {Count1}."
+    },
+    {
+     "index": "3",
+     "zh": "眩晕，不行动。",
+     "en": "Stunned; take no action."
+    }
+   ]
+  },
+  "HetongKailang": {
+   "passive": {
+    "zh": "开战获得 {Count2} 回合 [[S:GuangxueMicai]]。",
+    "en": "Starts with {Count2}-turn [[S:GuangxueMicai]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1} 点伤害。",
+     "en": "Deal {Damage1} damage."
+    },
+    {
+     "index": "1",
+     "zh": "随机维修一台至少缺少 {Count1/2} 点生命的无人机，恢复 {Count1} 点生命；没有目标时自己获得 {Defend} 点格挡。",
+     "en": "Heal a random drone missing at least {Count1/2} HP for {Count1}; with no eligible target, gain {Defend} Block."
+    },
+    {
+     "index": "2",
+     "zh": "所有存活敌人获得 {Power} 点 [[S:Firepower]]。",
+     "en": "All living enemies gain {Power} [[S:Firepower]]."
+    }
+   ]
+  },
+  "HetongYinchen": {
+   "passive": {
+    "zh": "开战获得 {Count2} 回合 [[S:GuangxueMicai]]。",
+    "en": "Starts with {Count2}-turn [[S:GuangxueMicai]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1} 点伤害。",
+     "en": "Deal {Damage1} damage."
+    },
+    {
+     "index": "1",
+     "zh": "为存活无人机恢复 {Count1} 点生命、增加 {Power} 点 [[S:Firepower]]；自身获得 {Defend} 点格挡。",
+     "en": "Heal a living drone for {Count1} and give it {Power} [[S:Firepower]]; gain {Defend} Block."
+    }
+   ]
+  },
+  "KanakoLimao": {
+   "passive": {
+    "zh": "具有 [[S:LimaoDisguiser]]。",
+    "en": "Has [[S:LimaoDisguiser]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1} 点伤害 2 次。",
+     "en": "Deal {Damage1} damage twice."
+    },
+    {
+     "index": "1",
+     "zh": "造成 {Damage2} 点伤害，获得 {Defend} 点护盾。",
+     "en": "Deal {Damage2} damage and gain {Defend} Barrier."
+    },
+    {
+     "index": "2",
+     "zh": "召唤 [[U:ShenlingPurple]] 或 [[U:ShenlingWhite]]；之后两种交替。上限 4 名召唤物。",
+     "en": "Summon [[U:ShenlingPurple]] or [[U:ShenlingWhite]], then alternate colors; up to 4 summons."
+    }
+   ]
+  },
+  "SuwakoLimao": {
+   "passive": {
+    "zh": "具有 [[S:LimaoDisguiser]]。",
+    "en": "Has [[S:LimaoDisguiser]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "获得 1 层 [[S:SuwakoHex]]。",
+     "en": "Gain 1 [[S:SuwakoHex]]."
+    },
+    {
+     "index": "1",
+     "zh": "造成 {Damage1} 点伤害，获得 {Defend} 点护盾。",
+     "en": "Deal {Damage1} damage and gain {Defend} Barrier."
+    },
+    {
+     "index": "2",
+     "zh": "负面状态阶段：施加 {Count1} 回合 [[S:Weak]]、[[S:Vulnerable]]。变化阶段：从手牌、抽牌堆和弃牌堆随机将 {Count2} 张牌变化为 [[C:Frog]]。",
+     "en": "Debuff phase: apply {Count1}-turn [[S:Weak]] and [[S:Vulnerable]]. Transform phase: turn {Count2} random hand/draw/discard cards into [[C:Frog]]."
+    }
+   ]
+  },
+  "ShenlingPurple": {
+   "passive": {
+    "zh": "开战获得 1 层 [[S:Amulet]]、等于自身最大生命的护盾及 {Count1} 层 [[S:ShenlingHp]]。被神奈子或挂坠召唤时无赠礼，具有使魔。",
+    "en": "Starts with 1 [[S:Amulet]], Barrier equal to max HP and {Count1} [[S:ShenlingHp]]. Summoned versions have Servant and no gift."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1} 点伤害 2 次。",
+     "en": "Deal {Damage1} damage twice."
+    },
+    {
+     "index": "1",
+     "zh": "造成 {Damage2} 点伤害，获得 {Power} 点 [[S:Firepower]]。",
+     "en": "Deal {Damage2} damage and gain {Power} [[S:Firepower]]."
+    }
+   ]
+  },
+  "ShenlingWhite": {
+   "passive": {
+    "zh": "开战获得 1 层 [[S:Amulet]]、等于最大生命的护盾及 {Count1..Count2} 层 [[S:ShenlingGold]]。被召唤时没有神灵赠礼。",
+    "en": "Starts with 1 [[S:Amulet]], Barrier equal to max HP and {Count1..Count2} [[S:ShenlingGold]]. Summoned versions have no gift."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1} 点伤害 2 次。",
+     "en": "Deal {Damage1} damage twice."
+    },
+    {
+     "index": "1",
+     "zh": "造成 {Damage2} 点伤害，获得 {Power} 点 [[S:Firepower]]。",
+     "en": "Deal {Damage2} damage and gain {Power} [[S:Firepower]]."
+    }
+   ]
+  },
+  "LoveGirl": {
+   "passive": {
+    "zh": "开战洗入 {Count1} 张 [[C:LoveLetter]]，获得 {Count1} 层 [[S:LoveGirlDamageReduce]]。",
+    "en": "Starts by shuffling {Count1} [[C:LoveLetter]] into draw and gaining {Count1} [[S:LoveGirlDamageReduce]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1~Damage2} 点伤害 2 次。",
+     "en": "Deal {Damage1~Damage2} damage twice."
+    },
+    {
+     "index": "1",
+     "zh": "将 1 张 [[C:Regret]] 加入永久牌库并逃跑。",
+     "en": "Add 1 [[C:Regret]] to the permanent deck and escape."
+    },
+    {
+     "index": "2",
+     "zh": "恋爱逃跑；未持有 [[X:Qingshu]] 时获得该展品。",
+     "en": "Escape in love; give [[X:Qingshu]] if not already owned."
+    }
+   ]
+  },
+  "YaTiangou": {
+   "passive": {
+    "zh": "开战获得 {Defend} 层 [[S:Graze]] 和 {Power} 层 [[S:FastAttack]]。",
+    "en": "Starts with {Defend} [[S:Graze]] and {Power} [[S:FastAttack]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1} 点伤害 2 次。",
+     "en": "Deal {Damage1} damage twice."
+    },
+    {
+     "index": "1",
+     "zh": "所有存活敌人获得 {Defend} 层 [[S:Graze]]。",
+     "en": "All living enemies gain {Defend} [[S:Graze]]."
+    },
+    {
+     "index": "2",
+     "zh": "获得 {Power/2} 层 [[S:FastAttack]]；向抽牌堆洗入 {Count1} 张 [[C:AyaNews]]。",
+     "en": "Gain {Power/2} [[S:FastAttack]]; shuffle {Count1} [[C:AyaNews]] into draw."
+    }
+   ]
+  },
+  "LangTiangou": {
+   "passive": {
+    "zh": "开战获得 {Power} 层 [[S:PowerByDefense]]。",
+    "en": "Starts with {Power} [[S:PowerByDefense]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1} 点伤害 2 次。",
+     "en": "Deal {Damage1} damage twice."
+    },
+    {
+     "index": "1",
+     "zh": "造成 {Damage1} 点伤害，获得 {Defend} 点格挡。",
+     "en": "Deal {Damage1} damage and gain {Defend} Block."
+    },
+    {
+     "index": "2",
+     "zh": "造成 {Damage2} 点伤害，施加 {Count1} 回合 [[S:Vulnerable]]。",
+     "en": "Deal {Damage2} damage and apply {Count1}-turn [[S:Vulnerable]]."
+    }
+   ]
+  },
+  "HardworkRabbit": {
+   "passive": {
+    "zh": "开战获得 [[S:InvincibleEternal]]；向手牌及抽牌堆顶各加入 1 张 [[C:MoonTipsBag]]。",
+    "en": "Starts with [[S:InvincibleEternal]]; add 1 [[C:MoonTipsBag]] to hand and 1 to the top of draw."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "基础伤害初值 {Damage1}。依次攻击两次该数值，再精准攻击一次两倍该数值；完整攻击后基础伤害 +1。",
+     "en": "Base damage starts at {Damage1}. Hit twice for base damage, then accurately for twice base damage. Each completed attack sequence increases base damage by 1."
+    },
+    {
+     "index": "1",
+     "zh": "按条件安装模块；三个模块均已满足后获得 {Power} 点 [[S:Firepower]]。",
+     "en": "Install a module by priority; after all requirements are met, gain {Power} [[S:Firepower]]."
+    }
+   ]
+  },
+  "LazyRabbit": {
+   "passive": {
+    "zh": "开战获得 [[S:InvincibleEternal]]。",
+    "en": "Starts with [[S:InvincibleEternal]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "不行动。",
+     "en": "Take no action."
+    },
+    {
+     "index": "1",
+     "zh": "基础伤害初值 {Damage1}。两次基础伤害 + 一次两倍基础伤害的精准攻击；完整攻击后基础伤害 +1。",
+     "en": "Base damage starts at {Damage1}: two base-damage hits plus one accurate hit for twice base damage. Completed sequences increase base damage by 1."
+    },
+    {
+     "index": "2",
+     "zh": "每个敌人分别检查：[[S:EnemyTuanzi]] 低于 {Count1} 层则 +1 层，否则获得 {Power} 点 [[S:Firepower]]。",
+     "en": "For each enemy: add 1 [[S:EnemyTuanzi]] if below {Count1}, otherwise give {Power} [[S:Firepower]]."
+    }
+   ]
+  },
+  "Sunny": {
+   "passive": null,
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1~Damage2} 点伤害。",
+     "en": "Deal {Damage1~Damage2} damage."
+    },
+    {
+     "index": "1,2",
+     "zh": "向弃牌堆加入 1 张 [[C:Riguang]]。",
+     "en": "Add 1 [[C:Riguang]] to discard."
+    },
+    {
+     "index": "3,4",
+     "zh": "向弃牌堆加入 {Count1} 张 [[C:Riguang]]。",
+     "en": "Add {Count1} [[C:Riguang]] to discard."
+    }
+   ]
+  },
+  "Luna": {
+   "passive": null,
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1~Damage2} 点伤害。",
+     "en": "Deal {Damage1~Damage2} damage."
+    },
+    {
+     "index": "1,2",
+     "zh": "向弃牌堆加入 1 张 [[C:Yueguang]]。",
+     "en": "Add 1 [[C:Yueguang]] to discard."
+    },
+    {
+     "index": "3,4",
+     "zh": "所有存活敌人获得 {Count1} 层 [[S:Graze]] 和 {Defend} 点护盾。",
+     "en": "All living enemies gain {Count1} [[S:Graze]] and {Defend} Barrier."
+    }
+   ]
+  },
+  "Star": {
+   "passive": null,
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1~Damage2} 点伤害 2 次。",
+     "en": "Deal {Damage1~Damage2} damage twice."
+    },
+    {
+     "index": "1,2",
+     "zh": "向弃牌堆加入 2 张 [[C:Xingguang]]。",
+     "en": "Add 2 [[C:Xingguang]] to discard."
+    },
+    {
+     "index": "3,4",
+     "zh": "施加 {Count1} 层 [[S:LockedOn]]。",
+     "en": "Apply {Count1} [[S:LockedOn]]."
+    }
+   ]
+  },
+  "Aya": {
+   "passive": {
+    "zh": "开战获得 {Count1} 层 [[S:WindGirl]] 和 {Count1} 层 [[S:Graze]]。",
+    "en": "Starts with {Count1} [[S:WindGirl]] and {Count1} [[S:Graze]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "精准：造成 {Damage2~2} 点伤害。",
+     "en": "Accurate: deal {Damage2~2} damage."
+    },
+    {
+     "index": "1",
+     "zh": "造成 {Damage1~1} 点伤害 2 次。",
+     "en": "Deal {Damage1~1} damage twice."
+    },
+    {
+     "index": "2,3",
+     "zh": "向弃牌堆加入 3 张 [[C:AyaNews]]。第三次起，将其中一张换为当前主角的特刊。",
+     "en": "Add 3 [[C:AyaNews]] to discard. From the third use onward, replace one with the current character’s special report."
+    }
+   ]
+  },
+  "Rin": {
+   "passive": {
+    "zh": "开战获得 3 层 [[S:RinSummon]]。每有一名敌人死亡，燐获得 {Power} 层 [[S:RinAura]]。",
+    "en": "Starts with 3 [[S:RinSummon]]. Each enemy death gives Rin {Power} [[S:RinAura]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1} 点伤害。",
+     "en": "Deal {Damage1} damage."
+    },
+    {
+     "index": "1",
+     "zh": "召唤 [[U:GuihuoRed]]、[[U:GuihuoGreen]]、[[U:GuihuoBlue]]，场上最多 3 只怨灵。每只消耗 1 层 [[S:RinSummon]] 和对应颜色的怨灵球。",
+     "en": "Summon [[U:GuihuoRed]], [[U:GuihuoGreen]] and [[U:GuihuoBlue]], up to 3 spirits on the field. Each costs 1 [[S:RinSummon]] and a matching spirit orb."
+    },
+    {
+     "index": "2",
+     "zh": "引爆剩余生命最少的一只怨灵。该怨灵消失，并对主角发动一次双倍伤害的死亡弹幕。",
+     "en": "Detonate the spirit with the least HP. It disappears and attacks the player with a doubled death attack."
+    },
+    {
+     "index": "3",
+     "zh": "依次引爆全部怨灵，每只对主角发动一次双倍伤害的死亡弹幕。场上没有怨灵时，改为获得 {Defend} 层 [[S:Graze]]。将 [[S:RinSummon]] 补至 {Count2} 层，并重置恢复间隔。",
+     "en": "Detonate all spirits one by one; each attacks the player for double its death damage. With no spirits, gain {Defend} [[S:Graze]] instead. Refill [[S:RinSummon]] to {Count2} and reset its recovery interval."
+    },
+    {
+     "index": "4",
+     "zh": "获得 {Defend} 层 [[S:Graze]]。",
+     "en": "Gain {Defend} [[S:Graze]]."
+    }
+   ]
+  },
+  "Nitori": {
+   "passive": {
+    "zh": "开战获得 2 回合 [[S:GuangxueMicai]]。",
+    "en": "Starts with 2-turn [[S:GuangxueMicai]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "等概率召唤 [[U:ScoutElite]]、[[U:PurifierElite]] 或 [[U:TerminatorElite]]。",
+     "en": "Equally likely summon [[U:ScoutElite]], [[U:PurifierElite]] or [[U:TerminatorElite]]."
+    },
+    {
+     "index": "1",
+     "zh": "造成 {Damage1} 点伤害 2 次。",
+     "en": "Deal {Damage1} damage twice."
+    },
+    {
+     "index": "2",
+     "zh": "有其他敌人存活时：全体获得 1 回合 [[S:GuangxueMicai]]，无人机恢复 {Count1} 点生命。荷取独自存活时：自身获得 2 回合 [[S:GuangxueMicai]] 和 {Power} 点 [[S:Firepower]]。",
+     "en": "With another enemy alive: all enemies gain 1-turn [[S:GuangxueMicai]] and the drone heals {Count1}. Alone: Nitori gains 2-turn [[S:GuangxueMicai]] and {Power} [[S:Firepower]]."
+    }
+   ]
+  },
+  "Kokoro": {
+   "passive": {
+    "zh": "主角每次被施加一种负面状态，[[S:KokoroDarkPower]] 的计数增加 1。",
+    "en": "Each negative status applied to the player increases [[S:KokoroDarkPower]]’s count by 1."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1} 点伤害 3 次，召唤一张面具。",
+     "en": "Deal {Damage1} damage 3 times and summon a mask."
+    },
+    {
+     "index": "1",
+     "zh": "造成 {Damage2~2} 点伤害，向弃牌堆加入 1/1/2 张 [[C:Xuanguang]]；所有敌人获得 {Power} 点 [[S:Firepower]]。",
+     "en": "Deal {Damage2~2} damage, add 1/1/2 [[C:Xuanguang]] to discard; all enemies gain {Power} [[S:Firepower]]."
+    },
+    {
+     "index": "2",
+     "zh": "造成 {Damage2~2} 点伤害，获得 {Defend} 格挡，施加 {Power} 回合 [[S:Weak]]。",
+     "en": "Deal {Damage2~2} damage, gain {Defend} Block, apply {Power}-turn [[S:Weak]]."
+    },
+    {
+     "index": "3,4",
+     "zh": "先精准造成 {Damage4} 点攻击伤害，再单独造成“暗黑能量计数 × {Count1}”的效果伤害；清空计数。",
+     "en": "First deal {Damage4} accurate attack damage, then separate effect damage equal to Dark Power count × {Count1}; reset the count."
+    }
+   ]
+  },
+  "Youmu": {
+   "passive": {
+    "zh": "开战获得 1 层 [[S:LouguanJianSe]]。",
+    "en": "Starts with 1 [[S:LouguanJianSe]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1} 点伤害 {Count1} 次，获得 {Defend} 层 [[S:Graze]]。",
+     "en": "Deal {Damage1} damage {Count1} times and gain {Defend} [[S:Graze]]."
+    },
+    {
+     "index": "1,2",
+     "zh": "造成 {Damage2} 点伤害；向抽牌堆洗入 {Count2} 张 [[C:Wushuai]]。",
+     "en": "Deal {Damage2} damage; shuffle {Count2} [[C:Wushuai]] into draw."
+    },
+    {
+     "index": "3,4",
+     "zh": "精准：造成 {Damage3} 点伤害 3 次。",
+     "en": "Accurate: deal {Damage3} damage 3 times."
+    }
+   ]
+  },
+  "Clownpiece": {
+   "passive": {
+    "zh": "开战获得 {Count1} 点护盾和 [[S:LunaticTorch]]。",
+    "en": "Starts with {Count1} Barrier and [[S:LunaticTorch]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1} 点伤害 3 次；向抽牌堆洗入 1 张 [[C:Lunatic]]。",
+     "en": "Deal {Damage1} damage 3 times; shuffle 1 [[C:Lunatic]] into draw."
+    },
+    {
+     "index": "1",
+     "zh": "精准：造成 {Damage2} 点伤害；向抽牌堆洗入 1 张 [[C:Lunatic]]。",
+     "en": "Accurate: deal {Damage2} damage; shuffle 1 [[C:Lunatic]] into draw."
+    },
+    {
+     "index": "2",
+     "zh": "按阶段填补三个妖精位置；已有妖精恢复至满生命，空位召唤对应妖精。",
+     "en": "Fill three fairy slots by formation; existing fairies heal to full HP, empty slots summon the assigned fairy."
+    }
+   ]
+  },
+  "Siji": {
+   "passive": {
+    "zh": "开战召唤当前主角的镜像。初始 [[S:SijiZui]]：展品不足 10 件为 1 层，10～19 件为 2 层，20 件以上为 3 层。",
+    "en": "Summons the current character’s mirror. Starting [[S:SijiZui]]: 1 below 10 exhibits, 2 with 10–19, 3 with 20 or more."
+   },
+   "moves": [
+    {
+     "index": "-1",
+     "zh": "第一种审判造成 {Damage1} + {Damage2} ×（[[S:SijiZui]] 层数 − 1）点伤害。之后每换一种审判，基础伤害增加 1，最后累计增加 9；从 [[3]] 起为精准。",
+     "en": "The first judgment deals {Damage1} + {Damage2} × ([[S:SijiZui]] level − 1) damage. Each subsequent judgment adds 1 base damage, up to +9. Attacks are accurate from [[3]] onward."
+    }
+   ]
+  },
+  "Doremy": {
+   "passive": {
+    "zh": "[[S:Sleep]] 的等级为 {Count2}，初始 [[S:DoremyLevel]] 为 0。梦境等级提升会增强生命和行动。",
+    "en": "[[S:Sleep]] starts at {Count2}; [[S:DoremyLevel]] starts at 0."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "睡眠一次：梦境等级 +1，最大生命与当前生命各 +50，并补充睡眠护盾。",
+     "en": "Sleep: dream level +1, max/current HP +50; replenish sleep Barrier."
+    },
+    {
+     "index": "1",
+     "zh": "被打醒后的眩晕行动，不攻击。",
+     "en": "Stunned move after being woken; no attack."
+    },
+    {
+     "index": "2",
+     "zh": "四段攻击；梦境等级不足 2 时每段 {Damage1}，2 级以上每段 {Damage1+Damage2}。",
+     "en": "Four hits for {Damage1} each below dream level 2, or {Damage1+Damage2} at level 2+."
+    },
+    {
+     "index": "3",
+     "zh": "攻击时：精准造成 {Damage3} 点伤害，梦境等级至少 2 时改为 {Damage3+Damage4}。防御时：获得 {Defend} 点护盾，梦境等级至少 2 时改为 {Defend+Count1}。",
+     "en": "Attack: accurately deal {Damage3} damage, or {Damage3+Damage4} at dream level 2+. Defense: gain {Defend} Barrier, or {Defend+Count1} at level 2+."
+    }
+   ]
+  },
+  "Reimu": {
+   "passive": {
+    "zh": "开战获得 {Defend} 点护盾和 1 层 [[S:Amulet]]。",
+    "en": "Starts with {Defend} Barrier and 1 [[S:Amulet]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1} 点伤害 4 次。",
+     "en": "Deal {Damage1} damage 4 times."
+    },
+    {
+     "index": "1",
+     "zh": "精准：造成 {Damage2} 点伤害，施加 1 回合 [[S:Weak]]。",
+     "en": "Accurate: deal {Damage2} damage and apply 1-turn [[S:Weak]]."
+    },
+    {
+     "index": "2",
+     "zh": "造成 {Damage3} 点伤害，对主角施加 1 回合 [[S:Fengyin]]。",
+     "en": "Deal {Damage3} damage and apply 1-turn [[S:Fengyin]] to the player."
+    },
+    {
+     "index": "3",
+     "zh": "获得 {Defend~2} 点护盾；没有 [[S:Amulet]] 时，再获得 1 层 [[S:Amulet]]。",
+     "en": "Gain {Defend~2} Barrier; also gain 1 [[S:Amulet]] if none is present."
+    },
+    {
+     "index": "4",
+     "zh": "填补 [[U:YinyangyuRedReimu]]、[[U:YinyangyuBlueReimu]] 的位置。",
+     "en": "Fill the slots for [[U:YinyangyuRedReimu]] and [[U:YinyangyuBlueReimu]]."
+    },
+    {
+     "index": "5,6",
+     "zh": "精准：造成 {Damage4} 点伤害 3 次，获得 {Power} 点 [[S:Firepower]]。",
+     "en": "Accurate: deal {Damage4} damage 3 times and gain {Power} [[S:Firepower]]."
+    }
+   ]
+  },
+  "Marisa": {
+   "passive": {
+    "zh": "开战获得 [[S:FirepowerIsJustice]]。每使用一次符卡，三种非符卡攻击基础伤害 +1，符卡基础伤害 +{Count1}。",
+    "en": "Starts with [[S:FirepowerIsJustice]]. Each spell adds 1 to ordinary base damage and {Count1} to spell base damage."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1} 点伤害 3 次，另加符卡累计强化。",
+     "en": "Deal {Damage1} damage 3 times, plus accumulated spell scaling."
+    },
+    {
+     "index": "1",
+     "zh": "造成 {Damage2} 点伤害，向弃牌堆加入 1 张 [[C:Riguang]]。",
+     "en": "Deal {Damage2} damage; add 1 [[C:Riguang]] to discard."
+    },
+    {
+     "index": "2",
+     "zh": "造成 {Damage3} 点伤害，获得 {Defend} 层 [[S:Graze]]。",
+     "en": "Deal {Damage3} damage and gain {Defend} [[S:Graze]]."
+    },
+    {
+     "index": "3",
+     "zh": "向弃牌堆加入 3 张 [[C:Xingguang]] 和 1 张 [[C:AyaNews]]；H 额外加入 1 张 [[C:HatateNews]]，L 额外加入 1 张 [[C:BlackResidue]]。",
+     "en": "Add 3 [[C:Xingguang]] and 1 [[C:AyaNews]] to discard; H adds 1 [[C:HatateNews]], L adds 1 [[C:BlackResidue]]."
+    },
+    {
+     "index": "4",
+     "zh": "蓄力，准备下一次符卡。",
+     "en": "Charge for the next spell."
+    },
+    {
+     "index": "5,6",
+     "zh": "精准：基础 {Damage4} 点伤害，每次已使用的符卡额外 +{Count1}。",
+     "en": "Accurate: base {Damage4} damage plus {Count1} per previous spell."
+    }
+   ]
+  },
+  "Sakuya": {
+   "passive": {
+    "zh": "开战获得 [[S:PrivateSquare]]。",
+    "en": "Starts with [[S:PrivateSquare]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1} 点伤害 4 次。",
+     "en": "Deal {Damage1} damage 4 times."
+    },
+    {
+     "index": "1",
+     "zh": "造成 {Damage2} 点伤害 2 次，施加 1 回合 [[S:Fragil]]。",
+     "en": "Deal {Damage2} damage twice and apply 1-turn [[S:Fragil]]."
+    },
+    {
+     "index": "2",
+     "zh": "获得 {Defend} 点护盾和 {Count1} 层 [[S:Graze]]。",
+     "en": "Gain {Defend} Barrier and {Count1} [[S:Graze]]."
+    },
+    {
+     "index": "3",
+     "zh": "向抽牌堆洗入 2 张 [[C:SakuyaLock]]。",
+     "en": "Shuffle 2 [[C:SakuyaLock]] into draw."
+    },
+    {
+     "index": "4,5",
+     "zh": "精准：造成 {Damage4} 点伤害；[[S:PrivateSquare]] 的伤害 +5。",
+     "en": "Accurate: deal {Damage4} damage; [[S:PrivateSquare]] damage +5."
+    }
+   ]
+  },
+  "Cirno": {
+   "passive": {
+    "zh": "L 难度开局随机获得一种协力，初始池不含拉尔瓦；之后从尚未拥有的协力中随机选择。",
+    "en": "On Lunatic, starts with a random support excluding Larva; later supports are chosen without replacement."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1} 点伤害 3 次；有 [[S:EnemyLily]] 时改为 4 次。",
+     "en": "Deal {Damage1} damage 3 times (4 with [[S:EnemyLily]])."
+    },
+    {
+     "index": "1",
+     "zh": "造成 {Damage2} 点伤害，施加 1 回合 [[S:Weak]]；有莉莉时改为 2 回合。",
+     "en": "Deal {Damage2} damage and apply 1-turn [[S:Weak]] (2 with Lily)."
+    },
+    {
+     "index": "2",
+     "zh": "造成 {Damage3} 点伤害；向弃牌堆加入 2 张 [[C:CirnoFreeze]]，有莉莉时改为 3 张。",
+     "en": "Deal {Damage3} damage; add 2 [[C:CirnoFreeze]] to discard (3 with Lily)."
+    },
+    {
+     "index": "3",
+     "zh": "获得 {Defend} 层 [[S:FrostArmor]]，有莉莉时额外 +3。",
+     "en": "Gain {Defend} [[S:FrostArmor]], +3 with Lily."
+    },
+    {
+     "index": "4,5",
+     "zh": "精准造成 {Damage4} 点伤害；获得 [[S:EnemyDayaojing]]（6）及 1 点 [[S:Firepower]]。",
+     "en": "Deal {Damage4} accurate damage; gain [[S:EnemyDayaojing]] (6) and 1 [[S:Firepower]]."
+    },
+    {
+     "index": "4,6",
+     "zh": "精准造成 {Damage4} 点伤害；获得 [[S:EnemyLarva]]（1）及 1 点 [[S:Firepower]]。",
+     "en": "Deal {Damage4} accurate damage; gain [[S:EnemyLarva]] (1) and 1 [[S:Firepower]]."
+    },
+    {
+     "index": "4,7",
+     "zh": "精准造成 {Damage4} 点伤害；获得 [[S:EnemyLily]] 及 1 点 [[S:Firepower]]。",
+     "en": "Deal {Damage4} accurate damage; gain [[S:EnemyLily]] and 1 [[S:Firepower]]."
+    },
+    {
+     "index": "4,8",
+     "zh": "精准造成 {Damage4} 点伤害；获得 [[S:EnemyMaid]]（6）及 1 点 [[S:Firepower]]。",
+     "en": "Deal {Damage4} accurate damage; gain [[S:EnemyMaid]] (6) and 1 [[S:Firepower]]."
+    },
+    {
+     "index": "9,10",
+     "zh": "四种协力齐全后使用；精准造成 {Damage4} 点伤害，获得 2 点 [[S:Firepower]]。",
+     "en": "After all supports: deal {Damage4} accurate damage and gain 2 [[S:Firepower]]."
+    }
+   ]
+  },
+  "Koishi": {
+   "passive": {
+    "zh": "普通行动附带一种灵感；灵感强度随符卡等级变化。N/H 开局等级 0，L 开局等级 1。",
+    "en": "Ordinary moves also trigger an inspiration, scaling with spell level. Initial level is 0 on N/H and 1 on L."
+   },
+   "moves": [
+    {
+     "index": "6",
+     "zh": "造成 {Damage1} 点伤害 3 次。",
+     "en": "Deal {Damage1} damage 3 times."
+    },
+    {
+     "index": "7",
+     "zh": "造成 {Damage2} 点伤害 2 次。",
+     "en": "Deal {Damage2} damage twice."
+    },
+    {
+     "index": "8",
+     "zh": "造成 {Damage1} 点伤害，获得 {Defend} 点格挡。",
+     "en": "Deal {Damage1} damage and gain {Defend} Block."
+    },
+    {
+     "index": "9,10",
+     "zh": "精准：造成 {Damage4} 点伤害，符卡等级 +1。",
+     "en": "Accurate: deal {Damage4} damage; spell level +1."
+    }
+   ]
+  },
+  "Long": {
+   "passive": {
+    "zh": "开战加入 1 张 [[C:Bribery]] 到手牌；L 开局 [[S:LongLight]] 为 1，N/H 为 0。",
+    "en": "Starts by adding 1 [[C:Bribery]] to hand; [[S:LongLight]] begins at 1 on L, 0 on N/H."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1} 点伤害 3 次，按耀光等级加入光状态牌。",
+     "en": "Deal {Damage1} damage 3 times; add light cards by Light level."
+    },
+    {
+     "index": "1",
+     "zh": "造成 {Damage2} 点伤害 2 次，获得 3 层 [[S:Graze]]。",
+     "en": "Deal {Damage2} damage twice and gain 3 [[S:Graze]]."
+    },
+    {
+     "index": "2,3",
+     "zh": "精准：造成 {Damage3} 点伤害，耀光等级 +1；无贿赂时补充一张贿赂。",
+     "en": "Accurate: deal {Damage3} damage, Light level +1; replenish Bribery if absent."
+    },
+    {
+     "index": "4",
+     "zh": "满足放水条件后逃跑。",
+     "en": "Escape when the surrender condition is met."
+    },
+    {
+     "index": "5",
+     "zh": "按耀光等级向弃牌堆加入新闻，获得 {Power} 点 [[S:Firepower]]。",
+     "en": "Add newspapers by Light level to discard and gain {Power} [[S:Firepower]]."
+    }
+   ]
+  },
+  "Tianzi": {
+   "passive": {
+    "zh": "开战获得 {Count1} 层 [[S:FlatPeach]] 和 [[S:EnemyEnergy]]。",
+    "en": "Starts with {Count1} [[S:FlatPeach]] and [[S:EnemyEnergy]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "消耗 100 能量，精准造成 {Damage3} 点伤害；每次已使用的该符卡额外 +{Count2}。",
+     "en": "Consume 100 Energy; deal {Damage3} accurate damage, +{Count2} per previous use."
+    },
+    {
+     "index": "1,2",
+     "zh": "获得 1 回合 [[S:Invincible]] 及 {Power} 点 [[S:Firepower]]。该符卡不消耗 100 能量。",
+     "en": "Gain 1-turn [[S:Invincible]] and {Power} [[S:Firepower]]. This spell does not spend 100 Energy."
+    },
+    {
+     "index": "3",
+     "zh": "造成 {Damage1} 点伤害 3 次。",
+     "en": "Deal {Damage1} damage 3 times."
+    },
+    {
+     "index": "4",
+     "zh": "造成 {Damage2} 点伤害 2 次，施加 2 回合 [[S:Vulnerable]] 和 [[S:Fragil]]。",
+     "en": "Deal {Damage2} damage twice, apply 2-turn [[S:Vulnerable]] and [[S:Fragil]]."
+    }
+   ]
+  },
+  "Yuyuko": {
+   "passive": null,
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1} 点伤害 3 次；N/H 第 6 次自身行动起、L 第 5 次起，额外施加 1 层 [[S:YuyukoDeath]]。",
+     "en": "Deal {Damage1} damage 3 times; add 1 [[S:YuyukoDeath]] from own turn 6 on N/H or 5 on L."
+    },
+    {
+     "index": "1",
+     "zh": "造成 {Damage2} 点伤害 2 次；N/H 第 6 回合起、L 第 5 回合起，额外施加 1 层 [[S:YuyukoDeath]]。",
+     "en": "Deal {Damage2} damage twice; also apply 1 [[S:YuyukoDeath]] from own turn 6 on N/H, or turn 5 on L."
+    },
+    {
+     "index": "2",
+     "zh": "所有存活敌人获得 {Defend} 点格挡和 {Power} 点 [[S:Firepower]]。",
+     "en": "All living enemies gain {Defend} Block and {Power} [[S:Firepower]]."
+    },
+    {
+     "index": "3",
+     "zh": "施加 1 回合 [[S:Weak]] 和 [[S:Fragil]]。",
+     "en": "Apply 1-turn [[S:Weak]] and [[S:Fragil]]."
+    },
+    {
+     "index": "4",
+     "zh": "在两个空位补充 [[U:Wangling]]。",
+     "en": "Fill the two summon slots with [[U:Wangling]]."
+    },
+    {
+     "index": "5,6",
+     "zh": "造成 {Damage3} 点伤害，施加 3 层 [[S:YuyukoDeath]]。",
+     "en": "Deal {Damage3} damage and apply 3 [[S:YuyukoDeath]]."
+    }
+   ]
+  },
+  "Sanae": {
+   "passive": {
+    "zh": "开战获得 1/1/2 层 [[S:Curiosity]] 和 3 层 [[S:Amulet]]。",
+    "en": "Starts with 1/1/2 [[S:Curiosity]] and 3 [[S:Amulet]]."
+   },
+   "moves": [
+    {
+     "index": "0,1",
+     "zh": "造成 {Damage1} 点伤害 4 次，施加 2/2/3 回合 [[S:Weak]]。",
+     "en": "Deal {Damage1} damage 4 times, apply 2/2/3-turn [[S:Weak]]."
+    },
+    {
+     "index": "2,3",
+     "zh": "精准：造成 {Damage2} 点伤害；向弃牌堆加入 2/2/3 张 [[C:Yueguang]]。",
+     "en": "Accurate: deal {Damage2} damage; add 2/2/3 [[C:Yueguang]] to discard."
+    },
+    {
+     "index": "4,5",
+     "zh": "恢复 {Count1} 点生命，获得 2 层 [[S:Amulet]]，清除自身负面状态。",
+     "en": "Heal {Count1}, gain 2 [[S:Amulet]], clear own debuffs."
+    },
+    {
+     "index": "6,7",
+     "zh": "对主角施加 2 层 [[S:SpiritNegative]]；自身获得 2 点 [[S:Spirit]]、{Defend} 点格挡和 {Defend} 点护盾。",
+     "en": "Apply 2 [[S:SpiritNegative]] to the player; gain 2 [[S:Spirit]], {Defend} Block and {Defend} Barrier."
+    }
+   ]
+  },
+  "Remilia": {
+   "passive": {
+    "zh": "开战获得 3 层 [[S:Graze]] 和 [[S:ScarletDestiny]]，每个主角回合最多打出 {Count2} 张牌。",
+    "en": "Starts with 3 [[S:Graze]] and [[S:ScarletDestiny]], limiting the player to {Count2} cards per turn."
+   },
+   "moves": [
+    {
+     "index": "4,5",
+     "zh": "精准：造成 {Damage3} 点伤害。",
+     "en": "Accurate: deal {Damage3} damage."
+    },
+    {
+     "index": "2",
+     "zh": "造成 {Damage1} 点伤害 4 次；随机施加 {Count1} 回合 [[S:Weak]]、[[S:Fragil]] 或 [[S:Vulnerable]]，不连续选择同一种。首次只在虚弱与脆弱中选择。",
+     "en": "Deal {Damage1} damage 4 times; apply {Count1}-turn [[S:Weak]], [[S:Fragil]] or [[S:Vulnerable]], excluding the previous choice. The first choice is Weak or Frail."
+    },
+    {
+     "index": "3",
+     "zh": "造成 {Damage2} 点伤害 2 次，获得 {Defend} 层 [[S:Graze]]。",
+     "en": "Deal {Damage2} damage twice and gain {Defend} [[S:Graze]]."
+    },
+    {
+     "index": "6,7",
+     "zh": "获得 {Defend} 层 [[S:Graze]] 和 {Power} 点 [[S:Firepower]]，清除自身负面状态。",
+     "en": "Gain {Defend} [[S:Graze]] and {Power} [[S:Firepower]], and clear own debuffs."
+    },
+    {
+     "index": "8,9",
+     "zh": "恢复 50 点生命，获得 [[S:Vampire]]、1 回合 [[S:Invincible]] 和 {Power} 点 [[S:Firepower]]，清除自身负面状态。",
+     "en": "Heal 50 HP; gain [[S:Vampire]], 1-turn [[S:Invincible]] and {Power} [[S:Firepower]]; clear own debuffs."
+    }
+   ]
+  },
+  "Junko": {
+   "passive": {
+    "zh": "开战获得 1 层 [[S:JunkoPurify]]；主角每打出一张牌，纯化 1 点法力，最多的单色优先。",
+    "en": "Starts with 1 [[S:JunkoPurify]]; each card played purifies 1 mana, prioritizing the largest single color."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "向弃牌堆加入 {Count1} 张 [[C:Chunguang]]。",
+     "en": "Add {Count1} [[C:Chunguang]] to discard."
+    },
+    {
+     "index": "1",
+     "zh": "造成 {Damage1} 点伤害 6 次。",
+     "en": "Deal {Damage1} damage 6 times."
+    },
+    {
+     "index": "2",
+     "zh": "精准：造成 {Damage3} 点伤害 2 次，[[S:JunkoLily]] 增加 {Count2} 层。",
+     "en": "Accurate: deal {Damage3} damage twice; gain {Count2} [[S:JunkoLily]]."
+    },
+    {
+     "index": "3",
+     "zh": "获得 {Defend} 点护盾，清除自身负面状态；按耀光等级对主角施加负面状态，详见下方。",
+     "en": "Gain {Defend} Barrier, clear own debuffs, and apply player debuffs by Light level; see below."
+    },
+    {
+     "index": "4",
+     "zh": "造成 {Damage2} 点伤害 3 次；向手牌加入 2 张 [[C:Lunatic]]。",
+     "en": "Deal {Damage2} damage 3 times; add 2 [[C:Lunatic]] to hand."
+    }
+   ]
+  },
+  "Seija": {
+   "passive": {
+    "zh": "开战获得 [[S:LimitedDamage]]，每回合最多受到 300 点实际生命伤害；获得 [[S:SingleJiandaoSe]]。L 难度还立即获得一件随机道具。",
+    "en": "Starts with [[S:LimitedDamage]], capping HP damage at 300 per turn, and [[S:SingleJiandaoSe]]. L also grants a random tool immediately."
+   },
+   "moves": [
+    {
+     "index": "1",
+     "zh": "获得随机道具。",
+     "en": "Gain a random tool."
+    },
+    {
+     "index": "2",
+     "zh": "造成（5 + 已完成逆转攻势次数）点伤害 8 次。",
+     "en": "Deal 5 + completed counteroffensive count damage 8 times."
+    },
+    {
+     "index": "3",
+     "zh": "精准：造成（24 + 已完成逆转攻势次数 × 2）点伤害 2 次。",
+     "en": "Accurate: deal 24 + completed counteroffensive count × 2 damage twice."
+    },
+    {
+     "index": "4",
+     "zh": "清除负面状态，推进道具阶段；前四次获得随机道具，第五次获得 [[S:DragonBallSe]]。 获得 {Defend} 点护盾。",
+     "en": "Clear debuffs and advance the tool stage; random tool on the first four uses, [[S:DragonBallSe]] on the fifth. Gain {Defend} Barrier."
+    },
+    {
+     "index": "5",
+     "zh": "强制消灭主角；后续仍继续此行动。",
+     "en": "Force-kill the player; repeat on later turns."
+    }
+   ]
+  },
+  "Wangling": {
+   "passive": {
+    "zh": "[[S:Servant]]；第 3 次自身行动起，攻击额外施加 1 层 [[S:YuyukoDeath]]。",
+    "en": "[[S:Servant]]; attacks add 1 [[S:YuyukoDeath]] from own turn 3."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1~Damage2} 点伤害。",
+     "en": "Deal {Damage1~Damage2} damage."
+    },
+    {
+     "index": "1",
+     "zh": "为幽幽子施加 2 层 [[S:Graze]]。",
+     "en": "Give Yuyuko 2 [[S:Graze]]."
+    }
+   ]
+  },
+  "MaskRed": {
+   "passive": {
+    "zh": "具有 [[S:Servant]]。",
+    "en": "Has [[S:Servant]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1~Damage2} 点伤害。",
+     "en": "Deal {Damage1~Damage2} damage."
+    },
+    {
+     "index": "1",
+     "zh": "各 50% 施加 {Count1} 层 [[S:TempFirepowerNegative]] 或 [[S:TempSpiritNegative]]。",
+     "en": "Apply {Count1} [[S:TempFirepowerNegative]] or [[S:TempSpiritNegative]], each with 50% probability."
+    }
+   ]
+  },
+  "MaskGreen": {
+   "passive": {
+    "zh": "具有 [[S:Servant]]。",
+    "en": "Has [[S:Servant]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1~Damage2} 点伤害。",
+     "en": "Deal {Damage1~Damage2} damage."
+    },
+    {
+     "index": "1",
+     "zh": "各 50% 施加 {Count1} 层 [[S:TempFirepowerNegative]] 或 [[S:TempSpiritNegative]]。",
+     "en": "Apply {Count1} [[S:TempFirepowerNegative]] or [[S:TempSpiritNegative]], each with 50% probability."
+    }
+   ]
+  },
+  "MaskBlue": {
+   "passive": {
+    "zh": "具有 [[S:Servant]]。",
+    "en": "Has [[S:Servant]]."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1~Damage2} 点伤害。",
+     "en": "Deal {Damage1~Damage2} damage."
+    },
+    {
+     "index": "1",
+     "zh": "各 50% 施加 {Count1} 层 [[S:TempFirepowerNegative]] 或 [[S:TempSpiritNegative]]。",
+     "en": "Apply {Count1} [[S:TempFirepowerNegative]] or [[S:TempSpiritNegative]], each with 50% probability."
+    }
+   ]
+  },
+  "DreamRemilia": {
+   "passive": {
+    "zh": "具有 [[S:DreamServant]] 和 [[S:ScarletDestiny]]；存在两次自身行动后逃跑。",
+    "en": "Has [[S:DreamServant]] and [[S:ScarletDestiny]]; escapes after two own actions."
+   },
+   "moves": [
+    {
+     "index": "2",
+     "zh": "造成 {Damage1} 点伤害 2 次。",
+     "en": "Deal {Damage1} damage 2 times."
+    }
+   ]
+  },
+  "DreamAya": {
+   "passive": {
+    "zh": "具有 [[S:DreamServant]] 和 [[S:FastAttack]]；存在两次自身行动后逃跑。",
+    "en": "Has [[S:DreamServant]] and [[S:FastAttack]]; escapes after two own actions."
+   },
+   "moves": [
+    {
+     "index": "1",
+     "zh": "造成 {Damage1} 点伤害 2 次。",
+     "en": "Deal {Damage1} damage 2 times."
+    }
+   ]
+  },
+  "DreamJunko": {
+   "passive": {
+    "zh": "具有 [[S:DreamServant]] 和 [[S:JunkoPurify]]；存在两次自身行动后逃跑。",
+    "en": "Has [[S:DreamServant]] and [[S:JunkoPurify]]; escapes after two own actions."
+   },
+   "moves": [
+    {
+     "index": "1",
+     "zh": "造成 {Damage1} 点伤害 6 次。",
+     "en": "Deal {Damage1} damage 6 times."
+    }
+   ]
+  },
+  "DreamYoumu": {
+   "passive": {
+    "zh": "具有 [[S:DreamServant]] 和 [[S:LouguanJianSe]]；存在两次自身行动后逃跑。",
+    "en": "Has [[S:DreamServant]] and [[S:LouguanJianSe]]; escapes after two own actions."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1} 点伤害 3 次。",
+     "en": "Deal {Damage1} damage 3 times."
+    }
+   ]
+  },
+  "RavenWen3": {
+   "passive": {
+    "zh": "没有普通乌鸦的开局闪避与闪避行动。",
+    "en": "No regular raven starting Dodge or Dodge move."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1~2} 点伤害。",
+     "en": "Deal {Damage1~2} damage."
+    },
+    {
+     "index": "1",
+     "zh": "向弃牌堆加入 {Count2} 张 [[C:AyaNews]]。",
+     "en": "Add {Count2} [[C:AyaNews]] to discard."
+    }
+   ]
+  },
+  "RavenGuo3": {
+   "passive": {
+    "zh": "没有普通乌鸦的开局闪避与闪避行动。",
+    "en": "No regular raven starting Dodge or Dodge move."
+   },
+   "moves": [
+    {
+     "index": "0",
+     "zh": "造成 {Damage1~2} 点伤害。",
+     "en": "Deal {Damage1~2} damage."
+    },
+    {
+     "index": "1",
+     "zh": "向弃牌堆加入 {Count2} 张 [[C:HatateNews]]。",
+     "en": "Add {Count2} [[C:HatateNews]] to discard."
+    }
+   ]
+  }
+ },
+ "orders": {
+  "Maoyu": {
+   "zh": "首次：\n1. [[0]] 0～2 次。\n2. [[1]]。\n后续循环：\n1. [[0]] 1～2 次。\n2. [[1]]。\n三个或以上毛玉同场时，开局错开 [[1]] 的时机。",
+   "en": "Opening:\n1. [[0]] 0–2 times.\n2. [[1]].\nLater cycles:\n1. [[0]] 1–2 times.\n2. [[1]].\nThree or more kedama stagger their opening debuffs."
+  },
+  "MaoyuRed": {
+   "zh": "首次：\n1. [[0]] 0～2 次。\n2. [[1]]。\n后续循环：\n1. [[0]] 1～2 次。\n2. [[1]]。\n三个或以上毛玉同场时，开局错开 [[1]] 的时机。",
+   "en": "Opening:\n1. [[0]] 0–2 times.\n2. [[1]].\nLater cycles:\n1. [[0]] 1–2 times.\n2. [[1]].\nThree or more kedama stagger their opening debuffs."
+  },
+  "MaoyuBlue": {
+   "zh": "首次：\n1. [[0]] 0～2 次。\n2. [[1]]。\n后续循环：\n1. [[0]] 1～2 次。\n2. [[1]]。\n三个或以上毛玉同场时，开局错开 [[1]] 的时机。",
+   "en": "Opening:\n1. [[0]] 0–2 times.\n2. [[1]].\nLater cycles:\n1. [[0]] 1–2 times.\n2. [[1]].\nThree or more kedama stagger their opening debuffs."
+  },
+  "MaoyuBlack": {
+   "zh": "首次：[[0]] 0～2 次 → [[1]]。\n后续循环：\n1. [[0]] 2～3 次。\n2. [[1]]。\n多毛玉同场时开局错开。",
+   "en": "Opening: [[0]] 0–2 times → [[1]].\nLater cycles:\n1. [[0]] 2–3 times.\n2. [[1]].\nMultiple kedama stagger their openings."
+  },
+  "WhiteFairy": {
+   "zh": "首次：偶数号位 [[1]] → [[0]] → [[1]] → [[2]]；奇数号位 [[0]] → [[1]] → [[2]]。\n后续循环：\n1. 在 [[0]] 与 [[1]] 之间交替 3～4 次，起手随机。\n2. [[2]]。",
+   "en": "Opening: even slot [[1]] → [[0]] → [[1]] → [[2]]; odd slot [[0]] → [[1]] → [[2]].\nLater cycles:\n1. Alternate [[0]] and [[1]] 3–4 times, starting randomly.\n2. [[2]]."
+  },
+  "BlackFairy": {
+   "zh": "首次：\n1. [[0]]。\n2. 偶数号位再用一次 [[0]]。\n3. [[1]]。\n4. [[2]]。\n后续循环：\n1. 共攻击 3～4 次，其中一次为 [[1]]，且只在前三次中出现；其余用 [[0]]。\n2. [[2]]。",
+   "en": "Opening:\n1. [[0]].\n2. Even slots use [[0]] once more.\n3. [[1]].\n4. [[2]].\nLater cycles:\n1. 3–4 attacks; exactly one [[1]] among the first three, with [[0]] for the rest.\n2. [[2]]."
+  },
+  "RavenWen": {
+   "zh": "首次以 [[1]] 或 [[0]] → [[1]] 起手，多只同场时错开。\n后续循环：\n1. [[0]] 1～2 次。\n2. [[1]]。\n[[2]] 独立计时并优先：首次在 1～3 次其他行动后，之后每隔 2～3 次其他行动插入一次；不消耗新闻循环次数。",
+   "en": "Opening: [[1]] or [[0]] → [[1]], staggered when several are present.\nLater cycles:\n1. [[0]] 1–2 times.\n2. [[1]].\n[[2]] has a separate priority timer: after 1–3 other moves initially, then every 2–3 other moves. It does not advance the news cycle."
+  },
+  "RavenGuo": {
+   "zh": "首次以 [[1]] 或 [[0]] → [[1]] 起手，多只同场时错开。\n后续循环：\n1. [[0]] 1～2 次。\n2. [[1]]。\n[[2]] 独立计时并优先：首次在 1～3 次其他行动后，之后每隔 2～3 次其他行动插入一次；不消耗新闻循环次数。",
+   "en": "Opening: [[1]] or [[0]] → [[1]], staggered when several are present.\nLater cycles:\n1. [[0]] 1–2 times.\n2. [[1]].\n[[2]] has a separate priority timer: after 1–3 other moves initially, then every 2–3 other moves. It does not advance the news cycle."
+  },
+  "GuihuoGreen": {
+   "zh": "首次：[[0]] 0～2 次 → [[1]]；多只同场时错开。\n后续循环：[[0]] 1～2 次 → [[1]]。\n自然出现的怨灵会在第 3～5 个自身回合使用 [[2]]，优先于其他行动。",
+   "en": "Opening: [[0]] 0–2 times → [[1]], staggered in groups.\nLater: [[0]] 1–2 times → [[1]].\nNatural spirits use [[2]] on own turn 3–5, taking priority over other moves."
+  },
+  "GuihuoBlue": {
+   "zh": "首次：[[0]] 0～2 次 → [[1]]；多只同场时错开。\n后续循环：[[0]] 1～2 次 → [[1]]。\n自然出现的怨灵会在第 3～5 个自身回合使用 [[2]]，优先于其他行动。",
+   "en": "Opening: [[0]] 0–2 times → [[1]], staggered in groups.\nLater: [[0]] 1–2 times → [[1]].\nNatural spirits use [[2]] on own turn 3–5, taking priority over other moves."
+  },
+  "GuihuoRed": {
+   "zh": "首次：[[0]] 0～2 次 → [[1]]；多只同场时错开。\n后续循环：[[0]] 1～2 次 → [[1]]。\n自然出现的怨灵会在第 3～5 个自身回合使用 [[2]]，优先于其他行动。",
+   "en": "Opening: [[0]] 0–2 times → [[1]], staggered in groups.\nLater: [[0]] 1–2 times → [[1]].\nNatural spirits use [[2]] on own turn 3–5, taking priority over other moves."
+  },
+  "YinyangyuRed": {
+   "zh": "首次行动按号位以 [[0]] 或 [[1]] 起手；以 [[0]] 起手的随后用 [[1]]。\n后续循环：\n1. [[0]] 1～2 次。\n2. [[1]]。",
+   "en": "Opening uses [[0]] or [[1]] by slot; [[0]] is followed by [[1]].\nLater cycles:\n1. [[0]] 1–2 times.\n2. [[1]]."
+  },
+  "YinyangyuBlue": {
+   "zh": "首次行动按号位以 [[0]] 或 [[1]] 起手；以 [[0]] 起手的随后用 [[1]]。\n后续循环：\n1. [[0]] 1～2 次。\n2. [[1]]。",
+   "en": "Opening uses [[0]] or [[1]] by slot; [[0]] is followed by [[1]].\nLater cycles:\n1. [[0]] 1–2 times.\n2. [[1]]."
+  },
+  "SickGirl": {
+   "zh": "首次 [[0]] 0～2 次 → [[1]]。\n后续循环：\n1. 80% 用两次 [[0]]，20% 用一次。\n2. [[1]]。",
+   "en": "Opening: [[0]] 0–2 times → [[1]].\nLater cycles:\n1. Two [[0]] with 80% probability, one with 20%.\n2. [[1]]."
+  },
+  "FraudRabbit": {
+   "zh": "1. [[0]]。\n2. 重复 [[1]]，暂失火力与灵力交替。\n进入回合时，若独自存活、主角没钱，或已到第 4 回合，准备逃跑：当前已排定的收费行动仍执行，之后 [[2]] → [[3]]。",
+   "en": "1. [[0]].\n2. Repeat [[1]], alternating temporary Firepower/Spirit loss.\nAt turn start, being alone, the player having no money, or turn 4 triggers escape preparation. The already scheduled billing move still executes, followed by [[2]] → [[3]]."
+  },
+  "DollBlue": {
+   "zh": "首次：[[0]] 与 [[1]] 交替 1～3 次，起手按号位决定 → [[2]]。\n后续循环：\n1. [[0]]。\n2. [[1]]。\n3. 50% 再用一次 [[0]]。\n4. [[2]]。",
+   "en": "Opening: alternate [[0]] and [[1]] 1–3 times, starting by slot → [[2]].\nLater cycles:\n1. [[0]].\n2. [[1]].\n3. 50% chance of another [[0]].\n4. [[2]]."
+  },
+  "DollPurple": {
+   "zh": "首次：[[0]] 与 [[1]] 交替 1～3 次，起手按号位决定 → [[2]]。\n后续循环：\n1. [[0]]。\n2. [[1]]。\n3. 50% 再用一次 [[0]]。\n4. [[2]]。",
+   "en": "Opening: alternate [[0]] and [[1]] 1–3 times, starting by slot → [[2]].\nLater cycles:\n1. [[0]].\n2. [[1]].\n3. 50% chance of another [[0]].\n4. [[2]]."
+  },
+  "Yaoshi": {
+   "zh": "首次：[[0]] 与 [[1]] 交替 1～2 次 → [[2]]。\n后续循环：\n1. [[0]]。\n2. [[1]]。\n3. 50% 再用一次 [[0]]。\n4. [[2]]。",
+   "en": "Opening: alternate [[0]] and [[1]] 1–2 times → [[2]].\nLater cycles:\n1. [[0]].\n2. [[1]].\n3. 50% chance of another [[0]].\n4. [[2]]."
+  },
+  "WaterGirl": {
+   "zh": "首次：[[2]] → [[0]] → 主角有 [[S:Drowning]] 时 [[1]]，没有时 [[2]]。\n后续循环：\n1. 80% 用两次 [[0]]，20% 用一次。\n2. 有 [[S:Drowning]] 时 [[1]]，没有时 [[2]]。",
+   "en": "Opening: [[2]] → [[0]] → [[1]] if the player has [[S:Drowning]], otherwise [[2]].\nLater cycles:\n1. Two [[0]] (80%) or one (20%).\n2. [[1]] if [[S:Drowning]] is present, otherwise [[2]]."
+  },
+  "Fox": {
+   "zh": "首次：[[2]] → [[0]] → 有 [[S:FoxCharm]] 时 [[1]]，没有时 [[2]]。\n后续循环：\n1. 80% 用两次 [[0]]，20% 用一次。\n2. 有 [[S:FoxCharm]] 时 [[1]]，没有时 [[2]]。",
+   "en": "Opening: [[2]] → [[0]] → [[1]] if [[S:FoxCharm]] is present, otherwise [[2]].\nLater cycles:\n1. Two [[0]] (80%) or one (20%).\n2. [[1]] if [[S:FoxCharm]] is present, otherwise [[2]]."
+  },
+  "Bat": {
+   "zh": "首次：最后方的蝙蝠用 [[3]]；其余按号位用 [[0]] 或 [[1]]。\n后续：从 [[0]]、[[1]]、[[2]] 中随机，排除上一次。\n最后方蝙蝠另有概率优先插入 [[3]]；该行动不更新三种随机行动的上一次记录。",
+   "en": "Opening: the rearmost bat uses [[3]], others use [[0]] or [[1]] by slot.\nLater: randomly choose [[0]], [[1]] or [[2]], excluding the previous choice.\nThe rearmost bat can prioritize [[3]], without updating the previous random-move record."
+  },
+  "BatLord": {
+   "zh": "首次：最后方的蝙蝠用 [[3]]；其余按号位用 [[0]] 或 [[1]]。\n后续：从 [[0]]、[[1]]、[[2]] 中随机，排除上一次。\n最后方蝙蝠另有概率优先插入 [[3]]；该行动不更新三种随机行动的上一次记录。",
+   "en": "Opening: the rearmost bat uses [[3]], others use [[0]] or [[1]] by slot.\nLater: randomly choose [[0]], [[1]] or [[2]], excluding the previous choice.\nThe rearmost bat can prioritize [[3]], without updating the previous random-move record."
+  },
+  "Scout": {
+   "zh": "首次：最后方侦察者用 [[2]]，其余 [[0]] → [[2]]。\n后续循环：\n1. [[0]] 或 [[1]] 1～2 次；权重 3∶1，排除上一次。\n2. [[2]]。\n普通终结者在场时，会额外强制一次 [[1]]。[[S:Emi]] 期间优先 [[3]]，正常计时暂停。",
+   "en": "Opening: the rearmost Scout uses [[2]], others [[0]] → [[2]].\nLater cycles:\n1. [[0]] or [[1]] 1–2 times; weights 3:1, excluding the previous move.\n2. [[2]].\nA regular Terminator causes one forced [[1]]. [[S:Emi]] prioritizes [[3]] and pauses normal counters."
+  },
+  "Purifier": {
+   "zh": "首次：奇数号位 [[2]]；偶数号位 [[0]] → [[2]]。\n后续循环：\n1. [[0]] 或 [[1]] 1～2 次；权重 2∶1，排除上一次。\n2. [[2]]。\n[[S:Emi]] 期间优先 [[3]]，正常计时暂停。",
+   "en": "Opening: odd slot [[2]], even slot [[0]] → [[2]].\nLater cycles:\n1. [[0]] or [[1]] 1–2 times; weights 2:1, excluding the previous move.\n2. [[2]].\n[[S:Emi]] prioritizes [[3]] and pauses normal counters."
+  },
+  "Terminator": {
+   "zh": "首次：\n1. [[0]]。\n2. [[1]] 与 [[0]] 交替，再攻击 3 次。\n3. [[2]]。\n后续循环：两种攻击随机起手，交替 3 次 → [[2]]。\n[[S:Emi]] 期间改用 [[3]]，维修计时暂停。",
+   "en": "Opening:\n1. [[0]].\n2. Alternate [[1]] and [[0]] for 3 more attacks.\n3. [[2]].\nLater cycles: start randomly, alternate 3 attacks → [[2]].\n[[S:Emi]] uses [[3]] and pauses the repair counter."
+  },
+  "HetongKailang": {
+   "zh": "首回合 [[2]]。后续按优先级：\n1. 强化计时结束且至少还有一名同伴：[[2]]。\n2. 有无人机缺少至少 {Count1/2} 生命：[[1]]。\n3. 其余 [[0]]。\n没有同伴时只用 [[0]]。",
+   "en": "First turn [[2]]. Later priorities:\n1. Buff timer expires with an ally: [[2]].\n2. A drone is missing at least {Count1/2} HP: [[1]].\n3. Otherwise [[0]].\nAlone, use [[0]]."
+  },
+  "HetongYinchen": {
+   "zh": "无人机仍存活时每回合 [[1]]；无人机被击败后每回合 [[0]]。",
+   "en": "Use [[1]] while a drone survives; then use [[0]] every turn."
+  },
+  "KanakoLimao": {
+   "zh": "循环：\n1. [[0]]。\n2. [[2]]。\n3. [[1]]。\n仅 L 难度且与 [[U:SuwakoLimao]] 同场时，开战额外使用一次 [[2]]。",
+   "en": "Cycle:\n1. [[0]].\n2. [[2]].\n3. [[1]].\nOnly on Lunatic, when [[U:SuwakoLimao]] is present, additionally use [[2]] at battle start."
+  },
+  "SuwakoLimao": {
+   "zh": "开局 [[0]]。之后循环：\n1. [[1]]。\n2. [[2]] 的虚弱、易伤阶段。\n3. [[2]] 的变化青蛙阶段。",
+   "en": "Opening [[0]]. Then cycle:\n1. [[1]].\n2. [[2]] debuff phase.\n3. [[2]] Frog transformation phase."
+  },
+  "ShenlingPurple": {
+   "zh": "[[0]] 与 [[1]] 交替，起手按号位决定。",
+   "en": "Alternate [[0]] and [[1]], starting by slot."
+  },
+  "ShenlingWhite": {
+   "zh": "[[0]] 与 [[1]] 交替，起手按号位决定。",
+   "en": "Alternate [[0]] and [[1]], starting by slot."
+  },
+  "LoveGirl": {
+   "zh": "1. [[0]] 6 次。\n2. [[1]]。\n若出情书后仍留下 [[S:LoveGirlDamageIncrease]]，立即改为 [[2]]。",
+   "en": "1. [[0]] 6 times.\n2. [[1]].\nIf playing Love Letters leaves [[S:LoveGirlDamageIncrease]], switch immediately to [[2]]."
+  },
+  "YaTiangou": {
+   "zh": "首次：[[1]] → [[0]] → [[2]]。\n后续循环：\n1. [[0]]。\n2. [[1]]。\n3. [[0]]。\n4. [[2]]。",
+   "en": "Opening: [[1]] → [[0]] → [[2]].\nLater cycles:\n1. [[0]].\n2. [[1]].\n3. [[0]].\n4. [[2]]."
+  },
+  "LangTiangou": {
+   "zh": "循环：\n1. [[1]]。\n2. [[2]]。\n3. 各 50% 选择 [[1]] 或 [[0]]。",
+   "en": "Cycle:\n1. [[1]].\n2. [[2]].\n3. Choose [[1]] or [[0]], each with 50% probability."
+  },
+  "HardworkRabbit": {
+   "zh": "循环：\n1. [[0]]。\n2. [[1]]。\n3. [[0]]。\n因此两次安装模块之间有两次 [[0]]。",
+   "en": "Cycle:\n1. [[0]].\n2. [[1]].\n3. [[0]].\nThere are two [[0]] between module installations."
+  },
+  "LazyRabbit": {
+   "zh": "三步循环：\n1. 精神的月兔仍存活时 [[0]]，否则 [[1]]。\n2. [[1]]（有同伴时也攻击）。\n3. [[2]]。\n精神的月兔死亡后，已排定的偷懒会改为攻击。",
+   "en": "Three-step cycle:\n1. [[0]] if Hardworking Moon Rabbit survives, otherwise [[1]].\n2. [[1]] even with its partner alive.\n3. [[2]].\nWhen the partner dies, a scheduled loafing move changes to an attack."
+  },
+  "Sunny": {
+   "zh": "开局随机分工：N/H 一名用 [[3,4]]、一名用 [[1,2]]、一名用 [[0]]；L 两名用 [[3,4]]、一名用 [[0]]。\n之后循环：\n1. [[0]]。\n2. [[1,2]]。\n符卡只在开局使用，不作为后续重复循环。",
+   "en": "Opening roles are randomized: N/H has one spell, one light move and one attack; Lunatic has two spells and one attack.\nLater cycle:\n1. [[0]].\n2. [[1,2]].\n[[3,4]] is opening-only."
+  },
+  "Luna": {
+   "zh": "开局随机分工：N/H 一名用 [[3,4]]、一名用 [[1,2]]、一名用 [[0]]；L 两名用 [[3,4]]、一名用 [[0]]。\n之后循环：\n1. [[0]]。\n2. [[1,2]]。\n符卡只在开局使用，不作为后续重复循环。",
+   "en": "Opening roles are randomized: N/H has one spell, one light move and one attack; Lunatic has two spells and one attack.\nLater cycle:\n1. [[0]].\n2. [[1,2]].\n[[3,4]] is opening-only."
+  },
+  "Star": {
+   "zh": "开局随机分工：N/H 一名用 [[3,4]]、一名用 [[1,2]]、一名用 [[0]]；L 两名用 [[3,4]]、一名用 [[0]]。\n之后循环：\n1. [[0]]。\n2. [[1,2]]。\n符卡只在开局使用，不作为后续重复循环。",
+   "en": "Opening roles are randomized: N/H has one spell, one light move and one attack; Lunatic has two spells and one attack.\nLater cycle:\n1. [[0]].\n2. [[1,2]].\n[[3,4]] is opening-only."
+  },
+  "Aya": {
+   "zh": "首次重复 [[2,3]]；受到伤害或完成第三次采访后开始攻击。\n之后每两次攻击使用一次 [[2,3]]。攻击通常为 [[1]]，使用 1～2 次后插入 [[0]]。",
+   "en": "Repeat [[2,3]] until damaged or the third interview finishes.\nThen use [[2,3]] after every two attacks. Attacks are usually [[1]], with [[0]] after 1–2 [[1]]."
+  },
+  "Rin": {
+   "zh": "首回合 [[1]]。之后按优先级选择：\n1. 符卡准备完毕：[[3]]。\n2. 有召唤层数、可用怨灵球和空位：[[1]]。\n3. 场上有 3 只怨灵：[[2]]。\n4. 场上有 2 只怨灵：80% [[0]]，20% [[2]]。\n5. 场上有 0～1 只怨灵：[[0]]。\n首次符卡前行动 4 次，之后每隔 3 次行动使用符卡。若准备引爆时怨灵已被击败至 1 只或更少，改用 [[4]]。",
+   "en": "First turn: [[1]]. Later priorities:\n1. Spell ready: [[3]].\n2. Summon stacks, an orb and a vacant slot available: [[1]].\n3. Three spirits alive: [[2]].\n4. Two spirits: 80% [[0]], 20% [[2]].\n5. Zero or one spirit: [[0]].\nFour moves precede the first spell; later spells follow three other moves. If a prepared detonation loses its targets down to one spirit or fewer, use [[4]] instead."
+  },
+  "Nitori": {
+   "zh": "首次：[[0]] → [[1]] → [[1]] → [[2]]。\n后续循环：\n1. [[1]] 2～3 次。\n2. [[2]]。\n无人机被击败后不会重新召唤。",
+   "en": "Opening: [[0]] → [[1]] → [[1]] → [[2]].\nLater cycles:\n1. [[1]] 2–3 times.\n2. [[2]].\nDestroyed drones are not resummoned."
+  },
+  "Kokoro": {
+   "zh": "首次：\n1. [[1]]。\n2. 从 [[0]]、[[1]]、[[2]] 中随机再行动 3 次，排除上一次。\n3. [[3,4]]。\n后续循环：随机三种行动 3～4 次（不连续相同）→ [[3,4]]。",
+   "en": "Opening:\n1. [[1]].\n2. 3 more random moves from [[0]], [[1]], [[2]], excluding the previous.\n3. [[3,4]].\nLater cycles: 3–4 nonrepeating random moves → [[3,4]]."
+  },
+  "Youmu": {
+   "zh": "首次：[[0]] → [[0]] → [[1,2]] → [[0]] → [[3,4]]。\n后续循环：\n1. [[0]]、[[1,2]] 共 3～4 次；通常在 1～2 次 [[0]] 后插入 [[1,2]]。\n2. [[3,4]] 优先于其他行动。",
+   "en": "Opening: [[0]] → [[0]] → [[1,2]] → [[0]] → [[3,4]].\nLater cycles:\n1. 3–4 [[0]]/[[1,2]]; usually insert [[1,2]] after 1–2 [[0]].\n2. [[3,4]] takes priority."
+  },
+  "Clownpiece": {
+   "zh": "循环：\n1. [[2]]。\n2. 从 [[0]]、[[1]] 等概率选择，共 3 次，可以连续相同。",
+   "en": "Cycle:\n1. [[2]].\n2. Choose [[0]] or [[1]] equally, 3 times; repetition is allowed."
+  },
+  "Siji": {
+   "zh": "首次逐回合：\n1. [[0]]。\n2. [[1]]。\n3. [[2]]。\n4. [[3]]。\n5. [[4]]。\n6. [[5]]。\n7. [[6]]。\n8. [[7]]。\n9. [[8]]。\n10. [[9]]。\n之后每回合重复 [[9]]。每 3 回合强化一次，[[S:SijiZui]] 依次 +1、+1、+2，重复该周期。",
+   "en": "First turns, in order:\n1. [[0]].\n2. [[1]].\n3. [[2]].\n4. [[3]].\n5. [[4]].\n6. [[5]].\n7. [[6]].\n8. [[7]].\n9. [[8]].\n10. [[9]].\nThen repeat [[9]]. Every 3 turns, gain [[S:SijiZui]] in a repeating +1, +1, +2 cycle."
+  },
+  "Doremy": {
+   "zh": "睡眠阶段：[[0]] 最多 3 次；实际受伤可提前打醒，插入 [[1]]。\n清醒后的循环：\n1. [[2]]（四段攻击）。\n2. [[3]]（精准攻击）。\n3. [[3]]（护盾）。\n觉醒会清除睡眠护盾。3 级自然醒立即获得 [[S:DreamMaster]]；提前醒则在 6 − 梦境等级次后续行动后获得。",
+   "en": "Sleep phase: up to 3 [[0]]. Actual damage can wake her early and insert [[1]].\nAwake cycle:\n1. [[2]] (four hits).\n2. [[3]] (accurate attack).\n3. [[3]] (Barrier).\nWaking removes sleep Barrier. Natural level-3 waking immediately grants [[S:DreamMaster]]; early waking grants it after 6 − dream level later moves."
+  },
+  "Reimu": {
+   "zh": "首回合 [[4]]，再行动 4 次后使用 [[5,6]]。\n后续按优先级选择：\n1. 符卡准备完毕：[[5,6]]，两次符卡之间行动 4～5 次。\n2. 阴阳玉有空位且召唤间隔结束：[[4]]。\n3. 没有护盾且防御间隔结束：[[3]]。\n4. 从 [[0]]、[[1]]、[[2]] 中随机选择，权重 2∶2∶1，不连续使用同一种。\n缺少的阴阳玉越多，越快再次召唤。",
+   "en": "First turn [[4]], then four other moves before [[5,6]].\nLater priorities:\n1. Spell ready: [[5,6]], after 4–5 other moves.\n2. Vacant orb slot and summon cooldown ready: [[4]].\n3. No Barrier and defense cooldown ready: [[3]].\n4. Choose [[0]], [[1]] or [[2]] with weights 2:2:1, excluding the previous.\nMore missing orbs shorten the summon cooldown."
+  },
+  "Marisa": {
+   "zh": "首次：[[1]] → 两次随机 [[0]]/[[1]]/[[2]] → [[3]] → N/H 用 [[4]]，L 用随机行动 → [[5,6]]。\n后续：4～5 个其他行动后 [[5,6]]；N/H 符卡前固定 [[4]]。\n[[3]] 独立间隔 4～5 次非符卡行动；符卡与蓄力暂停这份计时。随机攻击排除上一次。",
+   "en": "Opening: [[1]] → two random [[0]]/[[1]]/[[2]] → [[3]] → [[4]] on N/H (random move on L) → [[5,6]].\nLater spells follow 4–5 other moves; N/H always uses [[4]] beforehand.\n[[3]] has a separate 4–5-non-spell-move timer, paused by spells/charging. Random attacks exclude the previous."
+  },
+  "Sakuya": {
+   "zh": "首次：[[0]] → [[3]] → 三次其他行动 → [[4,5]]。\n后续：\n1. 其他行动 4～5 次。\n2. [[4,5]]。\n[[3]] 独立间隔 3～4 次非符卡行动；非该行动时从 [[0]]、[[1]]、[[2]] 中随机，权重 2∶2∶1，排除上一次。",
+   "en": "Opening: [[0]] → [[3]] → three other moves → [[4,5]].\nLater:\n1. 4–5 other moves.\n2. [[4,5]].\n[[3]] has a separate 3–4-non-spell-move timer. Otherwise choose [[0]], [[1]], [[2]] with weights 2:2:1, excluding the previous."
+  },
+  "Cirno": {
+   "zh": "首次：[[0]] → [[2]] → 两次其他行动 → 一种协力符卡。\n后续：4～5 次其他行动 → 尚未拥有的协力符卡，四种齐全后 [[9,10]]。\n[[2]] 独立间隔 3～4 次非符卡行动；否则从 [[0]]、[[1]]、[[3]] 随机，权重 2∶1∶1，排除上一次。",
+   "en": "Opening: [[0]] → [[2]] → two other moves → a support spell.\nLater: 4–5 other moves → an unowned support spell, or [[9,10]] after all four.\n[[2]] has a separate 3–4-non-spell-move timer; otherwise choose [[0]], [[1]], [[3]] with weights 2:1:1, excluding the previous."
+  },
+  "Koishi": {
+   "zh": "首次：从 [[6]]、[[7]]、[[8]] 随机行动 3 次，排除上一次 → [[9,10]]。\n后续循环：随机行动 3～4 次 → [[9,10]]。\n每次非符卡行动再从 [[1]]～[[5]] 随机一种灵感，排除上次灵感。符卡等级大于 0 时，隐藏的是灵感意图。",
+   "en": "Opening: 3 random nonrepeating [[6]]/[[7]]/[[8]] → [[9,10]].\nLater cycles: 3–4 random moves → [[9,10]].\nEach non-spell move also chooses an inspiration from [[1]]–[[5]], excluding the previous. Inspiration intentions are hidden above spell level 0."
+  },
+  "Long": {
+   "zh": "首次：[[0]] → [[1]] → [[5]] → [[2,3]]。\n后续每 3～4 次其他行动后 [[2,3]]；两次 [[5]] 之间间隔 2～3 次非符卡行动，其余 [[0]] 与 [[1]] 交替。\n生命降至 [[S:LongEscape]] 指定阈值时，优先改为 [[4]]。",
+   "en": "Opening: [[0]] → [[1]] → [[5]] → [[2,3]].\nLater [[2,3]] follows 3–4 other moves; [[5]] is separated by 2–3 non-spell moves, with [[0]]/[[1]] alternating otherwise.\nHP reaching the [[S:LongEscape]] threshold overrides the move with [[4]]."
+  },
+  "Tianzi": {
+   "zh": "首次：[[4]] → [[3]]（能量已达 100 时为 [[0]]）→ [[1,2]]。\n后续优先级：\n1. 防御符卡计时结束：[[1,2]]，每 5 回合一次。\n2. 能量至少 100：[[0]]。\n3. 负面状态计时结束：[[4]]，按 4 次非符卡行动计时。\n4. 其余 [[3]]。",
+   "en": "Opening: [[4]] → [[3]] (or [[0]] at 100 Energy) → [[1,2]].\nLater priorities:\n1. Defensive spell due: [[1,2]], every 5 turns.\n2. At least 100 Energy: [[0]].\n3. Debuff due: [[4]], on a 4-non-spell-move timer.\n4. Otherwise [[3]]."
+  },
+  "Yuyuko": {
+   "zh": "首次 N/H：[[4]] → [[0]] 或 [[1]] → [[5,6]]。L 开战立即 [[4]]，首回合攻击，之后符卡。\n后续每 3 次其他行动后 [[5,6]]。符卡优先；缺少死蝶灵会加快 [[4]]，两次召唤之间交替考虑 [[3]]、有死蝶灵时的 [[2]]、以及 [[0]]/[[1]]。",
+   "en": "Opening N/H: [[4]] → [[0]] or [[1]] → [[5,6]]. L summons at battle start, attacks on the first turn, then casts.\nLater [[5,6]] follows 3 other moves and takes priority. Missing butterflies accelerate [[4]]; between summons, consider [[3]], [[2]] when a butterfly survives, and [[0]]/[[1]]."
+  },
+  "Sanae": {
+   "zh": "首回合 [[6,7]]。\n后续：\n1. 3～4 次其他行动，[[0,1]] 与 [[2,3]] 交替。\n2. [[6,7]]。\n生命不高于一半且治疗计时结束时，以 [[4,5]] 代替攻击；治疗冷却 4～5 次，只在低血量时推进。符卡优先。",
+   "en": "First turn [[6,7]].\nLater:\n1. 3–4 other moves, alternating [[0,1]] and [[2,3]].\n2. [[6,7]].\nAt half HP or lower and when healing is ready, replace an attack with [[4,5]]. Healing cooldown is 4–5 moves and advances only while low on HP. The spell takes priority."
+  },
+  "Remilia": {
+   "zh": "首次：[[2]] → [[4,5]] → [[6,7]]。\n之后循环：[[2]] → [[3]] → [[2]] → [[4,5]] → [[6,7]]。\n生命首次降至一半或更少时，优先使用一次 [[8,9]]。随后 [[3]] → [[2]] → [[4,5]] → [[6,7]]，再恢复循环。",
+   "en": "Opening: [[2]] → [[4,5]] → [[6,7]].\nLater cycle: [[2]] → [[3]] → [[2]] → [[4,5]] → [[6,7]].\nThe first time HP reaches half or below, prioritize [[8,9]]. Then [[3]] → [[2]] → [[4,5]] → [[6,7]], and resume the cycle."
+  },
+  "Junko": {
+   "zh": "首回合 [[0]]。首次循环：[[1]] → [[4]] → [[2]]。\n后续循环：\n1. [[1]]。\n2. [[3]]。\n3. [[4]]。\n4. [[2]]。",
+   "en": "First turn [[0]]. First cycle: [[1]] → [[4]] → [[2]].\nLater cycles:\n1. [[1]].\n2. [[3]].\n3. [[4]].\n4. [[2]]."
+  },
+  "Seija": {
+   "zh": "开战固定获得巨大的单片剪刀。N/H 首回合 [[1]]；L 开战就获得随机道具，首回合直接 [[2]]。\n循环 5 次：\n1. [[2]]。\n2. [[3]]。\n3. [[4]]。\n第五次 [[4]] 获得印着星星的玻璃球，之后每回合 [[5]]。",
+   "en": "Starts with the single-bladed scissors. N/H first turn [[1]]; L gets its random tool at battle start and opens with [[2]].\nRepeat 5 cycles:\n1. [[2]].\n2. [[3]].\n3. [[4]].\nThe fifth [[4]] grants the glass orb, followed by [[5]] every turn."
+  },
+  "Wangling": {
+   "zh": "循环：[[0]] → [[0]] → [[1]]。两只死蝶灵按号位错开起点，上方从掩护开始，下方从攻击开始。",
+   "en": "Cycle: [[0]] → [[0]] → [[1]]. The two butterflies stagger by slot; the upper starts with cover, the lower with an attack."
+  },
+  "MaskRed": {
+   "zh": "循环：[[0]] → [[0]] → [[1]]；按号位错开起点。",
+   "en": "Cycle: [[0]] → [[0]] → [[1]], staggered by slot."
+  },
+  "MaskGreen": {
+   "zh": "循环：[[0]] → [[0]] → [[1]]；按号位错开起点。",
+   "en": "Cycle: [[0]] → [[0]] → [[1]], staggered by slot."
+  },
+  "MaskBlue": {
+   "zh": "循环：[[0]] → [[0]] → [[1]]；按号位错开起点。",
+   "en": "Cycle: [[0]] → [[0]] → [[1]], staggered by slot."
+  },
+  "DreamRemilia": {
+   "zh": "每回合使用 [[2]]，完成两次自身行动后离场。",
+   "en": "Use [[2]] each turn, then leave after two own actions."
+  },
+  "DreamAya": {
+   "zh": "每回合使用 [[1]]，完成两次自身行动后离场。",
+   "en": "Use [[1]] each turn, then leave after two own actions."
+  },
+  "DreamJunko": {
+   "zh": "每回合使用 [[1]]，完成两次自身行动后离场。",
+   "en": "Use [[1]] each turn, then leave after two own actions."
+  },
+  "DreamYoumu": {
+   "zh": "每回合使用 [[0]]，完成两次自身行动后离场。",
+   "en": "Use [[0]] each turn, then leave after two own actions."
+  },
+  "ScoutElite": {
+   "zh": "首次：最后方侦察者用 [[2]]，其余 [[0]] → [[2]]。\n后续循环：\n1. [[0]] 或 [[1]] 1～2 次；权重 3∶1，排除上一次。\n2. [[2]]。\n普通终结者在场时，会额外强制一次 [[1]]。[[S:Emi]] 期间优先 [[3]]，正常计时暂停。",
+   "en": "Opening: the rearmost Scout uses [[2]], others [[0]] → [[2]].\nLater cycles:\n1. [[0]] or [[1]] 1–2 times; weights 3:1, excluding the previous move.\n2. [[2]].\nA regular Terminator causes one forced [[1]]. [[S:Emi]] prioritizes [[3]] and pauses normal counters."
+  },
+  "PurifierElite": {
+   "zh": "首次：奇数号位 [[2]]；偶数号位 [[0]] → [[2]]。\n后续循环：\n1. [[0]] 或 [[1]] 1～2 次；权重 2∶1，排除上一次。\n2. [[2]]。\n[[S:Emi]] 期间优先 [[3]]，正常计时暂停。",
+   "en": "Opening: odd slot [[2]], even slot [[0]] → [[2]].\nLater cycles:\n1. [[0]] or [[1]] 1–2 times; weights 2:1, excluding the previous move.\n2. [[2]].\n[[S:Emi]] prioritizes [[3]] and pauses normal counters."
+  },
+  "TerminatorElite": {
+   "zh": "首次：\n1. [[0]]。\n2. [[1]] 与 [[0]] 交替，再攻击 3 次。\n3. [[2]]。\n后续循环：两种攻击随机起手，交替 3 次 → [[2]]。\n[[S:Emi]] 期间改用 [[3]]，维修计时暂停。",
+   "en": "Opening:\n1. [[0]].\n2. Alternate [[1]] and [[0]] for 3 more attacks.\n3. [[2]].\nLater cycles: start randomly, alternate 3 attacks → [[2]].\n[[S:Emi]] uses [[3]] and pauses the repair counter."
+  },
+  "YinyangyuRedReimu": {
+   "zh": "首次行动按号位以 [[0]] 或 [[1]] 起手；以 [[0]] 起手的随后用 [[1]]。\n后续循环：\n1. [[0]] 1～2 次。\n2. [[1]]。",
+   "en": "Opening uses [[0]] or [[1]] by slot; [[0]] is followed by [[1]].\nLater cycles:\n1. [[0]] 1–2 times.\n2. [[1]]."
+  },
+  "YinyangyuBlueReimu": {
+   "zh": "首次行动按号位以 [[0]] 或 [[1]] 起手；以 [[0]] 起手的随后用 [[1]]。\n后续循环：\n1. [[0]] 1～2 次。\n2. [[1]]。",
+   "en": "Opening uses [[0]] or [[1]] by slot; [[0]] is followed by [[1]].\nLater cycles:\n1. [[0]] 1–2 times.\n2. [[1]]."
+  },
+  "RavenWen3": {
+   "zh": "挂坠召唤版本没有闪避。\n首次 [[1]] 或 [[0]] → [[1]]；后续循环 [[0]] 1～2 次 → [[1]]。",
+   "en": "Pendant variant has no Dodge.\nOpening [[1]] or [[0]] → [[1]]; later [[0]] 1–2 times → [[1]]."
+  },
+  "RavenGuo3": {
+   "zh": "挂坠召唤版本没有闪避。\n首次 [[1]] 或 [[0]] → [[1]]；后续循环 [[0]] 1～2 次 → [[1]]。",
+   "en": "Pendant variant has no Dodge.\nOpening [[1]] or [[0]] → [[1]]; later [[0]] 1–2 times → [[1]]."
+  }
+ },
+ "mechanics": {
+  "Seija": {
+   "zh": "[[S:LimitedDamage]]：每次正邪的回合开始，重置 300 点伤害上限。\n\n<b>道具解放顺序</b>\n开战固定：[[S:SingleJiandaoSe]]。第一个随机池：[[S:ShendengSe]]、[[S:SihunYuSe]]、[[S:MadokaBowSe]]。\n第一次 [[4]] 将 [[S:HolyGrailSe]]、[[S:QiannianShenqiSe]] 加入剩余随机池；第二次再加入 [[S:InfinityGemsSe]]、[[S:SakuraWandSe]]。已获得的道具移出池子，不重复抽取；第五次 [[4]] 固定获得 [[S:DragonBallSe]]。\n一场战斗只会获得七件随机道具中的五件，加上剪刀与玻璃球。\n\n<b>九件道具</b>\n[[S:SingleJiandaoSe]]：每打出一张牌，主角受到 1/2/2 点效果伤害。\n[[S:ShendengSe]]：所有敌人回合结束后施加 3 回合 [[S:Weak]]、[[S:Fragil]] 或 [[S:Vulnerable]]；三个种类打乱后轮流使用。\n[[S:SihunYuSe]]：自身回合结束时，按下方敌人池吸引敌人。\n[[S:MadokaBowSe]]：自身回合结束时加入两张随机状态牌，一张洗入抽牌堆、一张放进弃牌堆。道具少于三件时在 [[C:Xingguang]]、[[C:Yueguang]]、[[C:Riguang]]、[[C:Xuanguang]] 中随机；至少三件时用 [[C:Chunguang]] 替换星光。\n[[S:HolyGrailSe]]：下回合开始时清除主角能够在战斗中丢失的展品；光耀和秘宝等受保护展品保留。\n[[S:QiannianShenqiSe]]：每个玩家回合最多抽 10 张牌，开局抽牌也计入；加入 [[C:QiannianShenqiCard]]。打出该牌解除抽牌上限，但从本回合第 11 张起，每次抽牌失去 2 点生命。\n[[S:InfinityGemsSe]]：接下来两次自身回合开始时，对手牌、抽牌堆、弃牌堆分别随机放逐一半卡牌，向下取整；不从永久牌库移除。玻璃球生效后停止。\n[[S:SakuraWandSe]]：[[2]] 和 [[3]] 的整组攻击各执行两遍，分别成为 16 次、4 次攻击。\n[[S:DragonBallSe]]：下回合开始时意图改为 [[5]]，之后持续如此；[[X:GanzhuYao]] 只能挡住当次，不能阻止之后继续实现愿望。\n\n<b>散发邪气的挂坠 · 召唤规则</b>\n按双敌人 → 单敌人 → 单敌人循环。双敌人检查前方两个指定位置，单敌人轮流检查后方两个位置；只填补对应空位。最多四个召唤物，空位被占也会推进轮次。\n准备进入双敌人轮次且正邪已拥有至少四件道具时，永久切换强池并重置轮次。各池先打乱再顺序循环。\n所有挂坠召唤物获得 [[S:Servant]]：场上只剩使魔时立刻消灭，不触发死亡效果。挂坠召唤的乌鸦没有闪避。\n\n<b>弱池 · 双敌人</b>\n• [[U:MaoyuBlack]] ×2。\n• [[U:RavenWen3]] + [[U:RavenGuo3]]。\n<b>弱池 · 单敌人</b>\n[[U:WhiteFairy]]、[[U:DollBlue]]、[[U:Yaoshi]]、[[U:Scout]]。\n<b>强池 · 双敌人</b>\n• [[U:YinyangyuRed]] + [[U:YinyangyuBlue]]。\n• [[U:Purifier]] ×2。\n• [[U:ShenlingWhite]] + [[U:ShenlingPurple]]。\n<b>强池 · 单敌人</b>\n[[U:BlackFairy]]、[[U:Terminator]]、[[U:WaterGirl]]、[[U:LangTiangou]]、[[U:YaTiangou]]、[[U:SuwakoLimao]]。",
+   "en": "[[S:LimitedDamage]] resets its 300-damage budget at the start of each Seija turn.\n\n<b>Tool unlock order</b>\nStarts with [[S:SingleJiandaoSe]]. Initial random pool: [[S:ShendengSe]], [[S:SihunYuSe]], [[S:MadokaBowSe]].\nThe first [[4]] adds [[S:HolyGrailSe]] and [[S:QiannianShenqiSe]]; the second adds [[S:InfinityGemsSe]] and [[S:SakuraWandSe]]. Acquired tools leave the pool. The fifth [[4]] always grants [[S:DragonBallSe]].\nOne battle acquires five of the seven random tools, plus scissors and the orb.\n\n<b>Nine tools</b>\n[[S:SingleJiandaoSe]]: 1/2/2 effect damage to the player per card played.\n[[S:ShendengSe]]: after all enemy turns, apply 3-turn [[S:Weak]], [[S:Fragil]] or [[S:Vulnerable]], in shuffled groups of three.\n[[S:SihunYuSe]]: summon from the pools below at own turn end.\n[[S:MadokaBowSe]]: add two random status cards at own turn end, one to draw and one to discard. Below three tools: [[C:Xingguang]], [[C:Yueguang]], [[C:Riguang]], [[C:Xuanguang]]. At three or more, replace Starlight with [[C:Chunguang]].\n[[S:HolyGrailSe]]: at next own turn start, remove player exhibits that can be lost in battle; protected Shining exhibits and treasures remain.\n[[S:QiannianShenqiSe]]: limit draws to 10 per player turn, including opening draws; add [[C:QiannianShenqiCard]]. Playing it removes the cap, but each draw from the eleventh costs 2 life that turn.\n[[S:InfinityGemsSe]]: at the next two own turn starts, randomly exile half of hand, draw and discard separately, rounded down. Permanent deck is unchanged; stops when the orb takes effect.\n[[S:SakuraWandSe]]: repeat the entire [[2]] / [[3]] sequences twice: 16 / 4 hits.\n[[S:DragonBallSe]]: next own turn uses [[5]] and repeats thereafter. [[X:GanzhuYao]] can stop that occurrence, not later wishes.\n\n<b>Pendant summons</b>\nRepeat pair → single → single. Pairs check the two front slots individually; singles alternate two rear slots. Fill only the corresponding vacancies, up to four summons. Occupied slots still advance the cycle.\nAt a pair step with at least four tools, switch permanently to the strong pools and restart the cycle. Each pool is shuffled, then cycled in order.\nAll pendant summons gain [[S:Servant]]: when only Servants remain they die immediately, without death effects. Pendant ravens have no Dodge.\n\n<b>Weak pairs</b>\n• [[U:MaoyuBlack]] ×2.\n• [[U:RavenWen3]] + [[U:RavenGuo3]].\n<b>Weak singles</b>\n[[U:WhiteFairy]], [[U:DollBlue]], [[U:Yaoshi]], [[U:Scout]].\n<b>Strong pairs</b>\n• [[U:YinyangyuRed]] + [[U:YinyangyuBlue]].\n• [[U:Purifier]] ×2.\n• [[U:ShenlingWhite]] + [[U:ShenlingPurple]].\n<b>Strong singles</b>\n[[U:BlackFairy]], [[U:Terminator]], [[U:WaterGirl]], [[U:LangTiangou]], [[U:YaTiangou]], [[U:SuwakoLimao]]."
+  },
+  "Nitori": {
+   "zh": "<b>改造无人机</b>\n首回合等概率召唤 [[U:ScoutElite]]、[[U:PurifierElite]] 或 [[U:TerminatorElite]]，每场只召唤一次。\nMK-II 无人机是特殊版本，点击名字查看。荷取被击败后，无人机继续战斗。",
+   "en": "<b>Modified drones</b>\nOn the first turn, summon [[U:ScoutElite]], [[U:PurifierElite]] or [[U:TerminatorElite]] with equal probability, once per battle.\nMK-II drones are special variants; click a name for details. They continue fighting after Nitori dies."
+  },
+  "ScoutElite": {
+   "zh": "[[S:Appliance]]：免疫 [[S:Weak]] 和 [[S:Vulnerable]]。\n受到 [[C:EmpCard]] 的卡牌伤害后，获得 2 回合 [[S:Emi]]，立即进入眩晕；期间无法行动，原有行动间隔暂停。\n由 [[U:Nitori]] 召唤；荷取死亡后仍会继续战斗。",
+   "en": "[[S:Appliance]] grants immunity to [[S:Weak]] and [[S:Vulnerable]].\nCard damage from [[C:EmpCard]] applies 2-turn [[S:Emi]] and immediately stuns the drone. It takes no action while stunned, and its normal move timers pause.\nSummoned by [[U:Nitori]]; it continues fighting after her death."
+  },
+  "PurifierElite": {
+   "zh": "[[S:Appliance]]：免疫 [[S:Weak]] 和 [[S:Vulnerable]]。\n受到 [[C:EmpCard]] 的卡牌伤害后，获得 2 回合 [[S:Emi]]，立即进入眩晕；期间无法行动，原有行动间隔暂停。\n由 [[U:Nitori]] 召唤；荷取死亡后仍会继续战斗。",
+   "en": "[[S:Appliance]] grants immunity to [[S:Weak]] and [[S:Vulnerable]].\nCard damage from [[C:EmpCard]] applies 2-turn [[S:Emi]] and immediately stuns the drone. It takes no action while stunned, and its normal move timers pause.\nSummoned by [[U:Nitori]]; it continues fighting after her death."
+  },
+  "TerminatorElite": {
+   "zh": "[[S:Appliance]]：免疫 [[S:Weak]] 和 [[S:Vulnerable]]。\n受到 [[C:EmpCard]] 的卡牌伤害后，获得 2 回合 [[S:Emi]]，立即进入眩晕；期间无法行动，原有行动间隔暂停。\n由 [[U:Nitori]] 召唤；荷取死亡后仍会继续战斗。\n[[S:DroneBlock]]：开战与每次自身回合结束，获得 {Defend} 点格挡。",
+   "en": "[[S:Appliance]] grants immunity to [[S:Weak]] and [[S:Vulnerable]].\nCard damage from [[C:EmpCard]] applies 2-turn [[S:Emi]] and immediately stuns the drone. It takes no action while stunned, and its normal move timers pause.\nSummoned by [[U:Nitori]]; it continues fighting after her death.\n[[S:DroneBlock]] grants {Defend} Block at the opening and each own turn end."
+  },
+  "Scout": {
+   "zh": "[[S:Appliance]]：免疫 [[S:Weak]] 和 [[S:Vulnerable]]。\n受到 [[C:EmpCard]] 的卡牌伤害后，获得 2 回合 [[S:Emi]]，立即进入眩晕；期间无法行动，原有行动间隔暂停。",
+   "en": "[[S:Appliance]] grants immunity to [[S:Weak]] and [[S:Vulnerable]].\nCard damage from [[C:EmpCard]] applies 2-turn [[S:Emi]] and immediately stuns the drone. It takes no action while stunned, and its normal move timers pause."
+  },
+  "Purifier": {
+   "zh": "[[S:Appliance]]：免疫 [[S:Weak]] 和 [[S:Vulnerable]]。\n受到 [[C:EmpCard]] 的卡牌伤害后，获得 2 回合 [[S:Emi]]，立即进入眩晕；期间无法行动，原有行动间隔暂停。",
+   "en": "[[S:Appliance]] grants immunity to [[S:Weak]] and [[S:Vulnerable]].\nCard damage from [[C:EmpCard]] applies 2-turn [[S:Emi]] and immediately stuns the drone. It takes no action while stunned, and its normal move timers pause."
+  },
+  "Terminator": {
+   "zh": "[[S:Appliance]]：免疫 [[S:Weak]] 和 [[S:Vulnerable]]。\n受到 [[C:EmpCard]] 的卡牌伤害后，获得 2 回合 [[S:Emi]]，立即进入眩晕；期间无法行动，原有行动间隔暂停。\n[[S:DroneBlock]]：开战与每次自身回合结束，获得 {Defend} 点格挡。",
+   "en": "[[S:Appliance]] grants immunity to [[S:Weak]] and [[S:Vulnerable]].\nCard damage from [[C:EmpCard]] applies 2-turn [[S:Emi]] and immediately stuns the drone. It takes no action while stunned, and its normal move timers pause.\n[[S:DroneBlock]] grants {Defend} Block at the opening and each own turn end."
+  },
+  "Rin": {
+   "zh": "<b>怨灵召唤</b>\n开战持有红、绿、蓝怨灵球各一枚，初始召唤顺序随机。怨灵死亡后，归还对应颜色的球。\n[[S:RinSummon]] 初始 3 层，每召唤一只怨灵消耗 1 层。每 {Count1} 个自身回合恢复 1 层，上限 3 层。\n\n<b>死亡弹幕与地狱灼热</b>\n怨灵被击败时，对主角发动一次死亡弹幕。[[2]] 或 [[3]] 引爆怨灵时，这次攻击的伤害翻倍。\n每有一名敌人死亡，燐获得 {Power} 层 [[S:RinAura]]。之后召唤的怨灵，死亡弹幕伤害增加召唤时的灼热层数。\n燐召唤的怨灵具有 [[S:Servant]]。燐死亡后，它们一同消失，不发动死亡弹幕。",
+   "en": "<b>Spirit summons</b>\nStarts with one red, green and blue spirit orb. A spirit’s death returns its orb; summoning uses the colors in a shuffled order.\n[[S:RinSummon]] starts at 3, costs 1 per spirit and recovers 1 every {Count1} own turns, up to 3.\n\n<b>Death attacks and Hellfire</b>\nDefeating a spirit triggers one attack on the player. Detonation by [[2]] or [[3]] doubles that attack’s damage.\nEach enemy death gives Rin {Power} [[S:RinAura]]. Newly summoned spirits add its level at spawn to their death-attack damage.\nRin’s spirits have [[S:Servant]] and disappear without attacking when Rin dies."
+  },
+  "GuihuoRed": {
+   "zh": "<b>燐召唤的怨灵</b>\n由 [[U:Rin]] 召唤时，不会自行倒计时自爆；死亡弹幕的伤害增加召唤时 [[S:RinAura]] 的层数。\n被击败时仍会对主角发动死亡弹幕；被燐引爆时伤害翻倍。燐死亡后，召唤的怨灵一同消失，不发动死亡弹幕。",
+   "en": "<b>Rin’s summoned spirits</b>\nSpirits summoned by [[U:Rin]] have no timed self-explosion. Their death attack gains damage equal to [[S:RinAura]] at the time of summoning.\nDefeating them triggers a death attack; Rin’s detonation doubles it. When Rin dies, her summons disappear without a death attack."
+  },
+  "GuihuoGreen": {
+   "zh": "<b>燐召唤的怨灵</b>\n由 [[U:Rin]] 召唤时，不会自行倒计时自爆；死亡弹幕的伤害增加召唤时 [[S:RinAura]] 的层数。\n被击败时仍会对主角发动死亡弹幕；被燐引爆时伤害翻倍。燐死亡后，召唤的怨灵一同消失，不发动死亡弹幕。",
+   "en": "<b>Rin’s summoned spirits</b>\nSpirits summoned by [[U:Rin]] have no timed self-explosion. Their death attack gains damage equal to [[S:RinAura]] at the time of summoning.\nDefeating them triggers a death attack; Rin’s detonation doubles it. When Rin dies, her summons disappear without a death attack."
+  },
+  "GuihuoBlue": {
+   "zh": "<b>燐召唤的怨灵</b>\n由 [[U:Rin]] 召唤时，不会自行倒计时自爆；死亡弹幕的伤害增加召唤时 [[S:RinAura]] 的层数。\n被击败时仍会对主角发动死亡弹幕；被燐引爆时伤害翻倍。燐死亡后，召唤的怨灵一同消失，不发动死亡弹幕。",
+   "en": "<b>Rin’s summoned spirits</b>\nSpirits summoned by [[U:Rin]] have no timed self-explosion. Their death attack gains damage equal to [[S:RinAura]] at the time of summoning.\nDefeating them triggers a death attack; Rin’s detonation doubles it. When Rin dies, her summons disappear without a death attack."
+  },
+  "Clownpiece": {
+   "zh": "<b>妖精大暴走 · 召唤阵型</b>\nN/H 第一次：[[U:BlackFairy]] ×1 + [[U:WhiteFairy]] ×2。\n第二次：黑蝴蝶 ×2 + 向日葵妖精 ×1。\n第三次及以后：黑蝴蝶 ×3。\nL 难度从第二种阵型开始，然后直接进入三只黑蝴蝶。\n已占据位置的妖精会恢复至满生命，不被替换；空位按当前阵型填补。新召唤妖精拥有 [[S:Servant]] 并在出现时获得 [[S:Lunatic]]。\n[[S:LunaticTorch]] 的效果是每个玩家回合开始获得 1 点彩色法力。",
+   "en": "<b>Fairy Rampage formations</b>\nN/H first: 1 [[U:BlackFairy]] + 2 [[U:WhiteFairy]].\nSecond: 2 Black Butterflies + 1 Sunflower Fairy.\nThird onward: 3 Black Butterflies.\nL starts with the second formation, then three Black Butterflies.\nExisting fairies heal to full rather than being replaced. Empty slots use the current formation. New summons have [[S:Servant]] and receive [[S:Lunatic]] on spawn.\n[[S:LunaticTorch]] gives the player 1 rainbow mana at each player-turn start."
+  },
+  "Kokoro": {
+   "zh": "<b>喜 · 面具召唤</b>\n[[0]] 首次召唤 [[U:MaskBlue]]；之后在 [[U:MaskRed]]、[[U:MaskGreen]]、[[U:MaskBlue]] 中随机，排除上一次颜色。最多三张面具，只填空位。\n面具具有 [[S:Servant]]。\n\n<b>情绪与暗黑能量</b>\n喜、怒、忧、认真会替换上一个情绪状态。怒使全体敌人增加 {Power} 点火力；忧使主角获得 {Power} 回合虚弱并给自己格挡。\n主角每次被施加一种负面状态，暗黑能量计数增加 1。[[3,4]] 先执行精准攻击，再执行“计数 × {Count1}”的独立效果伤害，随后计数归零。",
+   "en": "<b>Joy · Mask summons</b>\nThe first [[0]] summons [[U:MaskBlue]]. Later choose [[U:MaskRed]], [[U:MaskGreen]] or [[U:MaskBlue]], excluding the previous color. Up to three masks, filling vacancies only.\nMasks have [[S:Servant]].\n\n<b>Emotions and Dark Power</b>\nJoy, Anger, Sorrow and Serious replace the previous emotion. Anger gives all enemies {Power} Firepower; Sorrow applies {Power}-turn Weak and grants Block.\nEach negative status applied to the player increases Dark Power by 1. [[3,4]] attacks accurately, then deals separate count × {Count1} effect damage and resets the count."
+  },
+  "Doremy": {
+   "zh": "<b>睡眠与觉醒</b>\n睡眠护盾为 [[S:Sleep]] 的等级（{Count2}），每次自身回合结束补足；每次 [[0]] 增加 50 当前生命和最大生命、1 级梦境。\n受到实际伤害可提前醒，[[X:HeiseBijiben]] 与 [[J:QuickAct1]] 不触发该判定。醒来清除睡眠护盾。\n清醒后的防御每次往手牌加入 1 张 [[C:Nightmare]]；攻击则在梦境至少 1 级时加入。至少 2 级时增强伤害与护盾。自然睡满三次时立即进入[[S:DreamMaster]] 阶段。\n\n<b>[[S:DreamMaster]] · 梦境敌人</b>\n[[U:DreamRemilia]]、[[U:DreamAya]]、[[U:DreamJunko]]、[[U:DreamYoumu]] 每四次召唤重新打乱，组内不重复；在攻击或防御后轮流使用两个召唤位置。\n它们拥有 [[S:DreamServant]]，受到的伤害降为 0；完成两次自身行动后逃跑。哆来咪死亡后，梦境敌人离场。",
+   "en": "<b>Sleep and waking</b>\nSleep Barrier equals [[S:Sleep]] level ({Count2}) and replenishes at own turn end. Each [[0]] adds 50 current/max HP and one dream level.\nActual damage wakes her early, except [[X:HeiseBijiben]] and [[J:QuickAct1]]. Waking clears sleep Barrier.\nEach awake defense adds 1 [[C:Nightmare]] to hand; attacks add it at dream level 1+. At level 2+, damage and Barrier improve. Sleeping all three times immediately starts Dream Master.\n\n<b>Dream Master summons</b>\n[[U:DreamRemilia]], [[U:DreamAya]], [[U:DreamJunko]], [[U:DreamYoumu]] are reshuffled every four summons, without repeats within a group, alternating two summon slots after an attack or defense.\nThey have [[S:DreamServant]], reducing damage to 0, and escape after two own actions. They leave when Doremy dies."
+  },
+  "DreamRemilia": {
+   "zh": "[[S:ScarletDestiny]]：每个玩家回合出牌达到 {Count2} 张时强制结束回合。[[S:DreamServant]] 将受到的伤害降为 0，行动两次后逃跑。",
+   "en": "[[S:ScarletDestiny]] forcibly ends the player turn at {Count2} cards. [[S:DreamServant]] reduces received damage to 0; escapes after two actions."
+  },
+  "DreamAya": {
+   "zh": "[[S:FastAttack]]：主角每回合打出第一张牌时，受到一次 20 点攻击伤害。\n[[S:DreamServant]] 将受到的伤害降为 0；行动两次后逃跑。",
+   "en": "[[S:FastAttack]] attacks the player for 20 damage on the first card used each turn.\n[[S:DreamServant]] reduces received damage to 0; escape after two own actions."
+  },
+  "DreamJunko": {
+   "zh": "[[S:JunkoPurify]] 为 1 层：每张牌纯化 1 点法力，最多单色优先。[[S:DreamServant]] 将受到的伤害降为 0，行动两次后逃跑。",
+   "en": "1 [[S:JunkoPurify]]: purify 1 mana per card, prioritizing the largest single color. [[S:DreamServant]] reduces damage to 0; escapes after two actions."
+  },
+  "DreamYoumu": {
+   "zh": "[[S:LouguanJianSe]] 为 1 层：每次攻击实际造成伤害后，若自己是最后一个存活敌人，对主角施加 1 层 [[S:LockedOn]]；仍有其他敌人时，对自己施加 1 层 [[S:EnemyLockedOn]]。多段攻击逐次触发。\n[[S:DreamServant]] 将受到的伤害降为 0，行动两次后逃跑。",
+   "en": "1 [[S:LouguanJianSe]]: after each actually damaging attack hit, apply 1 [[S:LockedOn]] to the player if the owner is the last enemy; with other enemies alive, apply 1 [[S:EnemyLockedOn]] to the owner. Multi-hits trigger separately.\n[[S:DreamServant]] reduces received damage to 0; escapes after two actions."
+  },
+  "Youmu": {
+   "zh": "[[S:LouguanJianSe]] 为 1 层：每次攻击实际造成伤害后，若自己是最后一个存活敌人，对主角施加 1 层 [[S:LockedOn]]；仍有其他敌人时，对自己施加 1 层 [[S:EnemyLockedOn]]。多段攻击逐次触发。",
+   "en": "1 [[S:LouguanJianSe]]: after each actually damaging attack hit, apply 1 [[S:LockedOn]] to the player if the owner is the last enemy; with other enemies alive, apply 1 [[S:EnemyLockedOn]] to the owner. Multi-hits trigger separately."
+  },
+  "Siji": {
+   "zh": "<b>净颇梨审判 · 主角镜像</b>\n开战召唤与当前主角对应的镜像：[[U:Reimu]]、[[U:Marisa]]、[[U:Sakuya]]、[[U:Cirno]] 或 [[U:Koishi]]。\n镜像具有 [[S:MirrorImage]]，使用对应角色 Boss 的行动。映姬被击败后，镜像继续战斗。",
+   "en": "<b>Pure Glass Judgment · Player mirror</b>\nAt battle start, summon the mirror matching the player: [[U:Reimu]], [[U:Marisa]], [[U:Sakuya]], [[U:Cirno]] or [[U:Koishi]].\nThe mirror has [[S:MirrorImage]] and uses that character’s boss moves. It continues fighting after Eiki dies."
+  },
+  "Reimu": {
+   "zh": "<b>阴阳宝玉</b>\n[[4]] 在两个固定位置召唤 [[U:YinyangyuRedReimu]]、[[U:YinyangyuBlueReimu]]，各一只。\n阴阳玉具有 [[S:Servant]]，灵梦被击败后会一同消失。红玉在自身回合结束增加火力；蓝玉增加灵力。\n\n[[S:Fengyin]]：主角无法打出攻击牌。\n[[S:Amulet]]：每层抵消一次新施加的负面状态，触发后消耗 1 层。",
+   "en": "<b>Yin-Yang Orbs</b>\n[[4]] fills two fixed slots with one [[U:YinyangyuRedReimu]] and one [[U:YinyangyuBlueReimu]].\nThe orbs have [[S:Servant]] and disappear when Reimu dies. Red gains Firepower at own turn end; blue gains Spirit.\n\n[[S:Fengyin]] prevents the player from playing Attack cards.\nEach [[S:Amulet]] stack cancels one newly applied negative status and is consumed."
+  },
+  "YinyangyuRedReimu": {
+   "zh": "由 [[U:Reimu]] 召唤，具有 [[S:Servant]]；灵梦死亡后会一同消失。\n[[S:AbsorbPower]]：每次自身回合结束，获得 {Power} 点 [[S:Firepower]]。",
+   "en": "Summoned by [[U:Reimu]] with [[S:Servant]]; disappears when she dies.\n[[S:AbsorbPower]] grants {Power} [[S:Firepower]] at each own turn end."
+  },
+  "YinyangyuBlueReimu": {
+   "zh": "由 [[U:Reimu]] 召唤，具有 [[S:Servant]]；灵梦死亡后会一同消失。\n[[S:AbsorbSpirit]]：每次自身回合结束，获得 {Power} 点 [[S:Spirit]]。",
+   "en": "Summoned by [[U:Reimu]] with [[S:Servant]]; disappears when she dies.\n[[S:AbsorbSpirit]] grants {Power} [[S:Spirit]] at each own turn end."
+  },
+  "Yuyuko": {
+   "zh": "[[4]] 在固定空位召唤 [[U:Wangling]]，具有 [[S:Servant]]。死蝶灵自己的掩护给予幽幽子 2 层闪避；第三次自身行动起，其攻击额外施加 1 层生者必灭。幽幽子缺少召唤物时会缩短召唤计时，但符卡仍优先。",
+   "en": "[[4]] fills fixed slots with [[U:Wangling]], with [[S:Servant]]. Their cover gives Yuyuko 2 Dodge; attacks add 1 Death stack from their third own action. Missing summons accelerate resummoning, while spells remain prioritized."
+  },
+  "Cirno": {
+   "zh": "<b>四种协力</b>\n[[S:EnemyDayaojing]]：每次自身回合结束恢复 6 点生命，获得当回合跳过一次。\n[[S:EnemyLarva]]：每次攻击实际对主角造成伤害时，施加 1 层 [[S:Poison]]；获得时向主角手牌加入 [[C:LarvaCure]]。\n[[S:EnemyLily]]：[[0]] 由三段变四段；[[1]] 虚弱由一回合变两回合；[[2]] 冻结牌由两张变三张；[[3]] 冰甲 +3。\n[[S:EnemyMaid]]：每次自身回合结束对主角造成 6 点效果伤害，获得当回合跳过一次。\n四种协力不重复获得；每次新协力同时 +1 火力，集齐后使用 [[9,10]]，改为 +2 火力。L 开局协力在大妖精、莉莉、女仆中随机，之后才加入拉尔瓦。",
+   "en": "<b>Four supports</b>\n[[S:EnemyDayaojing]]: heal 6 at own turn end, skipping the acquisition turn.\n[[S:EnemyLarva]]: each actually damaging attack hit applies 1 [[S:Poison]]; acquisition adds [[C:LarvaCure]] to player hand.\n[[S:EnemyLily]]: [[0]] has four rather than three hits; [[1]] Weak lasts two rather than one turn; [[2]] adds three rather than two freeze cards; [[3]] gains +3 Frost Armor.\n[[S:EnemyMaid]]: 6 effect damage to the player at own turn end, skipping the acquisition turn.\nSupports are acquired without replacement; each gives +1 Firepower. After all four, [[9,10]] gives +2 Firepower. L’s opening support excludes Larva."
+  },
+  "Koishi": {
+   "zh": "<b>五种灵感</b>\n[[1]]：获得 {Defend/2} + 符卡等级 ×2 点护盾。\n[[2]]：向抽牌堆洗入 [[C:KoishiDiscard]]，符卡等级 0～1 时一张，2 级以上两张。\n[[3]]：施加 [[S:Weak]]，符卡等级 0～2 时一回合，3 级以上两回合。\n[[4]]：获得 [[S:Firepower]]，符卡等级 0～3 时一点，4 级以上两点。\n[[5]]：获得 [[S:Graze]]，符卡等级 0～2 时一层，3 级以上两层。\n灵感每次排除上一种。等级大于 0 时其意图隐藏，但当前非符卡攻击意图仍显示。[[9,10]] 每次提升一级；L 从 1 级开始。",
+   "en": "<b>Five inspirations</b>\n[[1]]: {Defend/2} + spell level ×2 Barrier.\n[[2]]: shuffle [[C:KoishiDiscard]] into draw: one at levels 0–1, two at 2+.\n[[3]]: [[S:Weak]] for one turn at levels 0–2, two at 3+.\n[[4]]: 1 [[S:Firepower]] at levels 0–3, 2 at 4+.\n[[5]]: 1 [[S:Graze]] at levels 0–2, 2 at 3+.\nExclude the previous inspiration. Its intention is hidden above level 0; ordinary attack intentions remain visible. Each [[9,10]] raises the level, starting at 1 on L."
+  },
+  "Junko": {
+   "zh": "<b>纯化耀光 · 计数与阶段</b>\n[[S:JunkoColor]] 累计本场战斗获得的彩色法力点数。\n累计 0 点：等级 1；1～9 点：等级 2；10～39 点：等级 3；40～99 点：等级 4；100 点以上：等级 5。\n每升一级，纯狐获得 {Power} 点火力。[[3]] 按等级施加负面状态：1 级施加两回合虚弱；2 级再加两回合脆弱；3 级以上再加两回合易伤。\n[[S:JunkoLily]] 使法力纯化进一步造成对应层数的生命损失，不能用格挡或护盾阻挡。",
+   "en": "<b>Purified Light counter</b>\n[[S:JunkoColor]] counts rainbow/Philosopher mana points gained in this battle.\n0 points: level 1; 1–9: level 2; 10–39: level 3; 40–99: level 4; 100+: level 5.\nEach level gained gives Junko {Power} Firepower. [[3]] applies two-turn Weak at level 1, also Frail at level 2, and also Vulnerable at level 3+.\n[[S:JunkoLily]] makes purification additionally cost life equal to its stacks, bypassing Block and Barrier."
+  },
+  "HardworkRabbit": {
+   "zh": "<b>模块安装优先级</b>\n1. 主角有闪避且未安装 [[S:AccuracyModule]]：安装精准模块。\n2. 永久牌库不超过 20 张且未安装 [[S:LightingModule]]：安装光耀模块。\n3. 未安装 [[S:PurifyModule]]：安装纯化模块。\n4. 未安装光耀模块：安装光耀模块。\n5. 未安装精准模块：安装精准模块。\n6. 其余获得 {Power} 点火力。\n精准模块使前两段攻击也精准，最后一段本来就精准。光耀模块在每次未闪避的命中后向抽牌堆加入一张 [[C:Xingguang]]；纯化模块在每次未闪避的命中后施加一层 [[S:TurnStartPurify]]。\n[[S:InvincibleEternal]] 持续存在，受到的伤害不会超过 1。每套攻击完整完成后，这只月兔的基础伤害 +1。",
+   "en": "<b>Module priorities</b>\n1. Player has Dodge and no [[S:AccuracyModule]]: install it.\n2. Permanent deck has at most 20 cards and no [[S:LightingModule]]: install it.\n3. No [[S:PurifyModule]]: install it.\n4. No Lighting Module: install it.\n5. No Accuracy Module: install it.\n6. Otherwise gain {Power} Firepower.\nAccuracy also makes the first two hits accurate; the last already is. Lighting adds one [[C:Xingguang]] to draw per hit not dodged. Purify applies one [[S:TurnStartPurify]] per hit not dodged.\n[[S:InvincibleEternal]] caps each received damage at 1. Each completed attack sequence raises this rabbit’s base damage by 1."
+  },
+  "LazyRabbit": {
+   "zh": "[[S:EnemyTuanzi]] 每次自身回合结束恢复等于层数的生命，获得的当回合跳过。达到 {Count1} 层后，[[2]] 对该目标改为增加火力。\n[[S:InvincibleEternal]] 使每次受到的伤害不超过 1。攻击基础值每完成一套 +1。有同伴时只在循环第一步偷懒，第二步仍会攻击。",
+   "en": "[[S:EnemyTuanzi]] heals its level at own turn end, skipping acquisition turn. At {Count1} stacks, [[2]] gives that target Firepower instead.\n[[S:InvincibleEternal]] caps each damage at 1. Base damage rises by 1 per completed sequence. With the partner alive, only the cycle’s first step loafs; the second still attacks."
+  },
+  "KanakoLimao": {
+   "zh": "召唤池：[[U:ShenlingPurple]]、[[U:ShenlingWhite]]。首只颜色随机，随后交替；已有四个召唤物时不新增。召唤版本有 [[S:Servant]]，但没有神灵赠礼。首次召唤之后的召唤行动增加 {Power} 点火力，即使没有空位也会强化。",
+   "en": "Pool: [[U:ShenlingPurple]], [[U:ShenlingWhite]]. First color random, then alternating, up to four. Summons have [[S:Servant]] but no spirit gifts. Summon moves after the first give {Power} Firepower even with no space."
+  },
+  "SuwakoLimao": {
+   "zh": "[[S:SuwakoHex]]：每个玩家回合开始时，将一张不是青蛙的随机手牌变化为 [[C:Frog]]。[[2]] 的变化阶段另外从手牌、抽牌堆和弃牌堆选 {Count2} 张变化，只影响战斗卡牌，不改永久牌库。",
+   "en": "[[S:SuwakoHex]] transforms one random non-Frog hand card into [[C:Frog]] at each player-turn start. [[2]]’s transform phase separately changes {Count2} cards from hand/draw/discard, affecting battle cards rather than the permanent deck."
+  },
+  "ShenlingPurple": {
+   "zh": "自然出现的 [[S:ShenlingHp]]：被击败时主角获得 {Count1} 点最大生命。神奈子或挂坠召唤时不获得该赠礼；开局护盾与护身符仍保留。\n\n[[S:Amulet]]：每层抵消一次新施加的负面状态，触发后消耗一层。",
+   "en": "Natural [[S:ShenlingHp]] gives the player {Count1} max HP when defeated. Kanako/pendant summons have no gift, but retain opening Barrier and Amulet.\n\n[[S:Amulet]]: each stack cancels one newly applied negative status, consuming a stack."
+  },
+  "ShenlingWhite": {
+   "zh": "自然出现的 [[S:ShenlingGold]]：被击败时额外掉落 {Count1..Count2} 枚金币。神奈子或挂坠召唤时不获得该赠礼；开局护盾与护身符仍保留。\n\n[[S:Amulet]]：每层抵消一次新施加的负面状态，触发后消耗一层。",
+   "en": "Natural [[S:ShenlingGold]] adds {Count1..Count2} money on defeat. Kanako/pendant summons have no gift, but retain opening Barrier and Amulet.\n\n[[S:Amulet]]: each stack cancels one newly applied negative status, consuming a stack."
+  },
+  "Sakuya": {
+   "zh": "[[S:PrivateSquare]]：主角每累计打出 8 张其他牌，受到 5/5/10 点攻击伤害；计数跨回合保留。打出 [[C:SakuyaLock]] 时立即触发该伤害。\n每次 [[4,5]] 使该效果的伤害增加 5。",
+   "en": "[[S:PrivateSquare]] attacks the player for 5/5/10 damage per 8 other cards used, carrying the count across turns. Using or playing [[C:SakuyaLock]] immediately triggers this attack.\nEach [[4,5]] adds 5 to its damage."
+  },
+  "Marisa": {
+   "zh": "[[S:FirepowerIsJustice]]：主角增加永久或暂得火力时，魔理沙会将自己对应火力补到至少同样数值；免疫 [[S:FirepowerNegative]] 和 [[S:TempFirepowerNegative]]。",
+   "en": "[[S:FirepowerIsJustice]]: when the player gains permanent or temporary Firepower, Marisa raises her corresponding Firepower to at least the same value. Immune to [[S:FirepowerNegative]] and [[S:TempFirepowerNegative]]."
+  },
+  "Long": {
+   "zh": "<b>耀光等级对应状态牌</b>\n[[0]] 加入弃牌堆：0 级 [[C:Xingguang]] ×2；1 级星光 + [[C:Xuanguang]]；2 级 [[C:Riguang]] + 眩光；3 级以上 [[C:Yueguang]] + 眩光 + 日光。\n[[5]] 新闻组合：0 级 [[C:HatateNews]] ×2 + [[C:AyaNews]]；1 级文文新闻 ×2 + 花果子念报；2 级两种新闻各一张 + 当前主角特刊；3 级以上文文新闻 ×2 + 当前主角特刊。\n每次 [[2,3]] 令 [[S:LongLight]] +1，并在手牌、抽牌堆、弃牌堆都没有 [[C:Bribery]] 时补充一张。",
+   "en": "<b>Light-level cards</b>\n[[0]] adds to discard: level 0, 2 [[C:Xingguang]]; level 1, Starlight + [[C:Xuanguang]]; level 2, [[C:Riguang]] + Glare; level 3+, [[C:Yueguang]] + Glare + Sunlight.\n[[5]] papers: level 0, 2 [[C:HatateNews]] + [[C:AyaNews]]; level 1, 2 Bunbunmaru + 1 Kakashi; level 2, one each + current character report; level 3+, 2 Bunbunmaru + report.\nEach [[2,3]] adds 1 [[S:LongLight]] and replenishes [[C:Bribery]] if absent from hand, draw and discard."
+  },
+  "Remilia": {
+   "zh": "[[S:ScarletDestiny]]：每个主角回合打出 {Count2} 张牌后，强制结束该回合。\n[[8,9]] 每场战斗只触发一次。获得 [[S:Vampire]] 后，攻击造成实际生命伤害时，恢复等量生命。",
+   "en": "[[S:ScarletDestiny]] forcibly ends the player turn after {Count2} cards.\n[[8,9]] occurs once per battle. [[S:Vampire]] heals for the actual HP damage dealt by attacks."
+  },
+  "Sanae": {
+   "zh": "[[S:Curiosity]]：主角每打出一张能力牌，早苗获得 1/1/2 点 [[S:Firepower]]。\n治疗间隔只在生命为一半或更少时缩短；符卡准备完毕时优先使用符卡。\n[[S:Amulet]]：每层抵消一次新施加的负面状态，触发后消耗 1 层。",
+   "en": "[[S:Curiosity]] gives Sanae 1/1/2 [[S:Firepower]] whenever the player uses or plays an Ability card.\nThe healing cooldown advances only at half HP or below; a ready spell takes priority.\nEach [[S:Amulet]] stack cancels one newly applied negative status and is consumed."
+  },
+  "LoveGirl": {
+   "zh": "[[S:LoveGirlDamageReduce]]：每层减少 20% 受到的伤害，上限 100%。\n打出 [[C:LoveLetter]] 获得 1 层 [[S:LoveGirlDamageIncrease]]，先抵消减伤层数。减伤全部抵消后，再打出情书会触发 [[2]]。",
+   "en": "Each [[S:LoveGirlDamageReduce]] stack reduces received damage by 20%, up to 100%.\n[[C:LoveLetter]] grants 1 [[S:LoveGirlDamageIncrease]], first cancelling reduction stacks. With none left, another Love Letter triggers [[2]]."
+  },
+  "YaTiangou": {
+   "zh": "[[S:FastAttack]]：主角每回合打出第一张牌时，受到一次等于该效果层数的攻击伤害。",
+   "en": "[[S:FastAttack]] attacks the player on the first card used each turn, dealing damage equal to its level."
+  },
+  "RavenWen3": {
+   "zh": "由 [[S:SihunYuSe]] 召唤，具有 [[S:Servant]]，没有闪避。",
+   "en": "Summoned by [[S:SihunYuSe]] with [[S:Servant]] and no Dodge."
+  },
+  "RavenGuo3": {
+   "zh": "由 [[S:SihunYuSe]] 召唤，具有 [[S:Servant]]，没有闪避。",
+   "en": "Summoned by [[S:SihunYuSe]] with [[S:Servant]] and no Dodge."
+  },
+  "Maoyu": {
+   "zh": "[[S:MaoyuBlock]]：第一次受到实际攻击伤害并存活后，获得等于层数的格挡，随后移除该效果。多段攻击整组结算后只触发一次。",
+   "en": "[[S:MaoyuBlock]]: after surviving the first actually damaging attack sequence, gain Block equal to its level, then remove it. Multi-hits trigger only once after the sequence."
+  },
+  "MaoyuRed": {
+   "zh": "[[S:MaoyuBlock]]：第一次受到实际攻击伤害并存活后，获得等于层数的格挡，随后移除该效果。多段攻击整组结算后只触发一次。",
+   "en": "[[S:MaoyuBlock]]: after surviving the first actually damaging attack sequence, gain Block equal to its level, then remove it. Multi-hits trigger only once after the sequence."
+  },
+  "MaoyuBlue": {
+   "zh": "[[S:MaoyuBlock]]：第一次受到实际攻击伤害并存活后，获得等于层数的格挡，随后移除该效果。多段攻击整组结算后只触发一次。",
+   "en": "[[S:MaoyuBlock]]: after surviving the first actually damaging attack sequence, gain Block equal to its level, then remove it. Multi-hits trigger only once after the sequence."
+  },
+  "MaoyuBlack": {
+   "zh": "[[S:MaoyuBlock]]：第一次受到实际攻击伤害并存活后，获得等于层数的格挡，随后移除该效果。多段攻击整组结算后只触发一次。",
+   "en": "[[S:MaoyuBlock]]: after surviving the first actually damaging attack sequence, gain Block equal to its level, then remove it. Multi-hits trigger only once after the sequence."
+  },
+  "SickGirl": {
+   "zh": "[[S:DeathVulnerable]]：死亡时，对主角施加 {Count1} 回合 [[S:Vulnerable]]。",
+   "en": "[[S:DeathVulnerable]] applies {Count1}-turn [[S:Vulnerable]] to the player on death."
+  },
+  "DollBlue": {
+   "zh": "[[S:DeathPoison]]：死亡时对主角施加等于当前层数的 [[S:Poison]]；[[2]] 会累加这份死亡中毒。",
+   "en": "[[S:DeathPoison]]: on death, apply [[S:Poison]] equal to current stacks to the player. [[2]] increases these stacks."
+  },
+  "DollPurple": {
+   "zh": "[[S:DeathPoison]]：死亡时对主角施加等于当前层数的 [[S:Poison]]；[[2]] 会累加这份死亡中毒。",
+   "en": "[[S:DeathPoison]]: on death, apply [[S:Poison]] equal to current stacks to the player. [[2]] increases these stacks."
+  },
+  "Yaoshi": {
+   "zh": "[[S:RockHard]]、[[S:RockHardAura]]：受到攻击时，实际扣除的生命减少等于层数的数值，最低为 0。最后一只要石被击败后，移除其他敌人的庇护。\n[[S:Electric]]：受到攻击伤害时，对攻击者造成等于层数的反应伤害。由格挡或护盾抵消的攻击伤害也会触发；多段攻击逐段触发。",
+   "en": "[[S:RockHard]] and [[S:RockHardAura]] reduce HP damage from each attack by their level, to a minimum of 0. Defeating the last rock removes the aura from the other enemies.\n[[S:Electric]] retaliates against the attacker for its level when receiving attack damage. Attack damage absorbed by Block or Barrier also triggers it; multi-hit attacks trigger separately."
+  },
+  "YinyangyuRed": {
+   "zh": "[[S:AbsorbPower]]：每次自身回合结束获得 {Power} 点 [[S:Firepower]]。",
+   "en": "[[S:AbsorbPower]]: gain {Power} [[S:Firepower]] at each own turn end."
+  },
+  "YinyangyuBlue": {
+   "zh": "[[S:AbsorbSpirit]]：每次自身回合结束获得 {Power} 点 [[S:Spirit]]。",
+   "en": "[[S:AbsorbSpirit]]: gain {Power} [[S:Spirit]] at each own turn end."
+  },
+  "Bat": {
+   "zh": "[[S:Vampire]]：实际造成未被阻挡的攻击伤害时，恢复相应生命；效果伤害不参与该回复。",
+   "en": "[[S:Vampire]]: heal for actual unblocked attack damage dealt; effect damage does not count."
+  },
+  "BatLord": {
+   "zh": "[[S:Vampire]]：实际造成未被阻挡的攻击伤害时，恢复相应生命；效果伤害不参与该回复。",
+   "en": "[[S:Vampire]]: heal for actual unblocked attack damage dealt; effect damage does not count."
+  },
+  "LangTiangou": {
+   "zh": "[[S:PowerByDefense]]：主角在自己的回合使用防御牌时，狼天狗获得 {Power} 点 [[S:Firepower]]。",
+   "en": "[[S:PowerByDefense]]: when the player uses a Defense card during their turn, gain {Power} [[S:Firepower]]."
+  },
+  "Tianzi": {
+   "zh": "[[S:FlatPeach]] 每次实际受伤后恢复 {Count1} 点生命；[[S:EnemyEnergy]] 按实际受到的伤害累积，四舍五入。[[0]] 消耗 100 能量，[[1,2]] 获得天衣无缝且不消耗能量。",
+   "en": "[[S:FlatPeach]] heals {Count1} after each actually damaging hit. [[S:EnemyEnergy]] gains actual damage received, rounded to the nearest integer. [[0]] spends 100 Energy; [[1,2]] grants Flawless without spending Energy."
+  },
+  "FraudRabbit": {
+   "zh": "击败诈骗兔后，收回它在本场战斗中收取的金币。打出 [[C:Payment]] 会让诈骗兔立即逃跑。诈骗兔死亡或使用 [[3]] 逃跑时，放逐剩余的转账。",
+   "en": "Defeating the rabbit returns the money it billed during this battle. Playing [[C:Payment]] makes it escape immediately. Death or [[3]] exiles the remaining Payment."
+  },
+  "Aya": {
+   "zh": "[[S:WindGirl]]：每次自身回合结束，将 [[S:Graze]] 补至 {Count1} 层。",
+   "en": "[[S:WindGirl]] refills [[S:Graze]] to {Count1} at each own turn end."
+  }
+ }
+}

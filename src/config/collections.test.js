@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import { visibleRows } from '../composables/gridWindow.js'
 import { readFileSync } from 'node:fs'
-import { COLLECTIONS, applyCollection, canAfford, costBucket, decodeState, encodeState, inCardPool, inRoll, matchesColors, oddsShares, percent, poolLink, poolOdds, resolvePool, shiningExhibits, startingPool } from './collections.js'
+import { COLLECTIONS, applyCollection, atDifficulty, canAfford, costBucket, manaText, matchesCostTerm, parseCostTerm, parseManaText, decodeState, encodeState, inCardPool, inRoll, matchesColors, oddsShares, percent, poolLink, poolOdds, resolvePool, shiningExhibits, startingPool } from './collections.js'
 
 // The in-game colour rules, per MuseumPanel.FilterCardByMana.
 const WB = ['W', 'B'], W = ['W'], B = ['B'], R = ['R'], WU = ['W', 'U'], WBG = ['W', 'B', 'G'], none = [], C = ['C']
@@ -15,6 +15,25 @@ assert.ok(matchesColors(none, ['C']) && matchesColors(C, ['C']) && !matchesColor
 
 assert.equal(costBucket({ isX: true, total: 2 }), 'X')
 assert.equal(costBucket({ isX: false, total: 7 }), '5+')
+
+// Cost search: digits are generic, letters colours; hybrid pips take either colour.
+const face = (cost, isX = false) => ({ cost, isX })
+const freeFly = face(['1', 'HWR', 'HWR'])
+for (const q of ['1rr', '1ww', '1wr']) assert.ok(matchesCostTerm(freeFly, parseCostTerm(q)), `${q} finds [1][WR][WR]`)
+for (const q of ['rr', '2rr', '1rrr', '1ru']) assert.ok(!matchesCostTerm(freeFly, parseCostTerm(q)), `${q} misses [1][WR][WR]`)
+assert.ok(matchesCostTerm(face(['2', 'R', 'R', 'R']), parseCostTerm('2RRR')))
+assert.ok(!matchesCostTerm(face(['2', 'R', 'R']), parseCostTerm('2RRR')))
+assert.ok(matchesCostTerm(face(['C', 'C']), parseCostTerm('cc')) && !matchesCostTerm(face(['2']), parseCostTerm('cc')))
+assert.ok(matchesCostTerm(face(['X', 'W', 'R'], true), parseCostTerm('xwr')) && !matchesCostTerm(face(['W', 'R']), parseCostTerm('xwr')))
+assert.equal(parseCostTerm('2'), null, 'plain numbers stay a text search')
+assert.equal(parseCostTerm('reimu'), null)
+
+// Manual mana base: replaces the calculated mana, round-trips through the URL text.
+assert.equal(manaText({ W: 2, R: 1, P: 1 }), 'WWRP')
+assert.deepEqual(parseManaText('WWRP'), { W: 2, U: 0, B: 0, R: 1, G: 0, C: 0, P: 1 })
+assert.equal(parseManaText('WQ'), null)
+assert.equal(atDifficulty({ d: ['1', '2', '3'] }, null), '1 / 2 / 3')
+assert.equal(atDifficulty({ d: ['1', '2', '3'] }, 2), '3')
 
 // Examples from the game's own card pool rules: base mana WWRRBPC.
 const base = { W: 2, U: 0, B: 1, R: 2, G: 0, C: 1, P: 1 }
@@ -119,6 +138,10 @@ assert.deepEqual(resolved({ purify: 'R' }).mana, { W: 2, U: 0, B: 0, R: 2, G: 0,
 assert.deepEqual(resolved({ refine: 'W' }).mana, { W: 1, U: 0, B: 0, R: 3, G: 0, C: 0, P: 1 }, 'refine: one to one philosophy')
 assert.deepEqual(resolved({ purify: 'R', refine: 'C' }).mana, { W: 2, U: 0, B: 0, R: 2, G: 0, C: 1, P: 1 }, 'refine can use what purify made')
 assert.deepEqual(resolved({ purify: 'U' }).mana, resolved().mana, 'nothing to convert: no change')
+const manual = resolved({ exhibits: ['ReimuR', 'MarisaB'], manual: parseManaText('UUUG') })
+assert.deepEqual(manual.mana, { W: 0, U: 3, B: 0, R: 0, G: 1, C: 0, P: 0 }, 'a manual mana base replaces the calculated one')
+assert.deepEqual(manual.owners, ['Reimu', 'Marisa'], 'characters still come from the route and exhibits')
+assert.equal(manual.calculated.R, 3)
 assert.deepEqual(startingPool(poolData, 'Reimu.B').mana, { W: 3, U: 0, B: 0, R: 2, G: 0, C: 0, P: 0 })
 assert.equal(startingPool(poolData, null), null)
 assert.deepEqual(shiningExhibits(poolData).map(r => r.key), ['W', 'B', 'R', 'C', 'P', 'random'], 'rows by colour, Mythic left out')
@@ -155,13 +178,13 @@ assert.equal(encodeState(cards, empty), '', 'defaults stay out of the URL')
 const filled = { ...decodeState(cards, ''), search: 'a b', sort: 'cost', descending: true }
 filled.facets.owner = ['Reimu', 'Neutral']
 filled.facets.illustrator = ['Ferdy (IFC), x&y']
-Object.assign(filled.pool, { enabled: true, route: 'Marisa.B', exhibits: ['MarisaR', 'XianzheShi'], purify: 'R', refine: 'C' })
+Object.assign(filled.pool, { enabled: true, route: 'Marisa.B', exhibits: ['MarisaR', 'XianzheShi'], purify: 'R', refine: 'C', manual: parseManaText('WWBP') })
 filled.poolDiff = 'removed'
 assert.deepEqual(decodeState(cards, encodeState(cards, filled)), filled)
 const unticked = decodeState(cards, '')
 Object.assign(unticked.pool, { route: 'Reimu.A', exhibits: ['ReimuR'] })
 assert.deepEqual(decodeState(cards, encodeState(cards, unticked)).pool, unticked.pool, 'choices survive with the filter unticked')
-const based = { ...decodeState(cards, ''), poolDiff: 'added', poolBase: { route: 'Reimu.A', exhibits: ['ReimuR'], purify: null, refine: 'R' } }
+const based = { ...decodeState(cards, ''), poolDiff: 'added', poolBase: { route: 'Reimu.A', exhibits: ['ReimuR'], purify: null, refine: 'R', manual: { W: 1, U: 0, B: 0, R: 2, G: 0, C: 0, P: 1 } } }
 assert.deepEqual(decodeState(cards, encodeState(cards, based)), based, 'baseline survives the URL')
 assert.equal(decodeState(cards, encodeState(cards, empty)).poolBase, null)
 assert.equal(decodeState(cards, 'sort=nope').sort, 'default', 'unknown sort falls back')

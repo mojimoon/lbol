@@ -10,6 +10,7 @@ import json
 import os
 import re
 import sys
+import unicodedata
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -17,6 +18,7 @@ import yaml
 
 import assets
 import card_values
+import enemies
 import random_pools
 import tables
 from richtext import Mana, Symbols, UnitText, mana_symbols, plain_text, tokenize
@@ -101,7 +103,23 @@ def load_tables():
         'players': kept(tables.read_table(raw['PlayerUnitConfig'], tables.player_unit), 'Id'),
         'ultimates': tables.read_table(raw['UltimateSkillConfig'], tables.ultimate_skill),
         'effects': tables.read_table(raw['StatusEffectConfig'], tables.status_effect),
+        'enemy_units': tables.read_table(raw['EnemyUnitConfig'], tables.enemy_unit),
+        'enemy_groups': tables.read_table(raw['EnemyGroupConfig'], tables.enemy_group),
     }
+
+
+def load_ratings():
+    """Card id -> (mean, votes): community ratings (0-10) from Better LBoL, keyed by Simplified Chinese name."""
+    def norm(text):
+        return re.sub(r'\s+', '', unicodedata.normalize('NFKC', text or ''))
+    by_name = {}
+    lines = (Path(__file__).resolve().parent / 'data' / 'card_ratings.tsv').read_text(encoding='utf-8').splitlines()
+    for line in lines[1:]:
+        name, mean, votes = line.split('\t')
+        by_name[norm(name)] = (round(float(mean), 2), int(votes))
+    names = _read_yaml('zh-Hans', 'Card')
+    return {cid: by_name[norm(entry.get('Name'))] for cid, entry in names.items()
+            if isinstance(entry, dict) and norm(entry.get('Name')) in by_name}
 
 
 def card_image_keys(card):
@@ -146,10 +164,15 @@ def export_images(t, force):
                               f"{p['Id']}_Avatar": f"{p['Id']}_Avatar"})
     missing_stand = assets.export_bundle(AA_DIR / 'standpicture_assets_assets_aa_standpicture.bundle', portraits,
                                          IMG / 'characters', force, assets.PORTRAIT_MAX_SIDE)
+    spell = {p: p for e in enemies.NOTES['enemies'] for p in enemies.portrait_ids(e['id'])}
+    missing_spell = assets.export_bundle(AA_DIR / 'spellportratis_assets_assets_aa_units_spellportraits.bundle', spell,
+                                         IMG / 'enemies', force, assets.ENEMY_MAX_SIDE)
     icons = assets.export_mana_icons(DATA_DIR, IMG / 'mana', force)
     assets.export_card_ui(DATA_DIR, IMG / 'card-ui', EXCLUDED_CHARACTERS, force)
     print(f'images: {len(card_wanted)} card keys, {len(icon_wanted)} icons, {len(portraits)} portraits, {icons} text icons')
-    return {'cards': missing, 'icons': missing_icons, 'characters': missing_stand}
+    # Normal enemies are Spine models, with no single picture to show.
+    return {'cards': missing, 'icons': missing_icons, 'characters': missing_stand,
+            'enemies': sorted(set(missing_spell) - {e['id'] for e in enemies.NOTES['enemies'] if e['kind'] in ('Normal', 'Summon')})}
 
 
 def existing_stems(subdir):
@@ -170,6 +193,9 @@ class Localizer:
         self.unit = load_yaml(lang, 'UnitName')
         self.ultimate = load_yaml(lang, 'UltimateSkill')
         self.common = load_yaml(lang, 'Common')
+        self.enemy_unit = load_yaml(lang, 'EnemyUnit')
+        self.jade_box = load_yaml(lang, 'JadeBox')
+        self.stage = load_yaml(lang, 'Stage')
         self.player_name = UnitText(self.unit.get('DefaultPlayer') or {})
         self.owner_name = UnitText(self.unit.get('DefaultOwner') or {})
         self.dynamic = defaultdict(set)  # placeholder -> entity ids that need battle state
@@ -356,7 +382,7 @@ def card_special(card, *faces):
     return special
 
 
-def build_card(card, loc, images):
+def build_card(card, loc, images, ratings):
     text = loc.card.get(card['Id'], {})
     name = text.get('Name', card['Id'])
     face = build_card_face(card, False, text, loc)
@@ -401,6 +427,7 @@ def build_card(card, loc, images):
         'relCards': sorted(set(card['RelativeCards']) | set(card['UpgradedRelativeCards'])),
         'relEffects': sorted(set(card['RelativeEffects']) | set(card['UpgradedRelativeEffects'])),
         'search': ' '.join(filter(None, (name, card['Id'], plain_text(face['desc']), plain_text(up['desc']) if up else ''))).lower(),
+        'rating': ratings.get(card['Id']),
     }
     return entry
 
@@ -573,7 +600,7 @@ def pool_rules(text, loc):
     return loc.tokens(icons, lambda _: None)
 
 
-def build_lang(lang, t, stems, build_id):
+def build_lang(lang, t, stems, build_id, ratings):
     loc = Localizer(lang, t)
     ui = load_ui(lang, loc)
     cards = visible_cards(t['cards'], stems['card_keys'])
@@ -587,11 +614,13 @@ def build_lang(lang, t, stems, build_id):
         'enums': {**{s: loc.common.get(s, {}) for s in ENUM_SECTIONS},
                   'ExhibitType': loc.common.get('Museum', {}).get('ExhibitType', {})},
         'terms': build_terms(t, loc, stems['icons']),
-        'cards': sorted((build_card(c, loc, stems['cards']) for c in cards), key=lambda c: c['index']),
+        'cards': sorted((build_card(c, loc, stems['cards'], ratings) for c in cards), key=lambda c: c['index']),
         'exhibits': sorted((build_exhibit(e, loc, stems['icons']) for e in t['exhibits'] if not e['IsDebug']),
                            key=lambda e: e['index']),
         'characters': [build_character(p, loc, ultimates, {e['Id']: e for e in t['exhibits']}, stems['characters']) for p in players],
+        'enemyStages': enemies.stage_names(loc),
     }
+    data['enemies'] = enemies.build_enemies(lang, loc, ui, t, data, stems['enemies'])
     return data, loc
 
 
@@ -619,7 +648,10 @@ def main():
 
     t = load_tables()
     missing = None if args.no_images else export_images(t, args.force_images)
-    stems = {'cards': existing_stems('cards'), 'icons': existing_stems('icons'), 'characters': existing_stems('characters')}
+    stems = {'cards': existing_stems('cards'), 'icons': existing_stems('icons'), 'characters': existing_stems('characters'),
+             'enemies': existing_stems('enemies')}
+    ratings = load_ratings()
+    print(f'ratings: {len(ratings)} cards')
     stems['card_keys'] = {name for name in (card_image_keys(c)[0] for c in t['cards']) if assets.safe_name(name) in stems['cards']}
 
     manifest = (GAME_DIR.parent.parent / 'appmanifest_1140150.acf')
@@ -629,9 +661,9 @@ def main():
     out = PUBLIC / 'data'
     out.mkdir(parents=True, exist_ok=True)
     for lang in LANGS:
-        data, loc = build_lang(lang, t, stems, build_id)
+        data, loc = build_lang(lang, t, stems, build_id, ratings)
         (out / f'lbol.{lang}.json').write_text(json.dumps(data, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
-        print(f"[{lang}] {len(data['cards'])} cards, {len(data['exhibits'])} exhibits, {len(data['characters'])} characters, "
+        print(f"[{lang}] {len(data['cards'])} cards, {len(data['exhibits'])} exhibits, {len(data['characters'])} characters, {len(data['enemies'])} enemies, "
               f"{len(loc.dynamic)} placeholders without a fixed value")
         if lang == DEFAULT_LANG:
             write_report(loc, missing)

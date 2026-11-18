@@ -28,6 +28,7 @@ aa/StandaloneWindows64/*.bundle, resources.assets 精灵图        → pipeline/
 - `richtext.py`：把 `{占位符}`、`|术语|`、`<sprite>` 转成 token 数组，格式见文件头。前端不用 `v-html`。
 - `random_pools.py`：会生成有限范围随机牌的卡牌，逐张抄自 `RollCards` 调用，游戏更新后要复查。前端的 `inRoll`（`collections.js`）据此筛选。
 - `card_values.py`：写在 C# 里的静态数值，游戏更新后要复查。查不到的值显示为 X，列在 `reports/build_report.md`。
+- `enemies.py`：敌人页。数值、名称、出现的敌人组取自游戏（`EnemyUnitConfig`、`EnemyGroupConfig`，各章敌人池抄自 `Stages/NormalStages`）；被动、行动、行动顺序、特殊机制是 Better LBoL 模组（创意工坊 3808435406）的中英文说明，标记格式见文件头。模组更新后反编译 `CardControl.dll`，运行 `pipeline/import_better_lbol.py <目录>` 重新生成 `pipeline/data/enemy_notes.json` 和 `card_ratings.tsv`（卡牌社区评分，按简体中文卡名对应）。繁体中文由 OpenCC 转换，其他语言用英文说明。普通敌人是 Spine 模型，没有立绘。
 - `build.py` 中 `EXCLUDED_CHARACTERS`：制作中的角色（目前是爱丽丝）及其专属卡牌、展品不进入图鉴。
 - 描述文本、图片键、图鉴可见性都照 `Card.GetBaseDescription`、`CardWidget.RefreshCardImage`、`MuseumPanel` 实现。
 

@@ -167,6 +167,12 @@ export function oddsShares(facet, values, odds, ctx) {
   ]))
 }
 
+/** The exhibit type (museum section), or null where it reads the same as the rarity ("普通" and "普通"). */
+export function exhibitTypeLabel(exhibit, data) {
+  const type = data.enums.ExhibitType[exhibit.exhibitType]
+  return type && type !== data.enums.Rarity[exhibit.rarity] ? type : null
+}
+
 /** Shining exhibits by the mana they give, one row per colour; those with none are "random" (per turn). */
 export function shiningExhibits(data) {
   const shining = data.exhibits.filter(e => e.rarity === 'Shining')
@@ -175,10 +181,18 @@ export function shiningExhibits(data) {
     .filter(row => row.exhibits.length)
 }
 
+/** Mana base <-> 'WWRRB'-style text, for the URL. */
+export const manaText = mana => MANA_ORDER.map(c => c.repeat(mana[c] ?? 0)).join('')
+export function parseManaText(text) {
+  if (!text || !/^[WUBRGCP]*$/.test(text)) return null
+  return Object.fromEntries(MANA_ORDER.map(c => [c, [...text].filter(x => x === c).length]))
+}
+
 /**
  * What the reward pool inputs add up to, for inCardPool. pool.route is 'Reimu.A': the character sets
  * the 2 + 2 base mana and its own pool; the route only says which exhibit it starts with, which can
- * be traded away. pool: { route, exhibits: [ids], purify: colour, refine: colour }
+ * be traded away. pool: { route, exhibits: [ids], purify: colour, refine: colour, manual: mana | null }
+ * A manual mana base replaces the calculated one; characters still come from the route and exhibits.
  */
 export function resolvePool(data, pool) {
   const mana = Object.fromEntries(COLORS.map(c => [c, 0]))
@@ -204,14 +218,16 @@ export function resolvePool(data, pool) {
     mana[pool.refine] -= 1
     mana.P += 1
   }
-  return { mana, player: character?.id ?? null, owners: [...owners], blank: pool.exhibits.includes(BLANK_CARD), beforeEvents, afterPurify }
+  const calculated = { ...mana }
+  if (pool.manual) Object.assign(mana, pool.manual)
+  return { mana, calculated, player: character?.id ?? null, owners: [...owners], blank: pool.exhibits.includes(BLANK_CARD), beforeEvents, afterPurify }
 }
 
 /** The pool a route starts a run with, or null without a route. */
 export function startingPool(data, route) {
   const [id, side] = route?.split('.') ?? []
   const exhibit = data.characters.find(c => c.id === id)?.loadouts[side]?.exhibit
-  return exhibit ? resolvePool(data, { route, exhibits: [exhibit], purify: null, refine: null }) : null
+  return exhibit ? resolvePool(data, { route, exhibits: [exhibit], purify: null, refine: null, manual: null }) : null
 }
 
 /**
@@ -230,6 +246,45 @@ export function inRoll(card, spec) {
   if (spec.color_count != null && card.colors.length !== spec.color_count) return false
   if (spec.colors_within && !(card.colors.length > 0 && card.colors.every(c => spec.colors_within.includes(c)))) return false
   return true
+}
+
+/**
+ * A search term written as a cost: generic amount, then colour letters (2RRR, 1WU, XB). Hybrid pips
+ * match either of their colours, so 1RR and 1WW both find a [1][RW][RW] card. Plain numbers stay text.
+ */
+const COST_TERM = /^(x|\d+)?([wubrgcp]*)$/i
+export function parseCostTerm(term) {
+  const m = COST_TERM.exec(term)
+  if (!m || (!m[2] && !/^x$/i.test(term))) return null
+  const colors = Object.fromEntries(MANA_ORDER.map(c => [c, 0]))
+  for (const ch of m[2].toUpperCase()) colors[ch] += 1
+  const x = /^x$/i.test(m[1] ?? '')
+  return { x, generic: x ? 0 : Number(m[1] ?? 0), colors }
+}
+
+export function matchesCostTerm(face, query) {
+  if (face.isX !== query.x) return false
+  const have = Object.fromEntries(MANA_ORDER.map(c => [c, 0]))
+  let generic = 0
+  let hybrid = null
+  let hybrids = 0
+  for (const sym of face.cost) {
+    if (sym === 'X') continue
+    if (/^\d+$/.test(sym)) generic += Number(sym)
+    else if (sym.startsWith('H')) { hybrid = sym.slice(1); hybrids += 1 }
+    else have[sym] += 1
+  }
+  if (generic !== query.generic) return false
+  let spare = hybrids
+  for (const c of MANA_ORDER) {
+    const extra = query.colors[c] - have[c]
+    if (extra < 0) return false
+    if (extra > 0) {
+      if (!hybrid?.includes(c)) return false
+      spare -= extra
+    }
+  }
+  return spare === 0
 }
 
 export function costBucket(face) {
@@ -251,6 +306,17 @@ const rarityOptions = (rows, data) =>
   presentIn(RARITIES, rows.map(r => r.rarity)).map(v => ({ value: v, label: data.enums.Rarity[v] ?? v }))
 
 const byIndex = (a, b) => a.index - b.index
+const ENEMY_KINDS = ['Normal', 'Elite', 'Boss', 'Summon']
+
+/** A value that may differ by difficulty ({n} or {d: [N, H, L]}) as shown for `difficulty` (0-2, or null for all). */
+export function atDifficulty(value, difficulty) {
+  if (!value) return ''
+  if ('n' in value) return value.n
+  return difficulty == null ? value.d.join(' / ') : value.d[difficulty]
+}
+/** Colour of a 0-10 rating: grey at 0, the keyword gold at 10. */
+export const ratingColor = score => `color-mix(in oklab, var(--keyword) ${Math.round(score * 10)}%, var(--rating-low))`
+const hpValue = e => parseInt(atDifficulty(e.hp, 0), 10)
 const byRarity = (a, b) => RARITIES.indexOf(a.rarity) - RARITIES.indexOf(b.rarity) || a.index - b.index
 
 export const COLLECTIONS = [
@@ -259,8 +325,10 @@ export const COLLECTIONS = [
     gridClass: 'grid-cards',
     tileAspect: 740 / 530,  // every tile this shape: EntityGrid renders only those near the screen
     upgradeToggle: true,
+    costSearch: true,
+    searchHint: 'filter.searchCards',
     poolBefore: 'keyword',  // PoolFilter sits just above this facet
-    initialState: () => ({ roll: null, poolDiff: null, poolBase: null, pool: { enabled: false, odds: false, route: null, exhibits: [], purify: null, refine: null } }),
+    initialState: () => ({ roll: null, poolDiff: null, poolBase: null, pool: { enabled: false, odds: false, route: null, exhibits: [], purify: null, refine: null, manual: null } }),
     extraFilter: (card, state, ctx) => {
       if (ctx.rollSpec && !inRoll(card, ctx.rollSpec)) return false
       if (state.poolDiff && ctx.poolStart) {
@@ -348,6 +416,8 @@ export const COLLECTIONS = [
         },
       },
       { key: 'rarity', label: 'sort.rarity', compare: byRarity },
+      // Community rating, best first; unrated cards last.
+      { key: 'rating', label: 'sort.rating', compare: (a, b) => (b.rating?.[0] ?? -1) - (a.rating?.[0] ?? -1) || a.index - b.index },
       {
         // MuseumPanel.SortCards: illustrator, then index. No illustrator sorts first.
         key: 'illustrator', label: 'sort.illustrator',
@@ -382,6 +452,28 @@ export const COLLECTIONS = [
     ],
   },
   {
+    key: 'enemies',
+    gridClass: 'grid-enemies',
+    searchHint: 'filter.searchEnemies',
+    difficultyToggle: true,
+    facets: [
+      {
+        key: 'kind', label: 'filter.enemyKind',
+        options: (_, t) => ENEMY_KINDS.map(v => ({ value: v, label: t(`enemyKind.${v}`) })),
+        values: e => [e.kind],
+      },
+      {
+        key: 'stage', label: 'filter.stage',
+        options: data => Object.entries(data.enemyStages).map(([value, label]) => ({ value, label })),
+        values: e => e.stages,
+      },
+    ],
+    sorts: [
+      { key: 'default', label: 'sort.default', compare: byIndex },
+      { key: 'hp', label: 'sort.hp', compare: (a, b) => hpValue(a) - hpValue(b) || a.index - b.index },
+    ],
+  },
+  {
     key: 'characters',
     gridClass: 'grid-characters',
     facets: [],
@@ -410,6 +502,7 @@ export function encodeState(collection, state) {
     for (const id of state.pool.exhibits) params.append('poolExhibit', id)
     if (state.pool.purify) params.set('purify', state.pool.purify)
     if (state.pool.refine) params.set('refine', state.pool.refine)
+    if (state.pool.manual) params.set('mana', manaText(state.pool.manual))
   }
   // The pool "set as baseline" saved, so a shared pool-changes link compares against the same pool.
   if (state.poolBase) {
@@ -418,6 +511,7 @@ export function encodeState(collection, state) {
     for (const id of state.poolBase.exhibits) params.append('baseExhibit', id)
     if (state.poolBase.purify) params.set('basePurify', state.poolBase.purify)
     if (state.poolBase.refine) params.set('baseRefine', state.poolBase.refine)
+    if (state.poolBase.manual) params.set('baseMana', manaText(state.poolBase.manual))
   }
   return params.toString()
 }
@@ -441,12 +535,14 @@ export function decodeState(collection, query) {
     state.pool.exhibits = params.getAll('poolExhibit')
     if (PURIFY_FROM.includes(params.get('purify'))) state.pool.purify = params.get('purify')
     if (REFINE_FROM.includes(params.get('refine'))) state.pool.refine = params.get('refine')
+    state.pool.manual = parseManaText(params.get('mana'))
     if (params.get('base') === '1') {
       state.poolBase = {
         route: params.get('baseRoute'),
         exhibits: params.getAll('baseExhibit'),
         purify: PURIFY_FROM.includes(params.get('basePurify')) ? params.get('basePurify') : null,
         refine: REFINE_FROM.includes(params.get('baseRefine')) ? params.get('baseRefine') : null,
+        manual: parseManaText(params.get('baseMana')),
       }
     }
   }
@@ -466,10 +562,13 @@ export function poolLink(character, side) {
 /** Apply search, facets (OR within a facet, AND across facets) and sort. */
 export function applyCollection(collection, rows, state, ctx) {
   const terms = state.search.trim().toLowerCase().split(/\s+/).filter(Boolean)
+    .map(q => ({ q, cost: collection.costSearch ? parseCostTerm(q) : null }))
+  const matchesTerm = (row, { q, cost }) =>
+    cost ? matchesCostTerm(cardFace(row, ctx.upgraded), cost) : (row.search ?? row.name.toLowerCase()).includes(q)
   const out = rows.filter(row => {
     if (collection.listed && !collection.listed(row)) return false
     if (collection.extraFilter && !collection.extraFilter(row, state, ctx)) return false
-    if (terms.length && !terms.every(q => (row.search ?? row.name.toLowerCase()).includes(q))) return false
+    if (terms.length && !terms.every(term => matchesTerm(row, term))) return false
     return collection.facets.every(facet => {
       const selected = state.facets[facet.key] ?? []
       if (selected.length === 0) return true

@@ -4,6 +4,7 @@
     <template v-for="(tok, i) in tokens" :key="i">
       <template v-if="typeof tok === 'string'">{{ tok }}</template>
       <span v-else-if="'n' in tok" class="num" :class="{ up: tok.up }">{{ tok.n }}</span>
+      <DiffValue v-else-if="'d' in tok" :value="tok" />
       <ManaIcon v-else-if="'m' in tok" :symbol="tok.m" />
       <span v-else-if="'x' in tok" class="dyn" :title="t('rich.dynamic')">X</span>
       <img v-else-if="'f' in tok" class="friend" :src="imgUrl('mana', `friend_${tok.f}_${tok.c}`)" :alt="friendCost(tok)" />
@@ -15,6 +16,7 @@
 
 <script setup>
 import { imgUrl, t } from '../../store/codex.js'
+import DiffValue from './DiffValue.vue'
 import ManaIcon from './ManaIcon.vue'
 import TermButton from './TermButton.vue'
 

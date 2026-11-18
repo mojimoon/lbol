@@ -1,3 +1,4 @@
 UnityPy==1.25.4
 Pillow
 PyYAML
+opencc-python-reimplemented

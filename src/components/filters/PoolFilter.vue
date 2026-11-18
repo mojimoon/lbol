@@ -71,14 +71,26 @@
     </div>
 
     <div class="group">
-      <div class="group-label">{{ t('pool.mana') }}</div>
+      <div class="group-label">{{ t('pool.mana') }}<span v-if="pool.manual" class="manual-tag">{{ t('pool.manualMana') }}</span></div>
       <div class="total">
         <ManaCost :symbols="symbols" size="22px" wrap />
         <span class="total-count">({{ symbols.length }})</span>
+        <button type="button" class="link-button" :aria-expanded="editing" @click="editing = !editing">[{{ t(editing ? 'pool.editDone' : 'pool.editMana') }}]</button>
       </div>
+      <div v-if="editing" class="mana-edit">
+        <label v-for="c in MANA_ORDER" :key="c" class="mana-field">
+          <ManaIcon :symbol="c" :label="t(`mana.${c}`)" size="18px" />
+          <input
+            type="number" min="0" max="20" inputmode="numeric" :aria-label="t(`mana.${c}`)"
+            :value="resolvedPool.mana[c]" @input="setMana(c, $event.target.value)"
+          />
+        </label>
+      </div>
+      <p v-if="pool.manual && editing" class="odds-hint">{{ t('pool.manualHint') }}</p>
       <div class="baseline">
         <button type="button" class="link-button" @click="setBaseline">[{{ t('pool.setBaseline') }}]</button>
         <button v-if="currentState.poolBase" type="button" class="link-button" @click="currentState.poolBase = null">[{{ t('pool.clearBaseline') }}]</button>
+        <button v-if="pool.manual" type="button" class="link-button" @click="pool.manual = null">[{{ t('pool.manualClear') }}]</button>
       </div>
     </div>
 
@@ -112,6 +124,7 @@ const pool = computed(() => currentState.value.pool)
 const startOpen = pool.value.enabled
 const rulesOpen = ref(false)
 const changesOpen = ref(false)
+const editing = ref(false)
 
 const exhibitRows = computed(() => shiningExhibits(data.value).map(row => ({
   ...row,
@@ -149,8 +162,14 @@ function toggleExhibit(id) {
   pool.value.enabled = true
 }
 function setBaseline() {
-  const { route, exhibits, purify, refine } = pool.value
-  currentState.value.poolBase = { route, exhibits: [...exhibits], purify, refine }
+  const { route, exhibits, purify, refine, manual } = pool.value
+  currentState.value.poolBase = { route, exhibits: [...exhibits], purify, refine, manual: manual && { ...manual } }
+}
+/** Typing a number switches to a manual mana base, starting from the calculated one. */
+function setMana(color, text) {
+  const n = Math.max(0, Math.min(20, Math.floor(Number(text) || 0)))
+  pool.value.manual = { ...(pool.value.manual ?? resolvedPool.value.calculated), [color]: n }
+  pool.value.enabled = true
 }
 function pickEvent(key, color) {
   pool.value[key] = pool.value[key] === color ? null : color
@@ -218,6 +237,14 @@ summary { font-size: 12.5px; line-height: 1.3; color: var(--text-dim); cursor: p
 
 .total { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; min-height: 22px; }
 .baseline { display: flex; gap: 8px; margin-top: 4px; font-size: 12px; }
+.manual-tag { margin-left: 6px; padding: 0 5px; border-radius: 4px; background: var(--selected); color: var(--accent); font-size: 11px; }
+.mana-edit { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; margin-top: 5px; }
+.mana-field { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.mana-field input {
+  width: 100%; max-width: 38px; padding: 2px 0; border: 1px solid var(--line); border-radius: 5px;
+  background: var(--surface-2); color: var(--text); font-size: 13px; text-align: center; font-variant-numeric: tabular-nums;
+}
+.total .link-button { font-size: 12px; }
 .total-count { font-size: 13px; color: var(--text-dim); font-variant-numeric: tabular-nums; }
 
 .changes-toggle {

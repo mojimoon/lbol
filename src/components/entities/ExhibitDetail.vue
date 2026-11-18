@@ -3,8 +3,8 @@
     <img class="icon" :src="imgUrl('icons', entity.img)" :alt="entity.name" />
     <h2 :class="`rarity-${entity.rarity}`">{{ entity.name }}</h2>
     <div class="tags">
-      <span class="tag">{{ t('detail.labeled', { label: t('filter.exhibitType'), value: data.enums.ExhibitType[entity.exhibitType] }) }}</span>
-      <span class="tag">{{ t('detail.labeled', { label: t('filter.rarity'), value: data.enums.Rarity[entity.rarity] }) }}</span>
+      <span v-if="typeLabel" class="tag">{{ t('detail.labeled', { label: t('filter.exhibitType'), value: typeLabel }) }}</span>
+      <span class="tag">{{ data.enums.Rarity[entity.rarity] }}</span>
       <a v-if="entity.owner" class="tag link" :href="`#/characters/${entity.owner}`">{{ ownerName(entity.owner) }}</a>
       <span v-else class="tag">{{ t('owner.Neutral') }}</span>
       <span v-if="entity.appearance === 'NonShop'" class="tag muted">{{ t('appearance.NonShop') }}</span>
@@ -18,11 +18,14 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
+import { exhibitTypeLabel } from '../../config/collections.js'
 import { data, imgUrl, ownerName, t } from '../../store/codex.js'
 import RelatedList from '../shared/RelatedList.vue'
 import RichText from '../shared/RichText.vue'
 
-defineProps({ entity: { type: Object, required: true } })
+const props = defineProps({ entity: { type: Object, required: true } })
+const typeLabel = computed(() => exhibitTypeLabel(props.entity, data.value))
 </script>
 
 <style scoped>

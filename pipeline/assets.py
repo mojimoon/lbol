@@ -6,6 +6,7 @@ import UnityPy
 
 CARD_MAX_SIDE = 640
 PORTRAIT_MAX_SIDE = 1400
+ENEMY_MAX_SIDE = 900
 # Sprite sheets (resources.assets) -> output name prefix. Sheet sprites are the game's own text icons.
 SHEETS = {'ManaSprite': '', 'ManaSprite2': '', 'BaseManaSprite': 'b_', 'Point': 'pt_', 'TextIcon': 'icon_',
           'Passive': 'friend_Passive_', 'Active': 'friend_Active_', 'Ultimate': 'friend_Ultimate_'}

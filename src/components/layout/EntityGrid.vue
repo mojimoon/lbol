@@ -87,6 +87,7 @@ onMounted(async () => {
 /* Scales with the window: about 5 columns on a desktop, 3 beside the detail panel. */
 .grid-cards { grid-template-columns: repeat(auto-fill, minmax(max(165px, 14.2vw), 1fr)); }
 .grid-exhibits { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.grid-enemies { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
 .grid-characters { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
 .entity-grid > li { display: flex; min-width: 0; }
 /* Rows are swapped for padding of the same height (useGridWindow): nothing for the browser to re-anchor. */

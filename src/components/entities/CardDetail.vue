@@ -25,6 +25,15 @@
       <span class="tag muted">{{ entity.id }}</span>
     </div>
 
+    <template v-if="showRating && entity.rating">
+      <p class="rating-line">
+        {{ t('rating.label') }}: <strong :style="{ color: ratingColor(entity.rating[0]) }">{{ entity.rating[0].toFixed(2) }}</strong> / 10
+        <span class="votes">{{ t('rating.votes', { n: entity.rating[1] }) }}</span>
+        <HintIcon v-model:open="ratingHint" :label="t('rating.label')" />
+      </p>
+      <p v-if="ratingHint" class="note-box rating-note">{{ t('rating.hint') }}</p>
+    </template>
+
     <section class="face">
       <header v-if="entity.up">
         <h3>{{ t('detail.before') }}</h3>
@@ -64,8 +73,10 @@
 
 <script setup>
 import { computed, ref } from 'vue'
-import { data, imgUrl, jumpToRoll, ownerName, t, upgraded } from '../../store/codex.js'
+import { ratingColor } from '../../config/collections.js'
+import { data, imgUrl, jumpToRoll, ownerName, showRating, t, upgraded } from '../../store/codex.js'
 import ColorBar from '../shared/ColorBar.vue'
+import HintIcon from '../shared/HintIcon.vue'
 import FaceCost from '../shared/FaceCost.vue'
 import OddsPanel from './OddsPanel.vue'
 import RelatedList from '../shared/RelatedList.vue'
@@ -73,6 +84,7 @@ import RichText from '../shared/RichText.vue'
 
 const props = defineProps({ entity: { type: Object, required: true } })
 const altIndex = ref(-1)
+const ratingHint = ref(false)
 const alt = computed(() => props.entity.alts[altIndex.value])
 const artStem = computed(() => alt.value?.img ?? ((upgraded.value && props.entity.imgUp) || props.entity.img))
 const currentIllustrator = computed(() => alt.value?.ill ?? props.entity.illustrator)
@@ -106,5 +118,9 @@ h2 { margin: 0; font-size: 21px; }
   color: var(--accent); font-size: 14px; cursor: pointer;
 }
 .roll-button:hover { background: var(--selected); }
+.rating-line, .rating-note { margin: 0; }
+.rating-line { font-size: 14px; }
+.rating-line strong { font-size: 16px; font-variant-numeric: tabular-nums; }
+.votes { margin-left: 6px; font-size: 12.5px; color: var(--text-dim); }
 .flavor { font-size: 13px; line-height: 1.6; font-style: italic; color: var(--text-dim); }
 </style>

@@ -79,6 +79,13 @@ watch(upgraded, v => lsSet('upgraded', v))
 export const showOwnerAvatar = ref(lsGet('showOwnerAvatar', true))
 watch(showOwnerAvatar, v => lsSet('showOwnerAvatar', v))
 
+export const showRating = ref(lsGet('showRating', false))
+watch(showRating, v => lsSet('showRating', v))
+
+/** Enemy values at one difficulty (0 Normal, 1 Hard, 2 Lunatic), or null for all three. */
+export const difficulty = ref(lsGet('difficulty', null))
+watch(difficulty, v => lsSet('difficulty', v))
+
 // ---- route: #/<tab>[/<id>][?<filters>] ----
 const parseHash = () => {
   const [path, query = ''] = location.hash.split('?')
@@ -238,9 +245,13 @@ watch(() => [route.tab, route.id], hideTip)
 window.addEventListener('scroll', hideTip, { capture: true, passive: true })
 window.addEventListener('pointerdown', e => { if (!e.target.closest('.term-button')) hideTip() })
 
-/** Resolve a term ref (k:Block, s:Weak, c:Id, e:Id) to tooltip content. */
+/** Resolve a term ref (k:Block, s:Weak, c:Id, e:Id, u:enemy) to tooltip content. */
 export function resolveTerm(termRef) {
   const [kind, id] = [termRef.slice(0, 1), termRef.slice(2)]
+  if (kind === 'u') {
+    const row = findEntity('enemies', id)
+    return row ? { name: row.name, desc: row.title ? [row.title] : [], tab: 'enemies', id } : null
+  }
   if (kind === 'c' || kind === 'e') {
     const tab = kind === 'c' ? 'cards' : 'exhibits'
     const row = findEntity(tab, id)

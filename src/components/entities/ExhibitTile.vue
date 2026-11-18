@@ -11,15 +11,16 @@
 
 <script setup>
 import { computed } from 'vue'
-import { data, imgUrl, ownerName } from '../../store/codex.js'
+import { exhibitTypeLabel } from '../../config/collections.js'
+import { data, imgUrl, ownerName, t } from '../../store/codex.js'
 import RichText from '../shared/RichText.vue'
 
 const props = defineProps({ entity: { type: Object, required: true } })
-// For most exhibits the type and rarity read the same ("普通"); show that word once.
 const meta = computed(() => {
-  const { exhibitType, rarity, owner } = props.entity
-  const parts = [data.value.enums.ExhibitType[exhibitType], data.value.enums.Rarity[rarity], owner && ownerName(owner)]
-  return [...new Set(parts.filter(Boolean))].join(' · ')
+  const { rarity, owner } = props.entity
+  const type = exhibitTypeLabel(props.entity, data.value)
+  const parts = [type && t('detail.labeled', { label: t('filter.exhibitType'), value: type }), data.value.enums.Rarity[rarity], owner && ownerName(owner)]
+  return parts.filter(Boolean).join(' · ')
 })
 </script>
 
