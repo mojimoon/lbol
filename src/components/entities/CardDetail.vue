@@ -25,15 +25,6 @@
       <span class="tag muted">{{ entity.id }}</span>
     </div>
 
-    <template v-if="showRating && entity.rating">
-      <p class="rating-line">
-        {{ t('rating.label') }}: <strong :style="{ color: ratingColor(entity.rating[0]) }">{{ entity.rating[0].toFixed(2) }}</strong> / 10
-        <span class="votes">{{ t('rating.votes', { n: entity.rating[1] }) }}</span>
-        <HintIcon v-model:open="ratingHint" :label="t('rating.label')" />
-      </p>
-      <p v-if="ratingHint" class="note-box rating-note">{{ t('rating.hint') }}</p>
-    </template>
-
     <section class="face">
       <header v-if="entity.up">
         <h3>{{ t('detail.before') }}</h3>
@@ -54,6 +45,15 @@
       <RichText class="desc" :tokens="entity.up.desc" interactive />
       <p v-if="entity.up.loyalty != null" class="face-note">{{ t('detail.loyalty', { n: entity.up.loyalty }) }}</p>
     </section>
+
+    <template v-if="showRating && entity.rating">
+      <p class="rating-line">
+        {{ t('rating.label') }}: <strong :style="{ color: ratingColor(entity.rating[0]) }">{{ entity.rating[0].toFixed(2) }}</strong> / 10
+        <span class="votes">{{ t('rating.votes', { n: entity.rating[1] }) }}</span>
+        <HintIcon v-model:open="ratingHint" :label="t('rating.label')" />
+      </p>
+      <p v-if="ratingHint" class="note-box rating-note">{{ t('rating.hint') }}</p>
+    </template>
 
     <button
       v-if="entity.roll" type="button" class="roll-button"
